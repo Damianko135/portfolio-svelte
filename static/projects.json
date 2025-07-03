@@ -1,0 +1,35 @@
+[
+	{
+		"id": 1,
+		"name": "Portfolio Website",
+		"url": "https://dkorver.com",
+		"description": "Personal portfolio website built with SvelteKit and Tailwind CSS",
+		"technologies": [
+			{ "name": "SvelteKit", "icon": "fa-brands fa-svelte" },
+			{ "name": "TypeScript", "icon": "fa-brands fa-js" },
+			{ "name": "Tailwind CSS", "icon": "fa-brands fa-css3" }
+		]
+	},
+	{
+		"id": 2,
+		"name": "Homelab Setup",
+		"url": "https://github.com/damianko135",
+		"description": "Complete homelab infrastructure with Proxmox, Docker, and various services",
+		"technologies": [
+			{ "name": "Proxmox", "icon": "fa-solid fa-server" },
+			{ "name": "Docker", "icon": "fa-brands fa-docker" },
+			{ "name": "Linux", "icon": "fa-brands fa-linux" }
+		]
+	},
+	{
+		"id": 3,
+		"name": "Network Security Lab",
+		"url": "https://github.com/damianko135",
+		"description": "Virtual lab environment for practicing network security and penetration testing",
+		"technologies": [
+			{ "name": "VMware", "icon": "fa-solid fa-laptop-code" },
+			{ "name": "pfSense", "icon": "fa-solid fa-shield-alt" },
+			{ "name": "Kali Linux", "icon": "fa-brands fa-linux" }
+		]
+	}
+]
