@@ -16,7 +16,7 @@
 			subText: 'University of Applied Sciences, Utrecht',
 			color: 'text-blue-500'
 		},
-		{ icon: 'fa-solid fa-server', text: 'Cyber Security & Cloud', color: 'text-purple-500' }
+		{ icon: 'fa-solid fa-server', text: 'Studying Cyber Security & Cloud', color: 'text-purple-500' }
 	];
 
 	const interests: Interest[] = [
@@ -45,19 +45,19 @@
 </script>
 
 <svelte:head>
-	<title>Damian Korver - Cybersecurity & Cloud Enthusiast</title>
+	<title>Damian Korver - Student & Tech Enthusiast</title>
 	<meta
 		name="description"
-		content="Damian Korver, a student at Hogeschool Utrecht, passionate about Cyber Security, Cloud Technologies, and Networking."
+		content="Damian Korver, a cybersecurity student who loves working with servers, networks, and figuring out how things work."
 	/>
 	<meta
 		name="keywords"
-		content="Damian Korver, Cyber Security, Cloud Technologies, Networking, Golang, SvelteKit, CTF, KoTH, Hogeschool Utrecht"
+		content="Damian Korver, Cyber Security, Cloud, Networking, Golang, SvelteKit, Student, Hogeschool Utrecht"
 	/>
-	<meta property="og:title" content="Damian Korver - Cyber Security & Cloud Student" />
+	<meta property="og:title" content="Damian Korver - Student & Tech Enthusiast" />
 	<meta
 		property="og:description"
-		content="Passionate about Cyber Security, Cloud Technologies, and Networking."
+		content="A cybersecurity student who loves tinkering with tech and building cool projects."
 	/>
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://dkorver.com" />
@@ -84,15 +84,14 @@
 
 			<div class="relative z-10 text-center space-y-8 max-w-4xl mx-auto">
 				{#if heroVisible}
-					<div class="space-y-6" in:fly={{ y: 30, duration: 800, delay: 300 }}>
-						<div
-							class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-primary-500/20 to-secondary-500/20 border border-primary-500/30 backdrop-blur-sm"
+					<div class="space-y-6" in:fly={{ y: 30, duration: 800, delay: 300 }}>					<div
+						class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-primary-500/20 to-secondary-500/20 border border-primary-500/30 backdrop-blur-sm"
+					>
+						<div class="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-3"></div>
+						<span class="text-sm font-medium text-surface-700 dark:text-surface-300"
+							>Open to new projects</span
 						>
-							<div class="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-3"></div>
-							<span class="text-sm font-medium text-surface-700 dark:text-surface-300"
-								>Available for opportunities</span
-							>
-						</div>
+					</div>
 
 						<h1 class="text-5xl md:text-7xl font-bold leading-tight">
 							<span class="block text-surface-900 dark:text-surface-50">Hey there!</span>
@@ -101,28 +100,20 @@
 							>
 								I'm Damian Korver
 							</span>
-						</h1>
-
-						<p
-							class="text-xl md:text-2xl text-surface-600 dark:text-surface-400 max-w-3xl mx-auto leading-relaxed"
-						>
-							I'm a <span class="font-semibold text-primary-600 dark:text-primary-400"
-								>cybersecurity student</span
-							>, always exploring new technologies and honing my skills in
-							<span class="font-semibold text-secondary-600 dark:text-secondary-400"
-								>cloud computing</span
-							>
-							and
-							<span class="font-semibold text-tertiary-600 dark:text-tertiary-400">networking</span
-							>.
-						</p>
+						</h1>					<p
+						class="text-xl md:text-2xl text-surface-600 dark:text-surface-400 max-w-3xl mx-auto leading-relaxed"
+					>
+						I'm a cybersecurity student at Hogeschool Utrecht who loves tinkering with servers, 
+						setting up networks, and figuring out how things work (and sometimes how they break). 
+						When I'm not studying, you'll find me working on side projects or learning something new.
+					</p>
 
 						<div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6">
 							<a
 								href="/projects"
 								class="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-500 to-secondary-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
 							>
-								<span>View My Work</span>
+								<span>Check out my projects</span>
 								<svg
 									class="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1"
 									fill="none"
@@ -141,7 +132,7 @@
 								href="/contact"
 								class="inline-flex items-center px-8 py-4 border-2 border-primary-500 text-primary-600 dark:text-primary-400 font-semibold rounded-xl hover:bg-primary-500 hover:text-white transition-all duration-300"
 							>
-								Get In Touch
+								Say hello
 							</a>
 						</div>
 					</div>
@@ -154,7 +145,7 @@
 			<div class="container mx-auto max-w-6xl">
 				<div class="text-center mb-16" in:fly={{ y: 30, duration: 600, delay: 100 }}>
 					<h2 class="text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-50 mb-4">
-						About Me
+						A bit about me
 					</h2>
 					<div
 						class="w-24 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 mx-auto rounded-full"
@@ -198,7 +189,7 @@
 			<div class="container mx-auto max-w-6xl">
 				<div class="text-center mb-16">
 					<h3 class="text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-50 mb-4">
-						Tech Stack
+						What I work with
 					</h3>
 					<div
 						class="w-24 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 mx-auto rounded-full"
@@ -250,7 +241,7 @@
 			<div class="container mx-auto max-w-6xl">
 				<div class="text-center mb-16">
 					<h3 class="text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-50 mb-4">
-						Interests
+						Things I'm into
 					</h3>
 					<div
 						class="w-24 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 mx-auto rounded-full"
@@ -283,11 +274,11 @@
 				<div class="space-y-8">
 					<div>
 						<h3 class="text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-50 mb-4">
-							Let's Connect
+							Want to chat?
 						</h3>
 						<p class="text-lg text-surface-600 dark:text-surface-400 max-w-2xl mx-auto">
-							I'm always open to discussing new opportunities, exciting projects, or just having a
-							chat about technology.
+							Feel free to reach out if you want to talk about tech, collaborate on something cool, 
+							or just say hi. I'm always up for a good conversation.
 						</p>
 					</div>
 

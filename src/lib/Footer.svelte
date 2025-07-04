@@ -22,12 +22,12 @@
 					</div>
 					<div>
 						<h3 class="text-xl font-bold">Damian Korver</h3>
-						<p class="text-surface-300 text-sm">Cybersecurity & Cloud Enthusiast</p>
+						<p class="text-surface-300 text-sm">Student & Tech Enthusiast</p>
 					</div>
 				</div>
 				<p class="text-surface-400 max-w-md">
-					Passionate about cybersecurity, cloud technologies, and building secure, scalable
-					solutions. Currently studying at Hogeschool Utrecht.
+					I love working with security, cloud tech, and building things that actually work. 
+					Currently learning tons at Hogeschool Utrecht.
 				</p>
 			</div>
 

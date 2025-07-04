@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="cerberus" data-mode="dark">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.svg" />
@@ -11,21 +11,11 @@
 			crossorigin="anonymous"
 			referrerpolicy="no-referrer"
 		/>
-		<script>
-			// Skeleton UI theme initialization using data-mode
-			try {
-				const mode = localStorage.getItem('mode') || 'light';
-				document.documentElement.setAttribute('data-mode', mode);
-			} catch (e) {
-				// Fallback to light mode
-				document.documentElement.setAttribute('data-mode', 'light');
-			}
-		</script>
 		%sveltekit.head%
 	</head>
 	<body
 		data-sveltekit-preload-data="hover"
-		class="bg-surface-50 dark:bg-surface-900 text-surface-900 dark:text-surface-50"
+		class="bg-surface-50 dark:bg-surface-600 text-surface-600 dark:text-surface-50"
 	>
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>

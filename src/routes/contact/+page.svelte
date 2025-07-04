@@ -51,7 +51,7 @@
 		{
 			icon: 'fa-solid fa-clock',
 			title: 'Response Time',
-			value: 'Within 24 hours',
+			value: 'Usually within a day',
 			href: null,
 			color: 'from-blue-500 to-blue-600'
 		}
@@ -63,21 +63,21 @@
 			href: 'https://www.linkedin.com/in/damian-korver/',
 			icon: 'fab fa-linkedin',
 			color: 'hover:bg-[#0077B5]',
-			description: 'Connect professionally'
+			description: 'Connect with me'
 		},
 		{
 			platform: 'GitHub',
 			href: 'https://github.com/damianko135',
 			icon: 'fab fa-github',
 			color: 'hover:bg-[#333]',
-			description: 'View my code'
+			description: 'Check out my code'
 		},
 		{
 			platform: 'Twitter',
 			href: 'https://twitter.com/damianko135',
 			icon: 'fab fa-twitter',
 			color: 'hover:bg-[#1DA1F2]',
-			description: 'Follow updates'
+			description: 'Follow along'
 		}
 	];
 </script>
@@ -86,7 +86,7 @@
 	<title>Contact - Damian Korver</title>
 	<meta
 		name="description"
-		content="Get in touch with Damian Korver. I'm always open to discussing new opportunities, projects, or just having a conversation about technology and cybersecurity."
+		content="Want to chat with Damian Korver? Drop me a line about tech, projects, or just to say hi. I'd love to hear from you!"
 	/>
 </svelte:head>
 
@@ -117,7 +117,7 @@
 					>
 						<i class="fa-solid fa-paper-plane text-primary-600 mr-2"></i>
 						<span class="text-sm font-medium text-surface-700 dark:text-surface-300"
-							>Let's connect</span
+							>Drop me a line</span
 						>
 					</div>
 
@@ -125,15 +125,15 @@
 						<span
 							class="block bg-gradient-to-r from-primary-600 via-secondary-600 to-tertiary-600 bg-clip-text text-transparent"
 						>
-							Get in Touch
+							Let's chat
 						</span>
 					</h1>
 
 					<p
 						class="text-xl text-surface-600 dark:text-surface-400 max-w-3xl mx-auto leading-relaxed"
 					>
-						I'd love to hear from you! Whether you have a question, want to discuss opportunities,
-						or just want to say hi, feel free to reach out.
+						Got a question? Want to work on something cool together? Or just want to say hi? 
+						I'd love to hear from you!
 					</p>
 				</div>
 			</div>
@@ -183,7 +183,7 @@
 						>
 							<div class="mb-8">
 								<h2 class="text-2xl font-bold text-surface-900 dark:text-surface-50 mb-2">
-									Send a Message
+									Send me a message
 								</h2>
 								<div
 									class="w-16 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full"
@@ -198,7 +198,7 @@
 										<i class="fa-solid fa-check text-white text-2xl"></i>
 									</div>
 									<h3 class="text-xl font-bold text-surface-900 dark:text-surface-50">
-										Message Sent!
+										Got it!
 									</h3>
 									<p class="text-surface-600 dark:text-surface-400">
 										Thanks for reaching out! I'll get back to you soon.
@@ -293,7 +293,7 @@
 											<i
 												class="fa-solid fa-paper-plane mr-2 group-hover:translate-x-1 transition-transform duration-200"
 											></i>
-											Send Message
+											Send it my way
 										{/if}
 									</button>
 								</form>

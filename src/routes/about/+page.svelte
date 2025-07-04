@@ -27,25 +27,25 @@
 	const timeline = [
 		{
 			year: '2023 - Present',
-			title: 'Cyber Security Student',
+			title: 'Studying Cybersecurity',
 			organization: 'Hogeschool Utrecht',
 			description:
-				'Studying Applied Computer Science with a focus on Cyber Security and Cloud Technologies.',
+				'Learning Applied Computer Science with a focus on cybersecurity and cloud stuff. Lots of labs, projects, and figuring things out.',
 			color: 'from-blue-500 to-purple-500'
 		},
 		{
 			year: '2022',
-			title: 'Homelab Enthusiast',
+			title: 'Started my homelab',
 			organization: 'Self-taught',
 			description:
-				'Built and maintained a comprehensive homelab with Proxmox, Docker, and various security tools.',
+				'Built my own lab setup with Proxmox, Docker, and various tools. Breaking things and learning how to fix them.',
 			color: 'from-green-500 to-blue-500'
 		},
 		{
 			year: '2021',
-			title: 'Started Cybersecurity Journey',
+			title: 'Got into cybersecurity',
 			organization: 'Self-taught',
-			description: 'Began exploring cybersecurity concepts, networking, and system administration.',
+			description: 'Started exploring security concepts, networking, and system administration. The rabbit hole began.',
 			color: 'from-purple-500 to-pink-500'
 		}
 	];
@@ -55,7 +55,7 @@
 	<title>About - Damian Korver</title>
 	<meta
 		name="description"
-		content="Learn more about Damian Korver, a cybersecurity student passionate about cloud technologies and network security."
+		content="Get to know Damian Korver, a cybersecurity student who loves tinkering with tech and building cool projects."
 	/>
 </svelte:head>
 
@@ -74,7 +74,7 @@
 						class="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-primary-500/20 to-secondary-500/20 border border-primary-500/30 backdrop-blur-sm"
 					>
 						<span class="text-sm font-medium text-surface-700 dark:text-surface-300"
-							>Get to know me better</span
+							>Here's my story</span
 						>
 					</div>
 
@@ -98,13 +98,13 @@
 							class="flex items-center px-4 py-2 bg-white/60 dark:bg-surface-800/60 backdrop-blur-sm rounded-full border border-surface-200/50 dark:border-surface-700/50"
 						>
 							<i class="fa-solid fa-user-graduate text-blue-500 mr-2"></i>
-							<span class="text-sm font-medium">Cybersecurity Student</span>
+							<span class="text-sm font-medium">Student</span>
 						</div>
 						<div
 							class="flex items-center px-4 py-2 bg-white/60 dark:bg-surface-800/60 backdrop-blur-sm rounded-full border border-surface-200/50 dark:border-surface-700/50"
 						>
 							<i class="fa-solid fa-cloud text-purple-500 mr-2"></i>
-							<span class="text-sm font-medium">Cloud Enthusiast</span>
+							<span class="text-sm font-medium">Tech Enthusiast</span>
 						</div>
 					</div>
 				</div>
@@ -119,31 +119,25 @@
 				<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 					<div class="space-y-6" in:fly={{ x: -30, duration: 600, delay: 300 }}>
 						<h2 class="text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-50">
-							My Journey
+							How I got here
 						</h2>
 						<div
 							class="w-16 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full"
 						></div>
 						<div class="space-y-4 text-lg text-surface-600 dark:text-surface-400 leading-relaxed">
 							<p>
-								I am passionate about learning and growing in the tech field, with a particular
-								focus on
-								<span class="font-semibold text-primary-600 dark:text-primary-400"
-									>cybersecurity</span
-								>
-								and
-								<span class="font-semibold text-secondary-600 dark:text-secondary-400"
-									>cloud technologies</span
-								>.
+								I love learning about tech, especially when it comes to keeping things secure
+								and making them work in the cloud. Right now I'm studying cybersecurity at 
+								Hogeschool Utrecht and having a blast figuring out how systems work.
 							</p>
 							<p>
-								My goal is to become a skilled cybersecurity professional and cloud architect who
-								can design and implement secure, scalable solutions for modern challenges.
+								My goal? To become really good at protecting digital stuff and building 
+								cloud solutions that actually make sense. I want to be someone who can 
+								look at a problem and know how to solve it securely.
 							</p>
 							<p>
-								Follow my journey as I build projects using SvelteKit, expand my knowledge in Cyber
-								Security, and explore cutting-edge technologies in the ever-evolving landscape of
-								information security.
+								Come along for the ride as I build things with SvelteKit, dive deeper into 
+								security concepts, and explore whatever new tech catches my eye next.
 							</p>
 						</div>
 					</div>
@@ -245,7 +239,7 @@
 			<div class="container mx-auto max-w-6xl">
 				<div class="text-center mb-16">
 					<h3 class="text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-50 mb-4">
-						Skills & Technologies
+						What I know
 					</h3>
 					<div
 						class="w-24 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 mx-auto rounded-full"
@@ -275,7 +269,7 @@
 			<div class="container mx-auto max-w-4xl">
 				<div class="text-center mb-16">
 					<h3 class="text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-50 mb-4">
-						Areas of Interest
+						What gets me excited
 					</h3>
 					<div
 						class="w-24 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 mx-auto rounded-full"

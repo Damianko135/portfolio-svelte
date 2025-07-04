@@ -38,7 +38,7 @@
 	<title>Projects - Damian Korver</title>
 	<meta
 		name="description"
-		content="Explore the projects and work of Damian Korver, showcasing cybersecurity, cloud technologies, and development skills."
+		content="Check out the projects I've been working on - from cybersecurity tools to web apps and everything in between."
 	/>
 </svelte:head>
 
@@ -69,7 +69,7 @@
 					>
 						<i class="fa-solid fa-folder-open text-primary-600 mr-2"></i>
 						<span class="text-sm font-medium text-surface-700 dark:text-surface-300"
-							>My Portfolio</span
+							>Things I've built</span
 						>
 					</div>
 
@@ -84,14 +84,8 @@
 					<p
 						class="text-xl text-surface-600 dark:text-surface-400 max-w-3xl mx-auto leading-relaxed"
 					>
-						Here are some of the projects I've been working on, showcasing my skills in
-						<span class="font-semibold text-primary-600 dark:text-primary-400">cybersecurity</span>,
-						<span class="font-semibold text-secondary-600 dark:text-secondary-400"
-							>cloud technologies</span
-						>, and
-						<span class="font-semibold text-tertiary-600 dark:text-tertiary-400"
-							>full-stack development</span
-						>.
+						Here's some stuff I've been working on - a mix of security tools, 
+						web apps, and experiments. Always learning something new with each one.
 					</p>
 				</div>
 			</div>
