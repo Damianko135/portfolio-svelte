@@ -5,9 +5,9 @@
 		"url": "https://dkorver.com",
 		"description": "Personal portfolio website built with SvelteKit and Tailwind CSS",
 		"technologies": [
-			{ "name": "SvelteKit", "icon": "fa-brands fa-svelte" },
-			{ "name": "TypeScript", "icon": "fa-brands fa-js" },
-			{ "name": "Tailwind CSS", "icon": "fa-brands fa-css3" }
+			{ "name": "SvelteKit", "icon": "simple-icons:svelte" },
+			{ "name": "TypeScript", "icon": "simple-icons:typescript" },
+			{ "name": "Tailwind CSS", "icon": "simple-icons:tailwindcss" }
 		]
 	},
 	{
@@ -16,9 +16,9 @@
 		"url": "https://github.com/damianko135",
 		"description": "Complete homelab infrastructure with Proxmox, Docker, and various services",
 		"technologies": [
-			{ "name": "Proxmox", "icon": "fa-solid fa-server" },
-			{ "name": "Docker", "icon": "fa-brands fa-docker" },
-			{ "name": "Linux", "icon": "fa-brands fa-linux" }
+			{ "name": "Proxmox", "icon": "mdi:server" },
+			{ "name": "Docker", "icon": "simple-icons:docker" },
+			{ "name": "Linux", "icon": "simple-icons:linux" }
 		]
 	},
 	{
@@ -27,9 +27,9 @@
 		"url": "https://github.com/damianko135",
 		"description": "Virtual lab environment for practicing network security and penetration testing",
 		"technologies": [
-			{ "name": "VMware", "icon": "fa-solid fa-laptop-code" },
-			{ "name": "pfSense", "icon": "fa-solid fa-shield-alt" },
-			{ "name": "Kali Linux", "icon": "fa-brands fa-linux" }
+			{ "name": "VMware", "icon": "simple-icons:vmware" },
+			{ "name": "pfSense", "icon": "mdi:shield-check" },
+			{ "name": "Kali Linux", "icon": "simple-icons:kalilinux" }
 		]
 	}
 ]

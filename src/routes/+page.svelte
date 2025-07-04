@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
+	import { Icon } from '$lib';
 	import type { AboutItem, Interest } from '$lib/types';
 
 	// Using the new $state syntax for reactive variables
@@ -9,31 +10,35 @@
 
 	// Arrays for lists with proper typing (these don't need to be reactive)
 	const aboutItems: AboutItem[] = [
-		{ icon: 'fa-solid fa-location-dot', text: 'Netherlands', color: 'text-emerald-500' },
+		{ icon: 'mdi:map-marker', text: 'Netherlands', color: 'text-emerald-500' },
 		{
-			icon: 'fa-solid fa-user-graduate',
+			icon: 'mdi:school',
 			text: 'Student at Hogeschool Utrecht',
 			subText: 'University of Applied Sciences, Utrecht',
 			color: 'text-blue-500'
 		},
-		{ icon: 'fa-solid fa-server', text: 'Studying Cyber Security & Cloud', color: 'text-purple-500' }
+		{
+			icon: 'mdi:server-security',
+			text: 'Studying Cyber Security & Cloud',
+			color: 'text-purple-500'
+		}
 	];
 
 	const interests: Interest[] = [
-		{ icon: 'fa-solid fa-shield-alt', text: 'Security', color: 'text-red-500' },
-		{ icon: 'fa-solid fa-cloud', text: 'Cloud', color: 'text-blue-400' },
-		{ icon: 'fa-solid fa-network-wired', text: 'Networking', color: 'text-green-500' },
-		{ icon: 'fa-solid fa-fire', text: 'Firewalls', color: 'text-orange-500' },
-		{ icon: 'fa-solid fa-terminal', text: 'Command', color: 'text-gray-400' },
-		{ icon: 'fa-brands fa-linux', text: 'Linux', color: 'text-yellow-500' },
-		{ icon: 'fa-brands fa-windows', text: 'Windows', color: 'text-blue-600' }
+		{ icon: 'mdi:shield-check', text: 'Security', color: 'text-red-500' },
+		{ icon: 'mdi:cloud', text: 'Cloud', color: 'text-blue-400' },
+		{ icon: 'mdi:network', text: 'Networking', color: 'text-green-500' },
+		{ icon: 'mdi:firewall', text: 'Firewalls', color: 'text-orange-500' },
+		{ icon: 'mdi:terminal', text: 'Command', color: 'text-gray-400' },
+		{ icon: 'mdi:linux', text: 'Linux', color: 'text-yellow-500' },
+		{ icon: 'mdi:microsoft-windows', text: 'Windows', color: 'text-blue-600' }
 	];
 
 	const skills = [
-		{ icon: 'fa-brands fa-golang', name: 'Golang', color: 'text-cyan-400' },
-		{ icon: 'fa-brands fa-js', name: 'JavaScript', color: 'text-yellow-400' },
-		{ icon: 'fa-brands fa-docker', name: 'Docker', color: 'text-blue-500' },
-		{ icon: 'fa-brands fa-linux', name: 'Linux', color: 'text-yellow-500' }
+		{ icon: 'simple-icons:go', name: 'Golang', color: 'text-cyan-400' },
+		{ icon: 'mdi:language-javascript', name: 'JavaScript', color: 'text-yellow-400' },
+		{ icon: 'mdi:docker', name: 'Docker', color: 'text-blue-500' },
+		{ icon: 'mdi:linux', name: 'Linux', color: 'text-yellow-500' }
 	];
 
 	onMount(() => {
@@ -84,14 +89,15 @@
 
 			<div class="relative z-10 text-center space-y-8 max-w-4xl mx-auto">
 				{#if heroVisible}
-					<div class="space-y-6" in:fly={{ y: 30, duration: 800, delay: 300 }}>					<div
-						class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-primary-500/20 to-secondary-500/20 border border-primary-500/30 backdrop-blur-sm"
-					>
-						<div class="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-3"></div>
-						<span class="text-sm font-medium text-surface-700 dark:text-surface-300"
-							>Open to new projects</span
+					<div class="space-y-6" in:fly={{ y: 30, duration: 800, delay: 300 }}>
+						<div
+							class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-primary-500/20 to-secondary-500/20 border border-primary-500/30 backdrop-blur-sm"
 						>
-					</div>
+							<div class="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-3"></div>
+							<span class="text-sm font-medium text-surface-700 dark:text-surface-300"
+								>Open to new projects</span
+							>
+						</div>
 
 						<h1 class="text-5xl md:text-7xl font-bold leading-tight">
 							<span class="block text-surface-900 dark:text-surface-50">Hey there!</span>
@@ -100,13 +106,15 @@
 							>
 								I'm Damian Korver
 							</span>
-						</h1>					<p
-						class="text-xl md:text-2xl text-surface-600 dark:text-surface-400 max-w-3xl mx-auto leading-relaxed"
-					>
-						I'm a cybersecurity student at Hogeschool Utrecht who loves tinkering with servers, 
-						setting up networks, and figuring out how things work (and sometimes how they break). 
-						When I'm not studying, you'll find me working on side projects or learning something new.
-					</p>
+						</h1>
+						<p
+							class="text-xl md:text-2xl text-surface-600 dark:text-surface-400 max-w-3xl mx-auto leading-relaxed"
+						>
+							I'm a cybersecurity student at Hogeschool Utrecht who loves tinkering with servers,
+							setting up networks, and figuring out how things work (and sometimes how they break).
+							When I'm not studying, you'll find me working on side projects or learning something
+							new.
+						</p>
 
 						<div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6">
 							<a
@@ -165,7 +173,7 @@
 								<div
 									class="w-16 h-16 mx-auto bg-gradient-to-br from-surface-100 to-surface-200 dark:from-surface-700 dark:to-surface-600 rounded-2xl flex items-center justify-center shadow-inner"
 								>
-									<i class="{item.icon} text-3xl {item.color}"></i>
+									<Icon icon={item.icon} class="text-3xl {item.color}" />
 								</div>
 								<div class="space-y-2">
 									<h3 class="font-bold text-lg text-surface-900 dark:text-surface-50">
@@ -205,7 +213,7 @@
 							<div
 								class="text-4xl {skill.color} mb-3 group-hover:scale-110 transition-transform duration-300"
 							>
-								<i class={skill.icon}></i>
+								<Icon icon={skill.icon} class="text-4xl" />
 							</div>
 							<p class="font-semibold text-surface-900 dark:text-surface-50">{skill.name}</p>
 						</div>
@@ -219,16 +227,7 @@
 						<div
 							class="text-4xl text-orange-500 mb-3 group-hover:scale-110 transition-transform duration-300"
 						>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								viewBox="0 0 256 308"
-								class="w-10 h-10 mx-auto"
-							>
-								<path
-									fill="currentColor"
-									d="M239.682 40.707C211.113-.182 154.69-12.301 113.895 13.69L42.247 59.356a82.2 82.2 0 0 0-37.135 55.056a86.57 86.57 0 0 0 8.536 55.576a82.4 82.4 0 0 0-12.296 30.719a87.6 87.6 0 0 0 14.964 66.244c28.574 40.893 84.997 53.007 125.787 27.016l71.648-45.664a82.18 82.18 0 0 0 37.135-55.057a86.6 86.6 0 0 0-8.53-55.577a82.4 82.4 0 0 0 12.29-30.718a87.57 87.57 0 0 0-14.963-66.244"
-								/>
-							</svg>
+							<Icon icon="simple-icons:svelte" class="text-4xl" />
 						</div>
 						<p class="font-semibold text-surface-900 dark:text-surface-50">SvelteKit</p>
 					</div>
@@ -257,7 +256,7 @@
 							<div
 								class="text-3xl {interest.color} mb-3 group-hover:scale-110 transition-transform duration-300"
 							>
-								<i class={interest.icon}></i>
+								<Icon icon={interest.icon} class="text-3xl" />
 							</div>
 							<p class="font-semibold text-surface-900 dark:text-surface-50">{interest.text}</p>
 						</div>
@@ -277,7 +276,7 @@
 							Want to chat?
 						</h3>
 						<p class="text-lg text-surface-600 dark:text-surface-400 max-w-2xl mx-auto">
-							Feel free to reach out if you want to talk about tech, collaborate on something cool, 
+							Feel free to reach out if you want to talk about tech, collaborate on something cool,
 							or just say hi. I'm always up for a good conversation.
 						</p>
 					</div>
@@ -290,9 +289,10 @@
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							<i
-								class="fab fa-linkedin text-white text-2xl group-hover:scale-110 transition-transform duration-300"
-							></i>
+							<Icon
+								icon="mdi:linkedin"
+								class="text-white text-2xl group-hover:scale-110 transition-transform duration-300"
+							/>
 						</a>
 						<a
 							href="https://github.com/damianko135"
@@ -301,18 +301,20 @@
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							<i
-								class="fab fa-github text-white text-2xl group-hover:scale-110 transition-transform duration-300"
-							></i>
+							<Icon
+								icon="mdi:github"
+								class="text-white text-2xl group-hover:scale-110 transition-transform duration-300"
+							/>
 						</a>
 						<a
 							href="mailto:damiankorver@gmail.com"
 							class="group w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300"
 							aria-label="Email Contact"
 						>
-							<i
-								class="fas fa-envelope text-white text-2xl group-hover:scale-110 transition-transform duration-300"
-							></i>
+							<Icon
+								icon="mdi:email"
+								class="text-white text-2xl group-hover:scale-110 transition-transform duration-300"
+							/>
 						</a>
 					</div>
 				</div>

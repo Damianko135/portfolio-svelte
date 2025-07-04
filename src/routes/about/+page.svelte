@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { fade, fly } from 'svelte/transition';
 	import { onMount } from 'svelte';
+	import { Icon } from '$lib';
 
 	let visible = $state(false);
 	onMount(() => {
@@ -8,20 +9,20 @@
 	});
 
 	const skills = [
-		{ name: 'Proxmox', icon: 'fa-solid fa-server', color: 'text-orange-500' },
-		{ name: 'VMware', icon: 'fa-solid fa-laptop-code', color: 'text-blue-500' },
-		{ name: 'Hyper-V', icon: 'fa-brands fa-windows', color: 'text-blue-600' },
-		{ name: 'Active Directory', icon: 'fa-solid fa-sitemap', color: 'text-purple-500' },
-		{ name: 'Docker', icon: 'fa-brands fa-docker', color: 'text-blue-400' },
-		{ name: 'Networking', icon: 'fa-solid fa-network-wired', color: 'text-green-500' },
-		{ name: 'Firewall', icon: 'fa-solid fa-shield-alt', color: 'text-red-500' },
-		{ name: 'SvelteKit', icon: 'fa-brands fa-svelte', color: 'text-orange-600' }
+		{ name: 'Proxmox', icon: 'simple-icons:proxmox', color: 'text-orange-500' },
+		{ name: 'VMware', icon: 'simple-icons:vmware', color: 'text-blue-500' },
+		{ name: 'Hyper-V', icon: 'mdi:microsoft-windows', color: 'text-blue-600' },
+		{ name: 'Active Directory', icon: 'mdi:microsoft-active-directory', color: 'text-purple-500' },
+		{ name: 'Docker', icon: 'mdi:docker', color: 'text-blue-400' },
+		{ name: 'Networking', icon: 'mdi:network', color: 'text-green-500' },
+		{ name: 'Firewall', icon: 'mdi:shield-check', color: 'text-red-500' },
+		{ name: 'SvelteKit', icon: 'simple-icons:svelte', color: 'text-orange-600' }
 	];
 
 	const interests = [
-		{ name: 'Penetration Testing', icon: 'fa-solid fa-user-secret', color: 'text-red-600' },
-		{ name: 'Red Teaming', icon: 'fa-solid fa-flag', color: 'text-red-500' },
-		{ name: 'Purple Teaming', icon: 'fa-solid fa-yin-yang', color: 'text-purple-500' }
+		{ name: 'Penetration Testing', icon: 'mdi:bug', color: 'text-red-600' },
+		{ name: 'Red Teaming', icon: 'mdi:sword-cross', color: 'text-red-500' },
+		{ name: 'Purple Teaming', icon: 'mdi:yin-yang', color: 'text-purple-500' }
 	];
 
 	const timeline = [
@@ -45,7 +46,8 @@
 			year: '2021',
 			title: 'Got into cybersecurity',
 			organization: 'Self-taught',
-			description: 'Started exploring security concepts, networking, and system administration. The rabbit hole began.',
+			description:
+				'Started exploring security concepts, networking, and system administration. The rabbit hole began.',
 			color: 'from-purple-500 to-pink-500'
 		}
 	];
@@ -91,19 +93,19 @@
 						<div
 							class="flex items-center px-4 py-2 bg-white/60 dark:bg-surface-800/60 backdrop-blur-sm rounded-full border border-surface-200/50 dark:border-surface-700/50"
 						>
-							<i class="fa-solid fa-location-dot text-emerald-500 mr-2"></i>
+							<Icon icon="mdi:map-marker" class="text-emerald-500 mr-2" />
 							<span class="text-sm font-medium">Netherlands</span>
 						</div>
 						<div
 							class="flex items-center px-4 py-2 bg-white/60 dark:bg-surface-800/60 backdrop-blur-sm rounded-full border border-surface-200/50 dark:border-surface-700/50"
 						>
-							<i class="fa-solid fa-user-graduate text-blue-500 mr-2"></i>
+							<Icon icon="mdi:school" class="text-blue-500 mr-2" />
 							<span class="text-sm font-medium">Student</span>
 						</div>
 						<div
 							class="flex items-center px-4 py-2 bg-white/60 dark:bg-surface-800/60 backdrop-blur-sm rounded-full border border-surface-200/50 dark:border-surface-700/50"
 						>
-							<i class="fa-solid fa-cloud text-purple-500 mr-2"></i>
+							<Icon icon="mdi:heart" class="text-purple-500 mr-2" />
 							<span class="text-sm font-medium">Tech Enthusiast</span>
 						</div>
 					</div>
@@ -126,18 +128,18 @@
 						></div>
 						<div class="space-y-4 text-lg text-surface-600 dark:text-surface-400 leading-relaxed">
 							<p>
-								I love learning about tech, especially when it comes to keeping things secure
-								and making them work in the cloud. Right now I'm studying cybersecurity at 
-								Hogeschool Utrecht and having a blast figuring out how systems work.
+								I love learning about tech, especially when it comes to keeping things secure and
+								making them work in the cloud. Right now I'm studying cybersecurity at Hogeschool
+								Utrecht and having a blast figuring out how systems work.
 							</p>
 							<p>
-								My goal? To become really good at protecting digital stuff and building 
-								cloud solutions that actually make sense. I want to be someone who can 
-								look at a problem and know how to solve it securely.
+								My goal? To become really good at protecting digital stuff and building cloud
+								solutions that actually make sense. I want to be someone who can look at a problem
+								and know how to solve it securely.
 							</p>
 							<p>
-								Come along for the ride as I build things with SvelteKit, dive deeper into 
-								security concepts, and explore whatever new tech catches my eye next.
+								Come along for the ride as I build things with SvelteKit, dive deeper into security
+								concepts, and explore whatever new tech catches my eye next.
 							</p>
 						</div>
 					</div>
@@ -152,19 +154,19 @@
 								<h3 class="text-2xl font-bold">Current Focus</h3>
 								<ul class="space-y-3">
 									<li class="flex items-center">
-										<i class="fa-solid fa-graduation-cap mr-3"></i>
+										<Icon icon="mdi:school" class="mr-3" />
 										<span>Cyber Security Studies</span>
 									</li>
 									<li class="flex items-center">
-										<i class="fa-solid fa-server mr-3"></i>
+										<Icon icon="mdi:server" class="mr-3" />
 										<span>Homelab Development</span>
 									</li>
 									<li class="flex items-center">
-										<i class="fa-solid fa-code mr-3"></i>
+										<Icon icon="mdi:code-tags" class="mr-3" />
 										<span>Full-Stack Development</span>
 									</li>
 									<li class="flex items-center">
-										<i class="fa-solid fa-shield-alt mr-3"></i>
+										<Icon icon="mdi:shield-check" class="mr-3" />
 										<span>Security Research</span>
 									</li>
 								</ul>
@@ -255,7 +257,7 @@
 							<div
 								class="text-4xl {skill.color} mb-3 group-hover:scale-110 transition-transform duration-300"
 							>
-								<i class={skill.icon}></i>
+								<Icon icon={skill.icon} class="text-4xl" />
 							</div>
 							<p class="font-semibold text-surface-900 dark:text-surface-50">{skill.name}</p>
 						</div>
@@ -285,7 +287,7 @@
 							<div
 								class="text-5xl {interest.color} mb-4 group-hover:scale-110 transition-transform duration-300"
 							>
-								<i class={interest.icon}></i>
+								<Icon icon={interest.icon} class="text-5xl" />
 							</div>
 							<h4 class="text-lg font-bold text-surface-900 dark:text-surface-50">
 								{interest.name}

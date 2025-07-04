@@ -44,6 +44,7 @@
 		]
 	},
 	"dependencies": {
+		"@iconify/json": "^2.2.355",
 		"@iconify/svelte": "^5.0.0",
 		"@sendgrid/mail": "^8.1.5",
 		"@skeletonlabs/skeleton": "^3.1.4",

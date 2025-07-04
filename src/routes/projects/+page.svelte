@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
+	import { Icon } from '$lib';
 
 	let projects: Project[] = $state([]);
 
@@ -67,7 +68,7 @@
 					<div
 						class="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-primary-500/20 to-secondary-500/20 border border-primary-500/30 backdrop-blur-sm"
 					>
-						<i class="fa-solid fa-folder-open text-primary-600 mr-2"></i>
+						<Icon icon="mdi:folder-open" class="text-primary-600 mr-2" />
 						<span class="text-sm font-medium text-surface-700 dark:text-surface-300"
 							>Things I've built</span
 						>
@@ -84,8 +85,8 @@
 					<p
 						class="text-xl text-surface-600 dark:text-surface-400 max-w-3xl mx-auto leading-relaxed"
 					>
-						Here's some stuff I've been working on - a mix of security tools, 
-						web apps, and experiments. Always learning something new with each one.
+						Here's some stuff I've been working on - a mix of security tools, web apps, and
+						experiments. Always learning something new with each one.
 					</p>
 				</div>
 			</div>
@@ -115,7 +116,7 @@
 											<div
 												class="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity duration-300"
 											>
-												<i class="fa-solid fa-code text-white text-sm"></i>
+												<Icon icon="mdi:code-tags" class="text-white text-sm" />
 											</div>
 										</div>
 									</header>
@@ -145,7 +146,7 @@
 														<div
 															class="w-12 h-12 bg-white/90 dark:bg-surface-800/90 rounded-full flex items-center justify-center shadow-lg"
 														>
-															<i class="fa-solid fa-external-link-alt text-primary-600 text-lg"></i>
+															<Icon icon="mdi:open-in-new" class="text-primary-600 text-lg" />
 														</div>
 													</div>
 												</div>
@@ -158,7 +159,7 @@
 												class="aspect-video bg-gradient-to-br from-primary-500/20 to-secondary-500/20 rounded-xl flex items-center justify-center border border-primary-500/30"
 											>
 												<div class="text-center space-y-2">
-													<i class="fa-solid fa-code text-4xl text-primary-500/60"></i>
+													<Icon icon="mdi:code-tags" class="text-4xl text-primary-500/60" />
 													<p class="text-sm text-surface-600 dark:text-surface-400">
 														Project Preview
 													</p>
@@ -230,8 +231,7 @@
 							<div
 								class="w-24 h-24 bg-gradient-to-br from-surface-200 to-surface-300 dark:from-surface-700 dark:to-surface-600 rounded-2xl flex items-center justify-center mx-auto mb-6"
 							>
-								<i class="fa-solid fa-folder-open text-4xl text-surface-500 dark:text-surface-400"
-								></i>
+								<Icon icon="mdi:folder-open" class="text-4xl text-surface-500 dark:text-surface-400" />
 							</div>
 							<h3 class="text-2xl font-bold text-surface-900 dark:text-surface-50 mb-4">
 								No Projects Found
@@ -307,7 +307,7 @@
 							class="inline-flex items-center px-8 py-4 border-2 border-primary-500 text-primary-600 dark:text-primary-400 font-semibold rounded-xl hover:bg-primary-500 hover:text-white transition-all duration-300"
 						>
 							<span>View GitHub</span>
-							<i class="fab fa-github ml-2"></i>
+							<Icon icon="mdi:github" class="ml-2" />
 						</a>
 					</div>
 				</div>

@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import ThemeToggle from './ThemeToggle.svelte';
+	import { Icon } from '$lib';
 
 	let links = [
 		{ name: 'Home', url: '/' },
@@ -80,23 +81,11 @@
 					onclick={toggleMobileMenu}
 					aria-label="Toggle mobile menu"
 				>
-					<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						{#if mobileMenuOpen}
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M6 18L18 6M6 6l12 12"
-							/>
-						{:else}
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M4 6h16M4 12h16M4 18h16"
-							/>
-						{/if}
-					</svg>
+					{#if mobileMenuOpen}
+						<Icon icon="mdi:close" class="w-6 h-6" />
+					{:else}
+						<Icon icon="mdi:menu" class="w-6 h-6" />
+					{/if}
 				</button>
 			</div>
 		</div>

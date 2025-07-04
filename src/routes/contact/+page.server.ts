@@ -37,7 +37,7 @@ export const actions: Actions = {
 
 			return {
 				success: true,
-				message: 'Thank you for your message! I\'ll get back to you soon.'
+				message: "Thank you for your message! I'll get back to you soon."
 			};
 		} catch (error) {
 			console.error('Form submission error:', error);
@@ -52,9 +52,17 @@ export const actions: Actions = {
 };
 
 // SendGrid email function
-async function sendEmail({ name, email, message }: { name: string; email: string; message: string }) {
+async function sendEmail({
+	name,
+	email,
+	message
+}: {
+	name: string;
+	email: string;
+	message: string;
+}) {
 	const apiKey = env.SENDGRID_API_KEY;
-	
+
 	if (!apiKey) {
 		throw new Error('SendGrid API key not configured');
 	}

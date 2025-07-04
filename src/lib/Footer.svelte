@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Icon } from '$lib';
 	const currentYear = new Date().getFullYear();
 </script>
 
@@ -26,7 +27,7 @@
 					</div>
 				</div>
 				<p class="text-surface-400 max-w-md">
-					I love working with security, cloud tech, and building things that actually work. 
+					I love working with security, cloud tech, and building things that actually work.
 					Currently learning tons at Hogeschool Utrecht.
 				</p>
 			</div>
@@ -79,9 +80,10 @@
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						<i
-							class="fab fa-linkedin text-surface-300 group-hover:text-white transition-colors duration-300"
-						></i>
+						<Icon
+							icon="mdi:linkedin"
+							class="text-surface-300 group-hover:text-white transition-colors duration-300"
+						/>
 					</a>
 					<a
 						href="https://github.com/damianko135"
@@ -90,9 +92,10 @@
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						<i
-							class="fab fa-github text-surface-300 group-hover:text-white transition-colors duration-300"
-						></i>
+						<Icon
+							icon="mdi:github"
+							class="text-surface-300 group-hover:text-white transition-colors duration-300"
+						/>
 					</a>
 					<a
 						href="https://twitter.com/damianko135"
@@ -101,9 +104,10 @@
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						<i
-							class="fab fa-twitter text-surface-300 group-hover:text-white transition-colors duration-300"
-						></i>
+						<Icon
+							icon="mdi:twitter"
+							class="text-surface-300 group-hover:text-white transition-colors duration-300"
+						/>
 					</a>
 				</div>
 			</div>
@@ -119,20 +123,12 @@
 			<div class="flex items-center space-x-4 text-surface-400 text-sm">
 				<span>Built with</span>
 				<div class="flex items-center space-x-2">
-					<svg class="w-4 h-4 text-orange-500" viewBox="0 0 256 308" fill="currentColor">
-						<path
-							d="M239.682 40.707C211.113-.182 154.69-12.301 113.895 13.69L42.247 59.356a82.2 82.2 0 0 0-37.135 55.056a86.57 86.57 0 0 0 8.536 55.576a82.4 82.4 0 0 0-12.296 30.719a87.6 87.6 0 0 0 14.964 66.244c28.574 40.893 84.997 53.007 125.787 27.016l71.648-45.664a82.18 82.18 0 0 0 37.135-55.057a86.6 86.6 0 0 0-8.53-55.577a82.4 82.4 0 0 0 12.29-30.718a87.57 87.57 0 0 0-14.963-66.244"
-						/>
-					</svg>
+					<Icon icon="simple-icons:svelte" class="w-4 h-4 text-orange-500" />
 					<span>SvelteKit</span>
 				</div>
 				<span>&</span>
 				<div class="flex items-center space-x-2">
-					<svg class="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
-						<path
-							d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C7.666 17.818 9.027 19.2 12.001 19.2c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z"
-						/>
-					</svg>
+					<Icon icon="simple-icons:tailwindcss" class="w-4 h-4 text-blue-500" />
 					<span>Tailwind CSS</span>
 				</div>
 			</div>

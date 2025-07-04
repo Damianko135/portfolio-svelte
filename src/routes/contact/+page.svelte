@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { fade, fly } from 'svelte/transition';
 	import { onMount } from 'svelte';
+	import { Icon } from '$lib';
 
 	let visible = $state(false);
 	let formSubmitted = $state(false);
@@ -35,21 +36,21 @@
 
 	const contactMethods = [
 		{
-			icon: 'fa-solid fa-envelope',
+			icon: 'mdi:email',
 			title: 'Email',
 			value: 'damiankorver@gmail.com',
 			href: 'mailto:damiankorver@gmail.com',
 			color: 'from-red-500 to-red-600'
 		},
 		{
-			icon: 'fa-solid fa-location-dot',
+			icon: 'mdi:map-marker',
 			title: 'Location',
 			value: 'Netherlands',
 			href: null,
 			color: 'from-green-500 to-green-600'
 		},
 		{
-			icon: 'fa-solid fa-clock',
+			icon: 'mdi:clock-outline',
 			title: 'Response Time',
 			value: 'Usually within a day',
 			href: null,
@@ -61,21 +62,21 @@
 		{
 			platform: 'LinkedIn',
 			href: 'https://www.linkedin.com/in/damian-korver/',
-			icon: 'fab fa-linkedin',
+			icon: 'mdi:linkedin',
 			color: 'hover:bg-[#0077B5]',
 			description: 'Connect with me'
 		},
 		{
 			platform: 'GitHub',
 			href: 'https://github.com/damianko135',
-			icon: 'fab fa-github',
+			icon: 'mdi:github',
 			color: 'hover:bg-[#333]',
 			description: 'Check out my code'
 		},
 		{
 			platform: 'Twitter',
 			href: 'https://twitter.com/damianko135',
-			icon: 'fab fa-twitter',
+			icon: 'mdi:twitter',
 			color: 'hover:bg-[#1DA1F2]',
 			description: 'Follow along'
 		}
@@ -115,7 +116,7 @@
 					<div
 						class="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-primary-500/20 to-secondary-500/20 border border-primary-500/30 backdrop-blur-sm"
 					>
-						<i class="fa-solid fa-paper-plane text-primary-600 mr-2"></i>
+						<Icon icon="mdi:send" class="text-primary-600 mr-2" />
 						<span class="text-sm font-medium text-surface-700 dark:text-surface-300"
 							>Drop me a line</span
 						>
@@ -132,8 +133,8 @@
 					<p
 						class="text-xl text-surface-600 dark:text-surface-400 max-w-3xl mx-auto leading-relaxed"
 					>
-						Got a question? Want to work on something cool together? Or just want to say hi? 
-						I'd love to hear from you!
+						Got a question? Want to work on something cool together? Or just want to say hi? I'd
+						love to hear from you!
 					</p>
 				</div>
 			</div>
@@ -151,7 +152,7 @@
 							<div
 								class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r {method.color} rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300"
 							>
-								<i class="{method.icon} text-white text-2xl"></i>
+								<Icon icon={method.icon} class="text-white text-2xl" />
 							</div>
 							<h3 class="text-lg font-bold text-surface-900 dark:text-surface-50 mb-2">
 								{method.title}
@@ -195,11 +196,9 @@
 									<div
 										class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto"
 									>
-										<i class="fa-solid fa-check text-white text-2xl"></i>
+										<Icon icon="mdi:check" class="text-white text-2xl" />
 									</div>
-									<h3 class="text-xl font-bold text-surface-900 dark:text-surface-50">
-										Got it!
-									</h3>
+									<h3 class="text-xl font-bold text-surface-900 dark:text-surface-50">Got it!</h3>
 									<p class="text-surface-600 dark:text-surface-400">
 										Thanks for reaching out! I'll get back to you soon.
 									</p>
@@ -290,9 +289,10 @@
 											</svg>
 											Sending...
 										{:else}
-											<i
-												class="fa-solid fa-paper-plane mr-2 group-hover:translate-x-1 transition-transform duration-200"
-											></i>
+											<Icon
+												icon="mdi:send"
+												class="mr-2 group-hover:translate-x-1 transition-transform duration-200"
+											/>
 											Send it my way
 										{/if}
 									</button>
@@ -328,7 +328,7 @@
 										<div
 											class="w-12 h-12 bg-surface-700 {social.color} rounded-lg flex items-center justify-center transition-all duration-300 mr-4"
 										>
-											<i class="{social.icon} text-white text-xl"></i>
+											<Icon icon={social.icon} class="text-white" />
 										</div>
 										<div class="flex-1">
 											<h4
@@ -340,9 +340,10 @@
 												{social.description}
 											</p>
 										</div>
-										<i
-											class="fa-solid fa-arrow-right text-surface-400 group-hover:text-primary-500 group-hover:translate-x-1 transition-all duration-200"
-										></i>
+										<Icon
+											icon="mdi:arrow-right"
+											class="text-surface-400 group-hover:text-primary-500 group-hover:translate-x-1 transition-all duration-200"
+										/>
 									</a>
 								{/each}
 							</div>
@@ -356,7 +357,7 @@
 								<div
 									class="w-16 h-16 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center mx-auto"
 								>
-									<i class="fa-solid fa-lightbulb text-white text-2xl"></i>
+									<Icon icon="mdi:lightbulb" class="text-white text-2xl" />
 								</div>
 								<h4 class="text-xl font-bold text-surface-900 dark:text-surface-50">
 									Let's Collaborate
