@@ -189,7 +189,7 @@
 														class="inline-flex items-center px-3 py-1 bg-gradient-to-r from-primary-500/20 to-secondary-500/20 rounded-full border border-primary-500/30 text-xs font-medium text-surface-700 dark:text-surface-300"
 													>
 														{#if technology.icon}
-															<i class="{technology.icon} mr-1.5"></i>
+															<Icon icon={technology.icon} class="mr-1.5" />
 														{/if}
 														{technology.name}
 													</span>
