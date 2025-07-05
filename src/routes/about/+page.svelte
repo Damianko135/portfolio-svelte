@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { fade, fly } from 'svelte/transition';
 	import { onMount } from 'svelte';
-	import { Icon } from '$lib';
+	import { Icon, SectionDivider } from '$lib';
 
 	let visible = $state(false);
 	onMount(() => {
@@ -31,7 +31,8 @@
 
 	const timeline = [
 		{
-			year: '2023 - Present',
+			year: 2023,
+			endYear: 2027,
 			title: 'Studying Cybersecurity',
 			organization: 'Hogeschool Utrecht',
 			description:
@@ -39,7 +40,8 @@
 			color: 'from-primary-500 to-tertiary-500'
 		},
 		{
-			year: '2022',
+			year: 2024,
+			endYear: null, // Ongoing
 			title: 'Started my homelab',
 			organization: 'Self-taught',
 			description:
@@ -47,14 +49,34 @@
 			color: 'from-success-500 to-primary-500'
 		},
 		{
-			year: '2021',
+			year: 2022,
+			endYear: 2022,
 			title: 'Got into cybersecurity',
 			organization: 'Self-taught',
 			description:
 				'Started exploring security concepts, networking, and system administration. The rabbit hole began.',
 			color: 'from-tertiary-500 to-secondary-500'
 		}
-	];
+	].sort((a, b) => {
+		const currentYear = getCurrentTime();
+
+		// Check if items are current/ongoing or future
+		const aIsCurrent = a.endYear === null || a.endYear > currentYear;
+		const bIsCurrent = b.endYear === null || b.endYear > currentYear;
+
+		// Current/ongoing items always go first
+		if (aIsCurrent && !bIsCurrent) return -1;
+		if (!aIsCurrent && bIsCurrent) return 1;
+
+		// If both are current or both are past, sort by start year descending
+		return b.year - a.year;
+	});
+
+	function getCurrentTime() {
+		const now = new Date();
+		const year = now.getFullYear();
+		return year;
+	}
 </script>
 
 <svelte:head>
@@ -188,9 +210,7 @@
 					<h3 class="text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-50 mb-4">
 						My Timeline
 					</h3>
-					<div
-						class="w-24 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 mx-auto rounded-full"
-					></div>
+					<SectionDivider variant="delayed" />
 				</div>
 
 				<div class="relative">
@@ -219,7 +239,22 @@
 									>
 										<div class="space-y-3">
 											<div class="text-sm font-medium text-primary-600 dark:text-primary-400">
-												{item.year}
+												{(() => {
+													const currentYear = getCurrentTime();
+													if (item.endYear === null) {
+														// Ongoing - show "year - Present"
+														return `${item.year} - Present`;
+													} else if (item.endYear > currentYear) {
+														// Future end date - show "year - Present"
+														return `${item.year} - Present`;
+													} else if (item.year === item.endYear) {
+														// Same year start and end - show just the year
+														return `${item.year}`;
+													} else {
+														// Past with different start/end - show range
+														return `${item.year} - ${item.endYear}`;
+													}
+												})()}
 											</div>
 											<h4 class="text-xl font-bold text-surface-900 dark:text-surface-50">
 												{item.title}
@@ -247,9 +282,7 @@
 					<h3 class="text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-50 mb-4">
 						What I know
 					</h3>
-					<div
-						class="w-24 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 mx-auto rounded-full"
-					></div>
+					<SectionDivider variant="on-scroll" />
 				</div>
 
 				<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -277,9 +310,7 @@
 					<h3 class="text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-50 mb-4">
 						What gets me excited
 					</h3>
-					<div
-						class="w-24 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 mx-auto rounded-full"
-					></div>
+					<SectionDivider variant="on-scroll" />
 				</div>
 
 				<div class="grid grid-cols-1 md:grid-cols-3 gap-8">

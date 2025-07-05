@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
-	import { Icon } from '$lib';
+	import { Icon, SectionDivider } from '$lib';
 	import type { AboutItem, Interest } from '$lib/types';
 
 	// Using the new $state syntax for reactive variables
@@ -10,7 +10,13 @@
 
 	// Arrays for lists with proper typing (these don't need to be reactive)
 	const aboutItems: AboutItem[] = [
-		{ icon: 'mdi:map-marker', text: 'Netherlands', color: 'text-success-500' },
+		{ icon: 'mdi:map-marker', 
+		text: 'Netherlands',
+		subText: 'Based in the Netherlands, exploring the world of tech',
+		color: 'text-success-500'
+
+		 },
+
 		{
 			icon: 'mdi:school',
 			text: 'Student at Hogeschool Utrecht',
@@ -20,6 +26,7 @@
 		{
 			icon: 'mdi:server-security',
 			text: 'Studying Cyber Security & Cloud',
+			subText: 'Focusing on security, cloud computing, and networking',
 			color: 'text-error-500'
 		}
 	];
@@ -155,9 +162,7 @@
 					<h2 class="text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-50 mb-4">
 						A bit about me
 					</h2>
-					<div
-						class="w-24 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 mx-auto rounded-full"
-					></div>
+					<SectionDivider variant="delayed" />
 				</div>
 
 				<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -199,9 +204,7 @@
 					<h3 class="text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-50 mb-4">
 						What I work with
 					</h3>
-					<div
-						class="w-24 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 mx-auto rounded-full"
-					></div>
+					<SectionDivider variant="on-scroll" />
 				</div>
 
 				<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
@@ -242,9 +245,7 @@
 					<h3 class="text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-50 mb-4">
 						Things I'm into
 					</h3>
-					<div
-						class="w-24 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 mx-auto rounded-full"
-					></div>
+					<SectionDivider variant="on-scroll" />
 				</div>
 
 				<div class="grid grid-cols-2 md:grid-cols-4 gap-6">

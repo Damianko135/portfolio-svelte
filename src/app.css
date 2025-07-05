@@ -36,3 +36,83 @@
 	width: 1.5rem;
 	height: 1.5rem;
 }
+
+
+/* ============================================
+   EXPAND ANIMATION SYSTEM
+   ============================================
+   A flexible animation system for section dividers and decorative elements.
+   
+   Animation Variants:
+   - animate-expand: Standard smooth expansion (0.8s)
+   - animate-expand-delayed: Delayed start with longer duration (1.2s)
+   - animate-expand-subtle: Gentler expansion to smaller width (0.6s)
+   - animate-expand-on-scroll: Intersection Observer triggered animation
+   
+   Usage with SectionDivider component:
+   <SectionDivider variant="delayed" />
+   <SectionDivider variant="on-scroll" />
+   ============================================ */
+
+@layer utilities {
+  @keyframes expand {
+    from {
+      width: 6rem; /* same as w-24 */
+      opacity: 0.3;
+    }
+    to {
+      width: 16rem; /* same as w-64 */
+      opacity: 1;
+    }
+  }
+
+  @keyframes expand-delayed {
+    0% {
+      width: 6rem; /* same as w-24 */
+      opacity: 0.3;
+    }
+    50% {
+      width: 6rem;
+      opacity: 0.3;
+    }
+    100% {
+      width: 16rem; /* same as w-64 */
+      opacity: 1;
+    }
+  }
+
+  @keyframes expand-subtle {
+    from {
+      width: 6rem; /* same as w-24 */
+      opacity: 0.5;
+    }
+    to {
+      width: 12rem; /* same as w-48 */
+      opacity: 1;
+    }
+  }
+
+  .animate-expand {
+    animation: expand 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .animate-expand-delayed {
+    animation: expand-delayed 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .animate-expand-subtle {
+    animation: expand-subtle 2s ease-out forwards;
+  }
+
+  /* Intersection Observer triggered animations */
+  .animate-expand-on-scroll {
+    width: 6rem;
+    opacity: 0.3;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease-out;
+  }
+
+  .animate-expand-on-scroll.visible {
+    width: 16rem;
+    opacity: 1;
+  }
+}
