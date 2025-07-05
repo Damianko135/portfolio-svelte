@@ -40,21 +40,21 @@
 			title: 'Email',
 			value: 'damiankorver@gmail.com',
 			href: 'mailto:damiankorver@gmail.com',
-			color: 'from-red-500 to-red-600'
+			color: 'from-error-500 to-error-600'
 		},
 		{
 			icon: 'mdi:map-marker',
 			title: 'Location',
 			value: 'Netherlands',
 			href: null,
-			color: 'from-green-500 to-green-600'
+			color: 'from-success-500 to-success-600'
 		},
 		{
 			icon: 'mdi:clock-outline',
 			title: 'Response Time',
 			value: 'Usually within a day',
 			href: null,
-			color: 'from-blue-500 to-blue-600'
+			color: 'from-primary-500 to-primary-600'
 		}
 	];
 
@@ -63,21 +63,21 @@
 			platform: 'LinkedIn',
 			href: 'https://www.linkedin.com/in/damian-korver/',
 			icon: 'mdi:linkedin',
-			color: 'hover:bg-[#0077B5]',
+			color: 'hover:bg-primary-600',
 			description: 'Connect with me'
 		},
 		{
 			platform: 'GitHub',
 			href: 'https://github.com/damianko135',
 			icon: 'mdi:github',
-			color: 'hover:bg-[#333]',
+			color: 'hover:bg-surface-900',
 			description: 'Check out my code'
 		},
 		{
 			platform: 'Twitter',
 			href: 'https://twitter.com/damianko135',
 			icon: 'mdi:twitter',
-			color: 'hover:bg-[#1DA1F2]',
+			color: 'hover:bg-tertiary-600',
 			description: 'Follow along'
 		}
 	];
@@ -194,7 +194,7 @@
 							{#if formSubmitted}
 								<div class="text-center py-8 space-y-4" in:fly={{ y: 20, duration: 400 }}>
 									<div
-										class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto"
+										class="w-16 h-16 bg-success-500 rounded-full flex items-center justify-center mx-auto"
 									>
 										<Icon icon="mdi:check" class="text-white text-2xl" />
 									</div>
@@ -378,8 +378,8 @@
 <style>
 	.bg-grid-pattern {
 		background-image:
-			linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
-			linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px);
+			linear-gradient(rgba(var(--color-primary-500) / 0.1) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(var(--color-primary-500) / 0.1) 1px, transparent 1px);
 		background-size: 20px 20px;
 	}
 </style>

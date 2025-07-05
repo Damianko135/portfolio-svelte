@@ -10,35 +10,35 @@
 
 	// Arrays for lists with proper typing (these don't need to be reactive)
 	const aboutItems: AboutItem[] = [
-		{ icon: 'mdi:map-marker', text: 'Netherlands', color: 'text-emerald-500' },
+		{ icon: 'mdi:map-marker', text: 'Netherlands', color: 'text-success-500' },
 		{
 			icon: 'mdi:school',
 			text: 'Student at Hogeschool Utrecht',
 			subText: 'University of Applied Sciences, Utrecht',
-			color: 'text-blue-500'
+			color: 'text-primary-500'
 		},
 		{
 			icon: 'mdi:server-security',
 			text: 'Studying Cyber Security & Cloud',
-			color: 'text-purple-500'
+			color: 'text-error-500'
 		}
 	];
 
 	const interests: Interest[] = [
-		{ icon: 'mdi:shield-check', text: 'Security', color: 'text-red-500' },
-		{ icon: 'mdi:cloud', text: 'Cloud', color: 'text-blue-400' },
-		{ icon: 'mdi:network', text: 'Networking', color: 'text-green-500' },
-		{ icon: 'mdi:firewall', text: 'Firewalls', color: 'text-orange-500' },
-		{ icon: 'mdi:terminal', text: 'Command', color: 'text-gray-400' },
-		{ icon: 'mdi:linux', text: 'Linux', color: 'text-yellow-500' },
-		{ icon: 'mdi:microsoft-windows', text: 'Windows', color: 'text-blue-600' }
+		{ icon: 'mdi:shield-check', text: 'Security', color: 'text-error-500' },
+		{ icon: 'mdi:cloud', text: 'Cloud', color: 'text-primary-500' },
+		{ icon: 'mdi:network', text: 'Networking', color: 'text-success-500' },
+		{ icon: 'mdi:firewall', text: 'Firewalls', color: 'text-secondary-500' },
+		{ icon: 'mdi:terminal', text: 'Command', color: 'text-surface-500' },
+		{ icon: 'mdi:linux', text: 'Linux', color: 'text-warning-500' },
+		{ icon: 'mdi:microsoft-windows', text: 'Windows', color: 'text-primary-600' }
 	];
 
 	const skills = [
-		{ icon: 'simple-icons:go', name: 'Golang', color: 'text-cyan-400' },
-		{ icon: 'mdi:language-javascript', name: 'JavaScript', color: 'text-yellow-400' },
-		{ icon: 'mdi:docker', name: 'Docker', color: 'text-blue-500' },
-		{ icon: 'mdi:linux', name: 'Linux', color: 'text-yellow-500' }
+		{ icon: 'simple-icons:go', name: 'Golang', color: 'text-tertiary-500' },
+		{ icon: 'mdi:language-javascript', name: 'JavaScript', color: 'text-warning-500' },
+		{ icon: 'mdi:docker', name: 'Docker', color: 'text-primary-500' },
+		{ icon: 'mdi:linux', name: 'Linux', color: 'text-warning-500' }
 	];
 
 	onMount(() => {
@@ -93,7 +93,7 @@
 						<div
 							class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-primary-500/20 to-secondary-500/20 border border-primary-500/30 backdrop-blur-sm"
 						>
-							<div class="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-3"></div>
+							<div class="w-2 h-2 bg-success-500 rounded-full animate-pulse mr-3"></div>
 							<span class="text-sm font-medium text-surface-700 dark:text-surface-300"
 								>Open to new projects</span
 							>
@@ -225,7 +225,7 @@
 						in:fly={{ y: 30, duration: 600, delay: 600 }}
 					>
 						<div
-							class="text-4xl text-orange-500 mb-3 group-hover:scale-110 transition-transform duration-300"
+							class="text-4xl text-secondary-500 mb-3 group-hover:scale-110 transition-transform duration-300"
 						>
 							<Icon icon="simple-icons:svelte" class="text-4xl" />
 						</div>
@@ -284,7 +284,7 @@
 					<div class="flex justify-center space-x-6">
 						<a
 							href="https://www.linkedin.com/in/dkorver/"
-							class="group w-16 h-16 bg-gradient-to-br from-[#0077B5] to-[#005885] rounded-2xl flex items-center justify-center shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300"
+							class="group w-16 h-16 bg-primary-600 hover:bg-primary-700 rounded-2xl flex items-center justify-center shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300"
 							aria-label="LinkedIn Profile"
 							target="_blank"
 							rel="noopener noreferrer"
@@ -296,7 +296,7 @@
 						</a>
 						<a
 							href="https://github.com/damianko135"
-							class="group w-16 h-16 bg-gradient-to-br from-surface-800 to-surface-900 rounded-2xl flex items-center justify-center shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300"
+							class="group w-16 h-16 bg-surface-800 hover:bg-surface-900 rounded-2xl flex items-center justify-center shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300"
 							aria-label="GitHub Profile"
 							target="_blank"
 							rel="noopener noreferrer"
@@ -308,7 +308,7 @@
 						</a>
 						<a
 							href="mailto:damiankorver@gmail.com"
-							class="group w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300"
+							class="group w-16 h-16 bg-error-500 hover:bg-error-600 rounded-2xl flex items-center justify-center shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300"
 							aria-label="Email Contact"
 						>
 							<Icon

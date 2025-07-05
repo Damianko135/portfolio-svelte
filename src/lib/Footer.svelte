@@ -75,7 +75,7 @@
 				<div class="flex space-x-3">
 					<a
 						href="https://www.linkedin.com/in/dkorver/"
-						class="group w-10 h-10 bg-surface-700 hover:bg-[#0077B5] rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
+						class="group w-10 h-10 bg-surface-700 hover:bg-primary-600 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
 						aria-label="Damian Korver on LinkedIn"
 						target="_blank"
 						rel="noopener noreferrer"
@@ -87,7 +87,7 @@
 					</a>
 					<a
 						href="https://github.com/damianko135"
-						class="group w-10 h-10 bg-surface-700 hover:bg-[#333] rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
+						class="group w-10 h-10 bg-surface-700 hover:bg-surface-900 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
 						aria-label="Damian Korver on GitHub"
 						target="_blank"
 						rel="noopener noreferrer"
@@ -99,7 +99,7 @@
 					</a>
 					<a
 						href="https://twitter.com/damianko135"
-						class="group w-10 h-10 bg-surface-700 hover:bg-[#1DA1F2] rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
+						class="group w-10 h-10 bg-surface-700 hover:bg-tertiary-600 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
 						aria-label="Damian Korver on Twitter"
 						target="_blank"
 						rel="noopener noreferrer"
@@ -123,12 +123,12 @@
 			<div class="flex items-center space-x-4 text-surface-400 text-sm">
 				<span>Built with</span>
 				<div class="flex items-center space-x-2">
-					<Icon icon="simple-icons:svelte" class="w-4 h-4 text-orange-500" />
+					<Icon icon="simple-icons:svelte" class="w-4 h-4 text-secondary-500" />
 					<span>SvelteKit</span>
 				</div>
 				<span>&</span>
 				<div class="flex items-center space-x-2">
-					<Icon icon="simple-icons:tailwindcss" class="w-4 h-4 text-blue-500" />
+					<Icon icon="simple-icons:tailwindcss" class="w-4 h-4 text-primary-500" />
 					<span>Tailwind CSS</span>
 				</div>
 			</div>
@@ -139,8 +139,8 @@
 <style>
 	.bg-grid-pattern {
 		background-image:
-			linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
-			linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px);
+			linear-gradient(rgba(var(--color-primary-500) / 0.1) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(var(--color-primary-500) / 0.1) 1px, transparent 1px);
 		background-size: 20px 20px;
 	}
 </style>

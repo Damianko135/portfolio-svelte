@@ -9,20 +9,24 @@
 	});
 
 	const skills = [
-		{ name: 'Proxmox', icon: 'simple-icons:proxmox', color: 'text-orange-500' },
-		{ name: 'VMware', icon: 'simple-icons:vmware', color: 'text-blue-500' },
-		{ name: 'Hyper-V', icon: 'mdi:microsoft-windows', color: 'text-blue-600' },
-		{ name: 'Active Directory', icon: 'mdi:microsoft-active-directory', color: 'text-purple-500' },
-		{ name: 'Docker', icon: 'mdi:docker', color: 'text-blue-400' },
-		{ name: 'Networking', icon: 'mdi:network', color: 'text-green-500' },
-		{ name: 'Firewall', icon: 'mdi:shield-check', color: 'text-red-500' },
-		{ name: 'SvelteKit', icon: 'simple-icons:svelte', color: 'text-orange-600' }
+		{ name: 'Proxmox', icon: 'simple-icons:proxmox', color: 'text-secondary-500' },
+		{ name: 'VMware', icon: 'simple-icons:vmware', color: 'text-primary-500' },
+		{ name: 'Hyper-V', icon: 'mdi:microsoft-windows', color: 'text-primary-600' },
+		{
+			name: 'Active Directory',
+			icon: 'mdi:microsoft-active-directory',
+			color: 'text-tertiary-500'
+		},
+		{ name: 'Docker', icon: 'mdi:docker', color: 'text-primary-400' },
+		{ name: 'Networking', icon: 'mdi:network', color: 'text-success-500' },
+		{ name: 'Firewall', icon: 'mdi:shield-check', color: 'text-error-500' },
+		{ name: 'SvelteKit', icon: 'simple-icons:svelte', color: 'text-secondary-600' }
 	];
 
 	const interests = [
-		{ name: 'Penetration Testing', icon: 'mdi:bug', color: 'text-red-600' },
-		{ name: 'Red Teaming', icon: 'mdi:sword-cross', color: 'text-red-500' },
-		{ name: 'Purple Teaming', icon: 'mdi:yin-yang', color: 'text-purple-500' }
+		{ name: 'Penetration Testing', icon: 'mdi:bug', color: 'text-error-600' },
+		{ name: 'Red Teaming', icon: 'mdi:sword-cross', color: 'text-error-500' },
+		{ name: 'Purple Teaming', icon: 'mdi:yin-yang', color: 'text-tertiary-500' }
 	];
 
 	const timeline = [
@@ -32,7 +36,7 @@
 			organization: 'Hogeschool Utrecht',
 			description:
 				'Learning Applied Computer Science with a focus on cybersecurity and cloud stuff. Lots of labs, projects, and figuring things out.',
-			color: 'from-blue-500 to-purple-500'
+			color: 'from-primary-500 to-tertiary-500'
 		},
 		{
 			year: '2022',
@@ -40,7 +44,7 @@
 			organization: 'Self-taught',
 			description:
 				'Built my own lab setup with Proxmox, Docker, and various tools. Breaking things and learning how to fix them.',
-			color: 'from-green-500 to-blue-500'
+			color: 'from-success-500 to-primary-500'
 		},
 		{
 			year: '2021',
@@ -48,7 +52,7 @@
 			organization: 'Self-taught',
 			description:
 				'Started exploring security concepts, networking, and system administration. The rabbit hole began.',
-			color: 'from-purple-500 to-pink-500'
+			color: 'from-tertiary-500 to-secondary-500'
 		}
 	];
 </script>
@@ -93,19 +97,19 @@
 						<div
 							class="flex items-center px-4 py-2 bg-white/60 dark:bg-surface-800/60 backdrop-blur-sm rounded-full border border-surface-200/50 dark:border-surface-700/50"
 						>
-							<Icon icon="mdi:map-marker" class="text-emerald-500 mr-2" />
+							<Icon icon="mdi:map-marker" class="text-success-500 mr-2" />
 							<span class="text-sm font-medium">Netherlands</span>
 						</div>
 						<div
 							class="flex items-center px-4 py-2 bg-white/60 dark:bg-surface-800/60 backdrop-blur-sm rounded-full border border-surface-200/50 dark:border-surface-700/50"
 						>
-							<Icon icon="mdi:school" class="text-blue-500 mr-2" />
+							<Icon icon="mdi:school" class="text-primary-500 mr-2" />
 							<span class="text-sm font-medium">Student</span>
 						</div>
 						<div
 							class="flex items-center px-4 py-2 bg-white/60 dark:bg-surface-800/60 backdrop-blur-sm rounded-full border border-surface-200/50 dark:border-surface-700/50"
 						>
-							<Icon icon="mdi:heart" class="text-purple-500 mr-2" />
+							<Icon icon="mdi:heart" class="text-tertiary-500 mr-2" />
 							<span class="text-sm font-medium">Tech Enthusiast</span>
 						</div>
 					</div>
@@ -303,8 +307,8 @@
 <style>
 	.bg-grid-pattern {
 		background-image:
-			linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
-			linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px);
+			linear-gradient(rgba(var(--color-primary-500) / 0.1) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(var(--color-primary-500) / 0.1) 1px, transparent 1px);
 		background-size: 20px 20px;
 	}
 </style>

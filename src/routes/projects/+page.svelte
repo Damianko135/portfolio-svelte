@@ -231,7 +231,10 @@
 							<div
 								class="w-24 h-24 bg-gradient-to-br from-surface-200 to-surface-300 dark:from-surface-700 dark:to-surface-600 rounded-2xl flex items-center justify-center mx-auto mb-6"
 							>
-								<Icon icon="mdi:folder-open" class="text-4xl text-surface-500 dark:text-surface-400" />
+								<Icon
+									icon="mdi:folder-open"
+									class="text-4xl text-surface-500 dark:text-surface-400"
+								/>
 							</div>
 							<h3 class="text-2xl font-bold text-surface-900 dark:text-surface-50 mb-4">
 								No Projects Found
@@ -319,8 +322,8 @@
 <style>
 	.bg-grid-pattern {
 		background-image:
-			linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
-			linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px);
+			linear-gradient(rgba(var(--color-primary-500) / 0.1) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(var(--color-primary-500) / 0.1) 1px, transparent 1px);
 		background-size: 20px 20px;
 	}
 </style>

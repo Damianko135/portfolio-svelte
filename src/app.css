@@ -17,7 +17,7 @@
 
 /* Ensure icons in flex containers are properly centered */
 .flex .iconify,
-[class*="flex"] .iconify {
+[class*='flex'] .iconify {
 	flex-shrink: 0;
 }
 

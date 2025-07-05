@@ -1,0 +1,8 @@
+# robots.txt for Svelte Portfolio
+
+User-agent: *
+Disallow: /api/
+Disallow: /private/
+Allow: /
+
+Sitemap: /sitemap.xml
