@@ -42,18 +42,20 @@
 	];
 
 	const skills = [
-		{ icon: 'simple-icons:go', name: 'Golang', color: 'text-tertiary-500' },
+		{ icon: 'simple-icons:go', name: 'Golang', color: 'text-primary-500' },
 		{ icon: 'mdi:language-javascript', name: 'JavaScript', color: 'text-warning-500' },
 		{ icon: 'mdi:docker', name: 'Docker', color: 'text-primary-500' },
 		{ icon: 'mdi:linux', name: 'Linux', color: 'text-warning-500' }
 	];
 
-	onMount(() => {
+	$effect(() => {
 		visible = true;
 		setTimeout(() => {
 			heroVisible = true;
+			heroVisible = true;
 		}, 200);
 	});
+
 </script>
 
 <svelte:head>
@@ -72,7 +74,7 @@
 		content="A cybersecurity student who loves tinkering with tech and building cool projects."
 	/>
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://dkorver.com" />
+	<meta property="og:url" content="https://dkorver.nl" />
 </svelte:head>
 
 {#if visible}
@@ -118,9 +120,8 @@
 							class="text-xl md:text-2xl text-surface-600 dark:text-surface-400 max-w-3xl mx-auto leading-relaxed"
 						>
 							I'm a cybersecurity student at Hogeschool Utrecht who loves tinkering with servers,
-							setting up networks, and figuring out how things work (and sometimes how they break).
-							When I'm not studying, you'll find me working on side projects or learning something
-							new.
+							setting up networks, and figuring out how things work and break.
+							You'll find me working on side projects, learning new things, or helping out my fellow students.
 						</p>
 
 						<div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6">
@@ -232,7 +233,7 @@
 						>
 							<Icon icon="simple-icons:svelte" class="text-4xl" />
 						</div>
-						<p class="font-semibold text-surface-900 dark:text-surface-50">SvelteKit</p>
+						<p class="font-semibold text-tertiary-900 dark:text-tertiary-50">SvelteKit</p>
 					</div>
 				</div>
 			</div>

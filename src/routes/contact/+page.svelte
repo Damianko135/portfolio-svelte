@@ -1,13 +1,12 @@
 <script lang="ts">
 	import { fade, fly } from 'svelte/transition';
-	import { onMount } from 'svelte';
 	import { Icon } from '$lib';
 
 	let visible = $state(false);
 	let formSubmitted = $state(false);
 	let isSubmitting = $state(false);
 
-	onMount(() => {
+		$effect(() => {
 		visible = true;
 	});
 
@@ -52,7 +51,7 @@
 		{
 			icon: 'mdi:clock-outline',
 			title: 'Response Time',
-			value: 'Usually within a day',
+			value: 'Usually within a work day',
 			href: null,
 			color: 'from-primary-500 to-primary-600'
 		}
@@ -61,7 +60,7 @@
 	const socialLinks = [
 		{
 			platform: 'LinkedIn',
-			href: 'https://www.linkedin.com/in/damian-korver/',
+			href: 'https://www.linkedin.com/in/dkorver/',
 			icon: 'mdi:linkedin',
 			color: 'hover:bg-primary-600',
 			description: 'Connect with me'
@@ -73,13 +72,13 @@
 			color: 'hover:bg-surface-900',
 			description: 'Check out my code'
 		},
-		{
-			platform: 'Twitter',
-			href: 'https://twitter.com/damianko135',
-			icon: 'mdi:twitter',
-			color: 'hover:bg-tertiary-600',
-			description: 'Follow along'
-		}
+		// {
+		// 	platform: 'Twitter',
+		// 	href: 'https://twitter.com/damianko135',
+		// 	icon: 'mdi:twitter',
+		// 	color: 'hover:bg-tertiary-600',
+		// 	description: 'Follow along'
+		// }
 	];
 </script>
 

@@ -2,7 +2,7 @@
 	{
 		"id": 1,
 		"name": "Portfolio Website",
-		"url": "https://dkorver.com",
+		"url": "https://dkorver.nl",
 		"description": "Personal portfolio website built with SvelteKit and Tailwind CSS",
 		"technologies": [
 			{ "name": "SvelteKit", "icon": "simple-icons:svelte" },
