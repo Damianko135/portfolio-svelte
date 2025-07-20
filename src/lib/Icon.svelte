@@ -13,8 +13,7 @@
 
 <Icon
 	{icon}
-	class="flex-shrink-0 {className}"
+	class={`flex-shrink-0 ${className}${color ? ` ${color}` : ''}`}
 	width={size}
 	height={size}
-	style={color ? `color: ${color}` : undefined}
 />

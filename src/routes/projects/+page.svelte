@@ -57,10 +57,9 @@
 				<div
 					class="absolute top-20 right-20 w-32 h-32 bg-primary-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"
 				></div>
-				<div
-					class="absolute bottom-20 left-20 w-40 h-40 bg-secondary-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"
-					style="animation-delay: 2s;"
-				></div>
+<div
+	class="absolute bottom-20 left-20 w-40 h-40 bg-secondary-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-2s"
+></div>
 			</div>
 
 			<div class="relative container mx-auto max-w-4xl text-center">
@@ -319,11 +318,4 @@
 	</div>
 {/if}
 
-<style>
-	.bg-grid-pattern {
-		background-image:
-			linear-gradient(rgba(var(--color-primary-500) / 0.1) 1px, transparent 1px),
-			linear-gradient(90deg, rgba(var(--color-primary-500) / 0.1) 1px, transparent 1px);
-		background-size: 20px 20px;
-	}
-</style>
+

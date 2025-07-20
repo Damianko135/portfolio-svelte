@@ -83,31 +83,22 @@ async function sendEmail({
 			Message:
 			${message}
 		`,
-		html: `
-			<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-				<h2 style="color: #333; border-bottom: 2px solid #8B5CF6; padding-bottom: 10px;">
-					New Portfolio Contact
-				</h2>
-				
-				<div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
-					<p><strong>Name:</strong> ${name}</p>
-					<p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-				</div>
-				
-				<div style="margin: 20px 0;">
-					<h3 style="color: #333;">Message:</h3>
-					<div style="background-color: #ffffff; padding: 15px; border-left: 4px solid #8B5CF6; border-radius: 4px;">
-						${message.replace(/\n/g, '<br>')}
-					</div>
-				</div>
-				
-				<div style="margin-top: 30px; padding: 15px; background-color: #f0f0f0; border-radius: 4px; text-align: center;">
-					<p style="margin: 0; color: #666; font-size: 14px;">
-						This message was sent via your portfolio contact form.
-					</p>
-				</div>
+	html: `
+		<div class="portfolio-email">
+			<h2>New Portfolio Contact</h2>
+			<div class="portfolio-email-details">
+				<p><strong>Name:</strong> ${name}</p>
+				<p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
 			</div>
-		`
+			<div class="portfolio-email-message">
+				<h3>Message:</h3>
+				<div>${message.replace(/\n/g, '<br>')}</div>
+			</div>
+			<div class="portfolio-email-footer">
+				<p>This message was sent via your portfolio contact form.</p>
+			</div>
+		</div>
+	`
 	};
 
 	await sgMail.send(msg);

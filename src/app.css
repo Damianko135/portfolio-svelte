@@ -1,3 +1,62 @@
+/* Moved from Svelte files */
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(rgba(var(--color-primary-500) / 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--color-primary-500) / 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Animation delay utilities for pulse backgrounds */
+.delay-2s {
+  animation-delay: 2s !important;
+}
+.delay-4s {
+  animation-delay: 4s !important;
+}
+
+/* Portfolio email HTML styles (for emails sent via SendGrid) */
+.portfolio-email {
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.portfolio-email h2 {
+  color: #333;
+  border-bottom: 2px solid #8B5CF6;
+  padding-bottom: 10px;
+}
+.portfolio-email-details {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+.portfolio-email-message h3 {
+  color: #333;
+}
+.portfolio-email-message > div {
+  background-color: #fff;
+  padding: 15px;
+  border-left: 4px solid #8B5CF6;
+  border-radius: 4px;
+}
+.portfolio-email-footer {
+  margin-top: 30px;
+  padding: 15px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  text-align: center;
+}
+.portfolio-email-footer p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Utility for display: contents */
+.display-contents {
+  display: contents;
+}
 @import 'tailwindcss';
 
 @import '@skeletonlabs/skeleton';
@@ -10,31 +69,31 @@
 
 /* Icon alignment fixes */
 .iconify {
-	display: inline-block;
-	vertical-align: middle;
-	line-height: 1;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
 }
 
 /* Ensure icons in flex containers are properly centered */
 .flex .iconify,
 [class*='flex'] .iconify {
-	flex-shrink: 0;
+  flex-shrink: 0;
 }
 
 /* Text size classes for icons */
 .iconify.text-3xl {
-	width: 1.875rem;
-	height: 1.875rem;
+  width: 1.875rem;
+  height: 1.875rem;
 }
 
 .iconify.text-4xl {
-	width: 2.25rem;
-	height: 2.25rem;
+  width: 2.25rem;
+  height: 2.25rem;
 }
 
 .iconify.text-2xl {
-	width: 1.5rem;
-	height: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 

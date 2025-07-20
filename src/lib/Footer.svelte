@@ -136,11 +136,4 @@
 	</div>
 </footer>
 
-<style>
-	.bg-grid-pattern {
-		background-image:
-			linear-gradient(rgba(var(--color-primary-500) / 0.1) 1px, transparent 1px),
-			linear-gradient(90deg, rgba(var(--color-primary-500) / 0.1) 1px, transparent 1px);
-		background-size: 20px 20px;
-	}
-</style>
+

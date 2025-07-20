@@ -86,14 +86,12 @@
 				<div
 					class="absolute -top-40 -right-40 w-80 h-80 bg-primary-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"
 				></div>
-				<div
-					class="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"
-					style="animation-delay: 2s;"
-				></div>
-				<div
-					class="absolute top-40 left-1/3 w-60 h-60 bg-tertiary-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"
-					style="animation-delay: 4s;"
-				></div>
+<div
+	class="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-2s"
+></div>
+<div
+	class="absolute top-40 left-1/3 w-60 h-60 bg-tertiary-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-4s"
+></div>
 			</div>
 
 			<div class="relative z-10 text-center space-y-8 max-w-4xl mx-auto">
