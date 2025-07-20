@@ -1,0 +1,11 @@
+services:
+  sveltekit:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      # Add other env vars here if needed, e.g. SENDGRID_API_KEY
+    volumes:
+      - .:/app
+    restart: unless-stopped

@@ -12,7 +12,7 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
 		"lint": "prettier --check .",
-		"sitemap": "svelte-sitemap --domain ${VIRTUAL_HOST:-https://dkorver.nl} --out-dir build"
+		"sitemap": "svelte-sitemap --domain `${VIRTUAL_HOST:-https://dkorver.nl}` --out-dir build/prerendered"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^6.0.0",
