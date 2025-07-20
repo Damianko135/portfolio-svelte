@@ -68,11 +68,19 @@ COPY --from=build --chown=appuser:appgroup /usr/src/app/svelte.config.js ./svelt
 COPY --from=build --chown=appuser:appgroup /usr/src/app/vite.config.ts ./vite.config.ts
 
 
-# Copy cronjobs file and enable cron
-COPY cronjobs /etc/crontabs/root
-RUN chmod 0644 /etc/crontabs/root
-RUN crontab /etc/crontabs/root
+# Copy cronjobs file and set up cron for appuser
+COPY --from=build --chown=appuser:appgroup /usr/src/app/cronjobs /tmp/cronjobs
+RUN chmod 0644 /tmp/cronjobs
 
+# Switch to non-root user
+USER appuser
+
+# Set up cron for appuser and install the cronjob
+RUN crontab /tmp/cronjobs
+
+# Add health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:3000/ || exit 1
 
 EXPOSE 3000
-CMD sh -c 'crond && su appuser -c "node build"'
+CMD sh -c 'crond && node build'

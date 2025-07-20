@@ -1,1 +1,2 @@
-0 0 * * * cd /usr/src/app && VIRTUAL_HOST=https://dkorver.nl pnpm run sitemap
+# Generate sitemap daily at midnight with proper environment and logging
+0 0 * * * cd /usr/src/app && pnpm run sitemap >> /var/log/sitemap.log 2>&1

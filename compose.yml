@@ -5,7 +5,11 @@ services:
       - "3000:3000"
     environment:
       NODE_ENV: production
-      # Add other env vars here if needed, e.g. SENDGRID_API_KEY
-    volumes:
-      - .:/app
     restart: unless-stopped
+    # Health check configuration
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
