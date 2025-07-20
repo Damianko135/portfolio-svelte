@@ -53,7 +53,7 @@ FROM base AS final
 ENV NODE_ENV=production
 
 # Create non-root user
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup -s /bin/sh
 
 # Set working directory ownership
 RUN chown -R appuser:appgroup /usr/src/app
@@ -73,7 +73,6 @@ COPY cronjobs /etc/crontabs/root
 RUN chmod 0644 /etc/crontabs/root
 RUN crontab /etc/crontabs/root
 
-# Start cron in background when container starts
-USER appuser
+
 EXPOSE 3000
-CMD crond && node build
+CMD sh -c 'crond && su appuser -c "node build"'
