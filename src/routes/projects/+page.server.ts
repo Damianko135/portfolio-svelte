@@ -26,8 +26,8 @@ export async function load() {
 		const urlObj = new URL(project.url);
 		// Import the helper from Playwright if needed, or duplicate logic here
 		let base = '';
-		if (project.screenshot && typeof project.screenshot === 'string') {
-			base = path.basename(project.screenshot).split('?')[0].split('#')[0];
+		if (project.name && typeof project.name === 'string') {
+			base = path.basename(project.name).split('?')[0].split('#')[0];
 		}
 		if (!base || base === '.png') {
 			if (project.name && typeof project.name === 'string') {
