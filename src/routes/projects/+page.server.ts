@@ -1,214 +1,58 @@
-import { firefox } from 'playwright';
-import type { Browser, Page, LaunchOptions } from 'playwright';
+
+import { preloadProjects } from '$lib/Playwright';
+import type { Project } from '$lib/types';
 import path from 'path';
 import fs from 'fs/promises';
 
-import type { Project } from '$lib/types';
+import { error } from '@sveltejs/kit';
 
-/* ------------------------------------------------------------------ */
-/* Types                                                              */
-/* ------------------------------------------------------------------ */
-
-export interface PreloadOptions {
-    outDir?: string;
-    concurrency?: number;
-    viewport?: { width: number; height: number };
-    timeoutMs?: number;
-    fullPage?: boolean;
-    browser?: Browser;
-    launchOptions?: LaunchOptions;
-}
-
-export interface PreloadResult {
-    project: Project;
-    ok: boolean;
-    screenshotPath?: string;
-    error?: unknown;
-}
-
-/* ------------------------------------------------------------------ */
-/* URL Validation & Filename Helpers                                  */
-/* ------------------------------------------------------------------ */
-
-function validateUrl(u: string): URL {
-    let urlObj: URL;
+export async function load() {
+    // Read projects.json
+    let projects: Project[];
     try {
-        urlObj = new URL(u);
-    } catch {
-        throw new Error(`Invalid URL: ${u}`);
-    }
-    const prot = urlObj.protocol;
-    if (prot !== 'http:' && prot !== 'https:') {
-        throw new Error(`Unsupported protocol "${prot}" for URL: ${u}`);
-    }
-    return urlObj;
-}
-
-function safeScreenshotFilename(project: Project, urlObj: URL): string {
-    let base = '';
-
-    if (project.screenshot && typeof project.screenshot === 'string') {
-        base = path.basename(project.screenshot);
-        base = base.split('?')[0].split('#')[0]; // strip query/fragment
+        const jsonPath = path.resolve('static/projects.json');
+        const json = await fs.readFile(jsonPath, 'utf-8');
+        projects = JSON.parse(json);
+    } catch (err) {
+        throw error(500, 'Failed to load projects.json');
     }
 
-    // If no valid screenshot filename, fallback to sanitized project.name
-    if (!base || base === '.png') {
-        if (project.name && typeof project.name === 'string') {
-            base = project.name
-                .toLowerCase()
-                .replace(/[^a-z0-9]+/g, '_') // only alphanum & underscores
-                .replace(/^_+|_+$/g, '');    // trim leading/trailing underscores
-            if (!base) base = 'project';     // fallback name if empty
-            base += '.png';
-        } else {
-            // fallback to URL hostname + path if no project.name
-            const host = urlObj.hostname.replace(/[^a-z0-9.-]/gi, '_');
-            const pth = urlObj.pathname.replace(/[^a-z0-9]/gi, '_').replace(/_+/g, '_');
-            base = `${host}${pth || '_'} .png`.replace(/\s+/g, '');
+    // Check for missing screenshots
+    const screenshotsDir = path.resolve('src/lib/screenshots');
+    await fs.mkdir(screenshotsDir, { recursive: true });
+
+    const missing = [];
+    for (const project of projects) {
+        // Assume screenshot filename logic is in Playwright.ts
+        const urlObj = new URL(project.url);
+        // Import the helper from Playwright if needed, or duplicate logic here
+        let base = '';
+        if (project.screenshot && typeof project.screenshot === 'string') {
+            base = path.basename(project.screenshot).split('?')[0].split('#')[0];
         }
-    }
-
-    return base;
-}
-
-async function dedupePath(p: string): Promise<string> {
-    try {
-        await fs.access(p);
-        const ext = path.extname(p);
-        const stem = p.slice(0, -ext.length);
-        const stamp = new Date().toISOString().replace(/[:.]/g, '-');
-        return `${stem}_${stamp}${ext}`;
-    } catch {
-        return p;
-    }
-}
-
-/* ------------------------------------------------------------------ */
-/* Concurrency Helper                                                 */
-/* ------------------------------------------------------------------ */
-
-async function mapWithConcurrency<T, R>(
-    items: T[],
-    limit: number,
-    worker: (item: T, index: number) => Promise<R>
-): Promise<R[]> {
-    const results: R[] = new Array(items.length);
-    let next = 0;
-
-    const run = async () => {
-        while (true) {
-            const i = next++;
-            if (i >= items.length) return;
-            try {
-                results[i] = await worker(items[i], i);
-            } catch (err) {
-                // @ts-expect-error
-                results[i] = err;
+        if (!base || base === '.png') {
+            if (project.name && typeof project.name === 'string') {
+                base = project.name.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+                if (!base) base = 'project';
+                base += '.png';
+            } else {
+                const host = urlObj.hostname.replace(/[^a-z0-9.-]/gi, '_');
+                const pth = urlObj.pathname.replace(/[^a-z0-9]/gi, '_').replace(/_+/g, '_');
+                base = `${host}${pth || '_'} .png`.replace(/\s+/g, '');
             }
         }
-    };
-
-    const workers = new Array(Math.min(limit, items.length)).fill(null).map(run);
-    await Promise.all(workers);
-    return results;
-}
-
-/* ------------------------------------------------------------------ */
-/* Core Screenshot Worker                                             */
-/* ------------------------------------------------------------------ */
-
-async function screenshotProject(
-    project: Project,
-    browser: Browser,
-    outDir: string,
-    viewport: { width: number; height: number },
-    timeoutMs: number,
-    fullPage: boolean
-): Promise<PreloadResult> {
-    let page: Page | null = null;
-    try {
-        const urlObj = validateUrl(project.url);
-
-        // Create a new browser context with viewport
-        const context = await browser.newContext({ viewport });
-        page = await context.newPage();
-
-        await page.goto(urlObj.href, {
-            timeout: timeoutMs,
-            waitUntil: 'networkidle',
-        });
-
-        const filename = safeScreenshotFilename(project, urlObj);
-        const dest = await dedupePath(path.join(outDir, filename));
-        await page.screenshot({ path: dest as `${string}.png`, fullPage });
-
-        console.log(`✅ Preloaded: ${project.name} (${project.url}) -> ${dest}`);
-
-        await context.close();
-        return { project, ok: true, screenshotPath: dest };
-    } catch (error) {
-        console.error(`❌ Failed to preload ${project.name}:`, error);
-        return { project, ok: false, error };
-    } finally {
-        if (page) {
-            try {
-                await page.close();
-            } catch {
-                /* ignore */
-            }
+        const screenshotPath = path.join(screenshotsDir, base);
+        try {
+            await fs.access(screenshotPath);
+        } catch {
+            missing.push(project);
         }
     }
-}
 
-/* ------------------------------------------------------------------ */
-/* Public API                                                         */
-/* ------------------------------------------------------------------ */
-
-async function preloadProjects(
-    projects: Project[],
-    opts: PreloadOptions = {}
-): Promise<PreloadResult[]> {
-    const {
-        outDir = path.resolve('src/lib/screenshots'),
-        concurrency = 4,
-        viewport = { width: 1920, height: 1080 },
-        timeoutMs = 30_000,
-        fullPage = false,
-        browser: externalBrowser,
-        launchOptions,
-    } = opts;
-
-    await fs.mkdir(outDir, { recursive: true });
-
-    const localBrowser = externalBrowser
-        ? null
-        : await firefox.launch({
-              headless: true,
-              args: [
-                  '--no-sandbox',
-                  '--disable-setuid-sandbox',
-                  '--disable-gpu',
-                  '--disable-dev-shm-usage',
-              ],
-              ...launchOptions,
-          });
-
-    const browser = externalBrowser ?? (localBrowser as Browser);
-
-    try {
-        const results = await mapWithConcurrency(
-            projects,
-            concurrency,
-            (proj) => screenshotProject(proj, browser, outDir, viewport, timeoutMs, fullPage)
-        );
-        return results;
-    } catch (error) {
-        console.error('❌ Error during preloading:', error);
-        return projects.map((p) => ({ project: p, ok: false, error }));
-    } finally {
-        if (!externalBrowser && localBrowser) {
-            await localBrowser.close();
-        }
+    // Preload missing screenshots
+    if (missing.length > 0) {
+        await preloadProjects(missing, { outDir: screenshotsDir });
     }
+
+    return { projects };
 }

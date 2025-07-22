@@ -1,42 +1,14 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
 	import { Icon } from '$lib';
 
-	let projects: Project[] = $state([]);
+const { data } = $props<import('./$types').PageData>();
+let projects = $state(data.projects);
+let visible = $state(false);
 
-	interface Project {
-		id: number;
-		name: string;
-		screenshot?: string;
-		description?: string;
-		url: string;
-		technologies?: {
-			name: string;
-			icon?: string;
-		}[];
-	}
-
-	let visible = $state(false);
-	let projectsLoaded = $state(false);
-
-onMount(async () => {
-    visible = true;
-    try {
-        const res = await fetch('/projects.json');
-        projects = (await res.json()) as Project[];
-        projectsLoaded = true;
-        if (!Array.isArray(projects)) {
-            throw new Error('Invalid data format');
-        }
-        
-    } catch (error) {
-        console.error('Error loading projects:', error);
-        projectsLoaded = true;
-    }
-});
-
-
+	$effect(() => {
+		visible = true;
+	});
 </script>
 
 <svelte:head>
@@ -98,8 +70,7 @@ onMount(async () => {
 		<!-- Projects Grid -->
 		<section class="py-20 px-4">
 			<div class="container mx-auto max-w-7xl">
-				{#if projectsLoaded}
-					{#if projects.length > 0}
+				{#if projects.length > 0}
 						<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 							{#each projects as project, i (project.id)}
 								<article
@@ -135,8 +106,8 @@ onMount(async () => {
 											>
 												<div class="relative overflow-hidden rounded-xl shadow-md">
 													<img
-														src={project.screenshot}
-														alt="{project.name} screenshot"
+														src={project.screenshot?.startsWith('/screenshots/') ? project.screenshot : project.screenshot ? '/screenshots/' + project.screenshot : ''}
+														alt={project.name + ' screenshot'}
 														class="w-full aspect-video object-cover"
 														loading="lazy"
 													/>
@@ -247,34 +218,6 @@ onMount(async () => {
 							</p>
 						</div>
 					{/if}
-				{:else}
-					<!-- Loading State -->
-					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-						<!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-						{#each Array(6) as _, i (i)}
-							<div
-								class="bg-white/60 dark:bg-surface-800/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-surface-200/50 dark:border-surface-700/50 animate-pulse"
-							>
-								<div class="space-y-4">
-									<div class="flex items-center justify-between">
-										<div class="h-6 bg-surface-300 dark:bg-surface-600 rounded w-3/4"></div>
-										<div class="w-10 h-10 bg-surface-300 dark:bg-surface-600 rounded-lg"></div>
-									</div>
-									<div class="aspect-video bg-surface-300 dark:bg-surface-600 rounded-xl"></div>
-									<div class="space-y-2">
-										<div class="h-4 bg-surface-300 dark:bg-surface-600 rounded w-full"></div>
-										<div class="h-4 bg-surface-300 dark:bg-surface-600 rounded w-2/3"></div>
-									</div>
-									<div class="flex gap-2">
-										<div class="h-6 bg-surface-300 dark:bg-surface-600 rounded-full w-16"></div>
-										<div class="h-6 bg-surface-300 dark:bg-surface-600 rounded-full w-20"></div>
-									</div>
-									<div class="h-10 bg-surface-300 dark:bg-surface-600 rounded-xl"></div>
-								</div>
-							</div>
-						{/each}
-					</div>
-				{/if}
 			</div>
 		</section>
 
