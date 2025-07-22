@@ -1,211 +1,81 @@
-import { firefox } from 'playwright';
-import type { Browser, Page, LaunchOptions } from 'playwright';
-import path from 'path';
+import {firefox, launch } from '@cloudflare/playwright';
 import fs from 'fs/promises';
-import type { Project } from './types'; // { name: string; url: string; screenshot: string; ...? }
+import path from 'path';
 
-/* ------------------------------------------------------------------ */
-/* Types                                                              */
-/* ------------------------------------------------------------------ */
-
-export interface PreloadOptions {
-	outDir?: string;
-	concurrency?: number;
-	viewport?: { width: number; height: number };
-	timeoutMs?: number;
-	fullPage?: boolean;
-	browser?: Browser;
-	launchOptions?: LaunchOptions;
-}
-
-export interface PreloadResult {
-	project: Project;
-	ok: boolean;
-	screenshotPath?: string;
-	error?: unknown;
-}
-
-/* ------------------------------------------------------------------ */
-/* URL Validation & Filename Helpers                                  */
-/* ------------------------------------------------------------------ */
-
-function validateUrl(u: string): URL {
-	let urlObj: URL;
-	try {
-		urlObj = new URL(u);
-	} catch {
-		throw new Error(`Invalid URL: ${u}`);
+export async function makeScreenshot(projectName: string) {
+	// Fetch data from projects.json
+	const jsonPath = path.resolve('static/projects.json');
+	const json = await fs.readFile(jsonPath, 'utf-8');
+	const projects = JSON.parse(json);
+	const project = projects.find((p: { name: string }) => p.name === projectName);
+	// Validate project existence and needed fields
+	if (!project) {
+		throw new Error(`Project "${projectName}" not found in projects.json`);
 	}
-	const prot = urlObj.protocol;
-	if (prot !== 'http:' && prot !== 'https:') {
-		throw new Error(`Unsupported protocol "${prot}" for URL: ${u}`);
+	
+	if (!project.url) {
+		throw new Error(`Project "${projectName}" does not have a valid URL`);
 	}
-	return urlObj;
-}
+	// Create save location if not exists
+	const outputDir = path.resolve('src/lib/screenshots');
+	if (!outputDir) {
+		await fs.mkdir(outputDir, { recursive: true });
+	}
 
-function safeScreenshotFilename(project: Project, urlObj: URL): string {
+	// Generate a valid filename
 	let base = '';
-
-	if (project.screenshot && typeof project.screenshot === 'string') {
-		base = path.basename(project.screenshot);
-		base = base.split('?')[0].split('#')[0]; // strip query/fragment
+	if (project.name && typeof project.name === 'string') {
+		base = project.name
+			.toLowerCase()
+			.replace(/[^a-z0-9]+/g, '_')
+			.replace(/^_+|_+$/g, '') + '.png';
+	} else {
+		// Cannot generate filename from name, so return early
+		console.error(`Cannot generate filename for project "${projectName}"`);
+		return;
 	}
 
-	// If no valid screenshot filename, fallback to sanitized project.name
-	if (!base || base === '.png') {
-		if (project.name && typeof project.name === 'string') {
-			base = project.name
-				.toLowerCase()
-				.replace(/[^a-z0-9]+/g, '_') // only alphanum & underscores
-				.replace(/^_+|_+$/g, ''); // trim leading/trailing underscores
-			if (!base) base = 'project'; // fallback name if empty
-			base += '.png';
+	const screenshotPath = path.join(outputDir, base);
+	// Check if screenshot already exists
+	try {
+		await fs.access(screenshotPath);
+		console.log(`Screenshot for "${projectName}" already exists at ${screenshotPath}`);
+		// Check meta data to see if it needs to be refreshed
+		const stat = await fs.stat(screenshotPath);
+		const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
+		const now = Date.now();
+		if (now - stat.mtimeMs < SEVEN_DAYS_MS) {
+			console.log(`Screenshot for "${projectName}" is up-to-date.`);
+			return; // Screenshot is fresh, no need to take a new one
 		} else {
-			// fallback to URL hostname + path if no project.name
-			const host = urlObj.hostname.replace(/[^a-z0-9.-]/gi, '_');
-			const pth = urlObj.pathname.replace(/[^a-z0-9]/gi, '_').replace(/_+/g, '_');
-			base = `${host}${pth || '_'} .png`.replace(/\s+/g, '');
+			console.log(`Screenshot for "${projectName}" is outdated, refreshing...`);
+			generateScreenshot(project.url, screenshotPath);
 		}
+	} catch (err) {
+		// File does not exist, proceed to take a screenshot
+		console.log(`Taking screenshot for "${projectName}"...`);
+		await generateScreenshot(project.url, screenshotPath);
+		console.log(`Screenshot saved to ${screenshotPath}`);
+
 	}
 
-	return base;
+
+	
 }
+	
+async function generateScreenshot(url: string, screenshotPath: string) {
+    // Only pass the browser binding from your environment
+    const browser = await firefox.launch(); // 1 second keep alive
 
-async function dedupePath(p: string): Promise<string> {
-	try {
-		await fs.access(p);
-		const ext = path.extname(p);
-		const stem = p.slice(0, -ext.length);
-		const stamp = new Date().toISOString().replace(/[:.]/g, '-');
-		return `${stem}_${stamp}${ext}`;
-	} catch {
-		return p;
-	}
-}
-
-/* ------------------------------------------------------------------ */
-/* Concurrency Helper                                                 */
-/* ------------------------------------------------------------------ */
-
-async function mapWithConcurrency<T, R>(
-	items: T[],
-	limit: number,
-	worker: (item: T, index: number) => Promise<R>
-): Promise<R[]> {
-	const results: R[] = new Array(items.length);
-	let next = 0;
-
-	const run = async () => {
-		while (true) {
-			const i = next++;
-			if (i >= items.length) return;
-			try {
-				results[i] = await worker(items[i], i);
-			} catch (err) {
-				// @ts-expect-error
-				results[i] = err;
-			}
-		}
-	};
-
-	const workers = new Array(Math.min(limit, items.length)).fill(null).map(run);
-	await Promise.all(workers);
-	return results;
-}
-
-/* ------------------------------------------------------------------ */
-/* Core Screenshot Worker                                             */
-/* ------------------------------------------------------------------ */
-
-async function screenshotProject(
-	project: Project,
-	browser: Browser,
-	outDir: string,
-	viewport: { width: number; height: number },
-	timeoutMs: number,
-	fullPage: boolean
-): Promise<PreloadResult> {
-	let page: Page | null = null;
-	try {
-		const urlObj = validateUrl(project.url);
-
-		// Create a new browser context with viewport
-		const context = await browser.newContext({ viewport });
-		page = await context.newPage();
-
-		await page.goto(urlObj.href, {
-			timeout: timeoutMs,
-			waitUntil: 'networkidle'
-		});
-
-		const filename = safeScreenshotFilename(project, urlObj);
-		const dest = await dedupePath(path.join(outDir, filename));
-		await page.screenshot({ path: dest as `${string}.png`, fullPage });
-
-		console.log(`✅ Preloaded: ${project.name} (${project.url}) -> ${dest}`);
-
-		await context.close();
-		return { project, ok: true, screenshotPath: dest };
-	} catch (error) {
-		console.error(`❌ Failed to preload ${project.name}:`, error);
-		return { project, ok: false, error };
-	} finally {
-		if (page) {
-			try {
-				await page.close();
-			} catch {
-				/* ignore */
-			}
-		}
-	}
-}
-
-/* ------------------------------------------------------------------ */
-/* Public API                                                         */
-/* ------------------------------------------------------------------ */
-
-export async function preloadProjects(
-	projects: Project[],
-	opts: PreloadOptions = {}
-): Promise<PreloadResult[]> {
-	const {
-		outDir = path.resolve('src/lib/screenshots'),
-		concurrency = 4,
-		viewport = { width: 1920, height: 1080 },
-		timeoutMs = 30_000,
-		fullPage = false,
-		browser: externalBrowser,
-		launchOptions
-	} = opts;
-
-	await fs.mkdir(outDir, { recursive: true });
-
-	const localBrowser = externalBrowser
-		? null
-		: await firefox.launch({
-				headless: true,
-				args: [
-					'--no-sandbox',
-					'--disable-setuid-sandbox',
-					'--disable-gpu',
-					'--disable-dev-shm-usage'
-				],
-				...launchOptions
-			});
-
-	const browser = externalBrowser ?? (localBrowser as Browser);
-
-	try {
-		const results = await mapWithConcurrency(projects, concurrency, (proj) =>
-			screenshotProject(proj, browser, outDir, viewport, timeoutMs, fullPage)
-		);
-		return results;
-	} catch (error) {
-		console.error('❌ Error during preloading:', error);
-		return projects.map((p) => ({ project: p, ok: false, error }));
-	} finally {
-		if (!externalBrowser && localBrowser) {
-			await localBrowser.close();
-		}
-	}
+    const page = await browser.newPage();
+    try {
+        await page.goto(url, { waitUntil: 'load' });
+        await page.screenshot({ path: screenshotPath, fullPage: true });
+        console.log(`Screenshot saved to ${screenshotPath}`);
+    } catch (err) {
+        console.error(`Failed to take screenshot for ${url}:`, err);
+    } finally {
+        await page.close();
+        await browser.close();
+    }
 }
