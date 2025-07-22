@@ -6,13 +6,28 @@
 	let projects = $state(data.projects);
 	let visible = $state(false);
 
+	const screenPath = '$libs/creenshots/';
+
 	$effect(() => {
 		visible = true;
 	});
+
+	function getScreenShotUrl(name: string | undefined): string {
+		if (!name) return '';
+		if (name.startsWith('http://') || name.startsWith('https://')) {
+			return name;
+		}
+		// Handle screenshots with spaces in name
+		if (name.includes(' ')) {
+			name = name.replace(/_/g, '%20');
+		}
+
+		return `${screenPath}${name}`;
+	}
 </script>
 
 <svelte:head>
-	<title>Projects - Damian Korver</title>
+	<title>Projects - DK</title>
 	<meta
 		name="description"
 		content="Check out the projects I've been working on - from cybersecurity tools to web apps and everything in between."
@@ -106,11 +121,7 @@
 										>
 											<div class="relative overflow-hidden rounded-xl shadow-md">
 												<img
-													src={project.screenshot?.startsWith('/screenshots/')
-														? project.screenshot
-														: project.screenshot
-															? '/screenshots/' + project.screenshot
-															: ''}
+													src={getScreenShotUrl(project.name + '.png')}
 													alt={project.name + ' screenshot'}
 													class="aspect-video w-full object-cover"
 													loading="lazy"
