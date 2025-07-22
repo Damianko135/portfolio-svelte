@@ -19,7 +19,16 @@
 	},
 	"observability": {
 		"enabled": true
-	}
+	},
+		"browser": {
+		"binding": "MYBROWSER" // Browser Rendering binding
+	},
+	"r2_buckets": [
+		{
+			"binding": "SCREENSHOTS",   // Used in platform.env.SCREENSHOTS
+			"bucket_name": "project-screens"
+		}
+	]
 
 	/**
 	 * Smart Placement

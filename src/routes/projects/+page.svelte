@@ -121,7 +121,7 @@
 										>
 											<div class="relative overflow-hidden rounded-xl shadow-md">
 												<img
-													src={getScreenShotUrl(project.name + '.png')}
+													src={project.screenshot}
 													alt={project.name + ' screenshot'}
 													class="aspect-video w-full object-cover"
 													loading="lazy"
