@@ -9,12 +9,12 @@
 
 	// Arrays for lists with proper typing (these don't need to be reactive)
 	const aboutItems: AboutItem[] = [
-		{ icon: 'mdi:map-marker', 
-		text: 'Netherlands',
-		subText: 'Based in the Netherlands, exploring the world of tech',
-		color: 'text-success-500'
-
-		 },
+		{
+			icon: 'mdi:map-marker',
+			text: 'Netherlands',
+			subText: 'Based in the Netherlands, exploring the world of tech',
+			color: 'text-success-500'
+		},
 
 		{
 			icon: 'mdi:school',
@@ -54,7 +54,6 @@
 			heroVisible = true;
 		}, 200);
 	});
-
 </script>
 
 <svelte:head>
@@ -79,56 +78,56 @@
 {#if visible}
 	<div class="relative overflow-hidden">
 		<!-- Hero Section -->
-		<section class="relative min-h-screen flex items-center justify-center px-4 py-20">
+		<section class="relative flex min-h-screen items-center justify-center px-4 py-20">
 			<!-- Animated Background Elements -->
 			<div class="absolute inset-0 overflow-hidden">
 				<div
-					class="absolute -top-40 -right-40 w-80 h-80 bg-primary-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"
+					class="bg-primary-500 absolute -top-40 -right-40 h-80 w-80 animate-pulse rounded-full opacity-20 mix-blend-multiply blur-xl filter"
 				></div>
-<div
-	class="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-2s"
-></div>
-<div
-	class="absolute top-40 left-1/3 w-60 h-60 bg-tertiary-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-4s"
-></div>
+				<div
+					class="bg-secondary-500 delay-2s absolute -bottom-40 -left-40 h-80 w-80 animate-pulse rounded-full opacity-20 mix-blend-multiply blur-xl filter"
+				></div>
+				<div
+					class="bg-tertiary-500 delay-4s absolute top-40 left-1/3 h-60 w-60 animate-pulse rounded-full opacity-20 mix-blend-multiply blur-xl filter"
+				></div>
 			</div>
 
-			<div class="relative z-10 text-center space-y-8 max-w-4xl mx-auto">
+			<div class="relative z-10 mx-auto max-w-4xl space-y-8 text-center">
 				{#if heroVisible}
 					<div class="space-y-6" in:fly={{ y: 30, duration: 800, delay: 300 }}>
 						<div
-							class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-primary-500/20 to-secondary-500/20 border border-primary-500/30 backdrop-blur-sm"
+							class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 inline-flex items-center rounded-full border bg-gradient-to-r px-4 py-2 backdrop-blur-sm"
 						>
-							<div class="w-2 h-2 bg-success-500 rounded-full animate-pulse mr-3"></div>
-							<span class="text-sm font-medium text-surface-700 dark:text-surface-300"
+							<div class="bg-success-500 mr-3 h-2 w-2 animate-pulse rounded-full"></div>
+							<span class="text-surface-700 dark:text-surface-300 text-sm font-medium"
 								>Open to new projects</span
 							>
 						</div>
 
-						<h1 class="text-5xl md:text-7xl font-bold leading-tight">
-							<span class="block text-surface-900 dark:text-surface-50">Hey there!</span>
+						<h1 class="text-5xl leading-tight font-bold md:text-7xl">
+							<span class="text-surface-900 dark:text-surface-50 block">Hey there!</span>
 							<span
-								class="block bg-gradient-to-r from-primary-600 via-secondary-600 to-tertiary-600 bg-clip-text text-transparent"
+								class="from-primary-600 via-secondary-600 to-tertiary-600 block bg-gradient-to-r bg-clip-text text-transparent"
 							>
 								I'm Damian Korver
 							</span>
 						</h1>
 						<p
-							class="text-xl md:text-2xl text-surface-600 dark:text-surface-400 max-w-3xl mx-auto leading-relaxed"
+							class="text-surface-600 dark:text-surface-400 mx-auto max-w-3xl text-xl leading-relaxed md:text-2xl"
 						>
 							I'm a cybersecurity student at Hogeschool Utrecht who loves tinkering with servers,
-							setting up networks, and figuring out how things work and break.
-							You'll find me working on side projects, learning new things, or helping out my fellow students.
+							setting up networks, and figuring out how things work and break. You'll find me
+							working on side projects, learning new things, or helping out my fellow students.
 						</p>
 
-						<div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6">
+						<div class="flex flex-col items-center justify-center gap-4 pt-6 sm:flex-row">
 							<a
 								href="/projects"
-								class="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-500 to-secondary-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+								class="group from-primary-500 to-secondary-500 inline-flex transform items-center rounded-xl bg-gradient-to-r px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
 							>
 								<span>Check out my projects</span>
 								<svg
-									class="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1"
+									class="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1"
 									fill="none"
 									stroke="currentColor"
 									viewBox="0 0 24 24"
@@ -143,7 +142,7 @@
 							</a>
 							<a
 								href="/contact"
-								class="inline-flex items-center px-8 py-4 border-2 border-primary-500 text-primary-600 dark:text-primary-400 font-semibold rounded-xl hover:bg-primary-500 hover:text-white transition-all duration-300"
+								class="border-primary-500 text-primary-600 dark:text-primary-400 hover:bg-primary-500 inline-flex items-center rounded-xl border-2 px-8 py-4 font-semibold transition-all duration-300 hover:text-white"
 							>
 								Say hello
 							</a>
@@ -154,36 +153,36 @@
 		</section>
 
 		<!-- About Cards -->
-		<section class="py-20 px-4">
+		<section class="px-4 py-20">
 			<div class="container mx-auto max-w-6xl">
-				<div class="text-center mb-16" in:fly={{ y: 30, duration: 600, delay: 100 }}>
-					<h2 class="text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-50 mb-4">
+				<div class="mb-16 text-center" in:fly={{ y: 30, duration: 600, delay: 100 }}>
+					<h2 class="text-surface-900 dark:text-surface-50 mb-4 text-3xl font-bold md:text-4xl">
 						A bit about me
 					</h2>
 					<SectionDivider variant="delayed" />
 				</div>
 
-				<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+				<div class="grid grid-cols-1 gap-8 md:grid-cols-3">
 					{#each aboutItems as item, i (item.text)}
 						<div
-							class="group relative bg-white/50 dark:bg-surface-800/50 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-surface-200/50 dark:border-surface-700/50 hover:shadow-2xl transition-all duration-500 hover:scale-105"
+							class="group dark:bg-surface-800/50 border-surface-200/50 dark:border-surface-700/50 relative rounded-2xl border bg-white/50 p-8 shadow-lg backdrop-blur-sm transition-all duration-500 hover:scale-105 hover:shadow-2xl"
 							in:fly={{ y: 30, duration: 600, delay: 200 + i * 100 }}
 						>
 							<div
-								class="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg opacity-20 group-hover:opacity-40 transition-opacity"
+								class="from-primary-500 to-secondary-500 absolute -top-4 -right-4 h-8 w-8 rounded-lg bg-gradient-to-br opacity-20 transition-opacity group-hover:opacity-40"
 							></div>
-							<div class="text-center space-y-4">
+							<div class="space-y-4 text-center">
 								<div
-									class="w-16 h-16 mx-auto bg-gradient-to-br from-surface-100 to-surface-200 dark:from-surface-700 dark:to-surface-600 rounded-2xl flex items-center justify-center shadow-inner"
+									class="from-surface-100 to-surface-200 dark:from-surface-700 dark:to-surface-600 mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br shadow-inner"
 								>
 									<Icon icon={item.icon} class="text-3xl {item.color}" />
 								</div>
 								<div class="space-y-2">
-									<h3 class="font-bold text-lg text-surface-900 dark:text-surface-50">
+									<h3 class="text-surface-900 dark:text-surface-50 text-lg font-bold">
 										{item.text}
 									</h3>
 									{#if item.subText}
-										<p class="text-sm text-surface-600 dark:text-surface-400">{item.subText}</p>
+										<p class="text-surface-600 dark:text-surface-400 text-sm">{item.subText}</p>
 									{/if}
 								</div>
 							</div>
@@ -195,69 +194,69 @@
 
 		<!-- Tech Stack -->
 		<section
-			class="py-20 px-4 bg-gradient-to-br from-surface-50 to-surface-100 dark:from-surface-900 dark:to-surface-800"
+			class="from-surface-50 to-surface-100 dark:from-surface-900 dark:to-surface-800 bg-gradient-to-br px-4 py-20"
 		>
 			<div class="container mx-auto max-w-6xl">
-				<div class="text-center mb-16">
-					<h3 class="text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-50 mb-4">
+				<div class="mb-16 text-center">
+					<h3 class="text-surface-900 dark:text-surface-50 mb-4 text-3xl font-bold md:text-4xl">
 						What I work with
 					</h3>
 					<SectionDivider variant="on-scroll" />
 				</div>
 
-				<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
+				<div class="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-5">
 					{#each skills as skill, i (skill.name)}
 						<div
-							class="group bg-white/70 dark:bg-surface-800/70 backdrop-blur-sm rounded-xl p-6 text-center shadow-md border border-surface-200/50 dark:border-surface-700/50 hover:shadow-xl transition-all duration-300 hover:scale-110"
+							class="group dark:bg-surface-800/70 border-surface-200/50 dark:border-surface-700/50 rounded-xl border bg-white/70 p-6 text-center shadow-md backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-xl"
 							in:fly={{ y: 30, duration: 600, delay: 100 + i * 100 }}
 						>
 							<div
-								class="text-4xl {skill.color} mb-3 group-hover:scale-110 transition-transform duration-300"
+								class="text-4xl {skill.color} mb-3 transition-transform duration-300 group-hover:scale-110"
 							>
 								<Icon icon={skill.icon} class="text-4xl" />
 							</div>
-							<p class="font-semibold text-surface-900 dark:text-surface-50">{skill.name}</p>
+							<p class="text-surface-900 dark:text-surface-50 font-semibold">{skill.name}</p>
 						</div>
 					{/each}
 
 					<!-- SvelteKit card -->
 					<div
-						class="group bg-white/70 dark:bg-surface-800/70 backdrop-blur-sm rounded-xl p-6 text-center shadow-md border border-surface-200/50 dark:border-surface-700/50 hover:shadow-xl transition-all duration-300 hover:scale-110"
+						class="group dark:bg-surface-800/70 border-surface-200/50 dark:border-surface-700/50 rounded-xl border bg-white/70 p-6 text-center shadow-md backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-xl"
 						in:fly={{ y: 30, duration: 600, delay: 600 }}
 					>
 						<div
-							class="text-4xl text-secondary-500 mb-3 group-hover:scale-110 transition-transform duration-300"
+							class="text-secondary-500 mb-3 text-4xl transition-transform duration-300 group-hover:scale-110"
 						>
 							<Icon icon="simple-icons:svelte" class="text-4xl" />
 						</div>
-						<p class="font-semibold text-tertiary-900 dark:text-tertiary-50">SvelteKit</p>
+						<p class="text-tertiary-900 dark:text-tertiary-50 font-semibold">SvelteKit</p>
 					</div>
 				</div>
 			</div>
 		</section>
 
 		<!-- Interests Section -->
-		<section class="py-20 px-4">
+		<section class="px-4 py-20">
 			<div class="container mx-auto max-w-6xl">
-				<div class="text-center mb-16">
-					<h3 class="text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-50 mb-4">
+				<div class="mb-16 text-center">
+					<h3 class="text-surface-900 dark:text-surface-50 mb-4 text-3xl font-bold md:text-4xl">
 						Things I'm into
 					</h3>
 					<SectionDivider variant="on-scroll" />
 				</div>
 
-				<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+				<div class="grid grid-cols-2 gap-6 md:grid-cols-4">
 					{#each interests as interest, i (interest.text)}
 						<div
-							class="group bg-gradient-to-br from-white/60 to-surface-50/60 dark:from-surface-800/60 dark:to-surface-700/60 backdrop-blur-sm rounded-xl p-6 text-center shadow-md border border-surface-200/50 dark:border-surface-700/50 hover:shadow-xl transition-all duration-300 hover:scale-105"
+							class="group to-surface-50/60 dark:from-surface-800/60 dark:to-surface-700/60 border-surface-200/50 dark:border-surface-700/50 rounded-xl border bg-gradient-to-br from-white/60 p-6 text-center shadow-md backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl"
 							in:fly={{ y: 30, duration: 600, delay: 100 + i * 100 }}
 						>
 							<div
-								class="text-3xl {interest.color} mb-3 group-hover:scale-110 transition-transform duration-300"
+								class="text-3xl {interest.color} mb-3 transition-transform duration-300 group-hover:scale-110"
 							>
 								<Icon icon={interest.icon} class="text-3xl" />
 							</div>
-							<p class="font-semibold text-surface-900 dark:text-surface-50">{interest.text}</p>
+							<p class="text-surface-900 dark:text-surface-50 font-semibold">{interest.text}</p>
 						</div>
 					{/each}
 				</div>
@@ -266,15 +265,15 @@
 
 		<!-- Contact Section -->
 		<section
-			class="py-20 px-4 bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20"
+			class="from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 bg-gradient-to-br px-4 py-20"
 		>
 			<div class="container mx-auto max-w-4xl text-center">
 				<div class="space-y-8">
 					<div>
-						<h3 class="text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-50 mb-4">
+						<h3 class="text-surface-900 dark:text-surface-50 mb-4 text-3xl font-bold md:text-4xl">
 							Want to chat?
 						</h3>
-						<p class="text-lg text-surface-600 dark:text-surface-400 max-w-2xl mx-auto">
+						<p class="text-surface-600 dark:text-surface-400 mx-auto max-w-2xl text-lg">
 							Feel free to reach out if you want to talk about tech, collaborate on something cool,
 							or just say hi. I'm always up for a good conversation.
 						</p>
@@ -283,36 +282,36 @@
 					<div class="flex justify-center space-x-6">
 						<a
 							href="https://www.linkedin.com/in/dkorver/"
-							class="group w-16 h-16 bg-primary-600 hover:bg-primary-700 rounded-2xl flex items-center justify-center shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300"
+							class="group bg-primary-600 hover:bg-primary-700 flex h-16 w-16 transform items-center justify-center rounded-2xl shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-2xl"
 							aria-label="LinkedIn Profile"
 							target="_blank"
 							rel="noopener noreferrer"
 						>
 							<Icon
 								icon="mdi:linkedin"
-								class="text-white text-2xl group-hover:scale-110 transition-transform duration-300"
+								class="text-2xl text-white transition-transform duration-300 group-hover:scale-110"
 							/>
 						</a>
 						<a
 							href="https://github.com/damianko135"
-							class="group w-16 h-16 bg-surface-800 hover:bg-surface-900 rounded-2xl flex items-center justify-center shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300"
+							class="group bg-surface-800 hover:bg-surface-900 flex h-16 w-16 transform items-center justify-center rounded-2xl shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-2xl"
 							aria-label="GitHub Profile"
 							target="_blank"
 							rel="noopener noreferrer"
 						>
 							<Icon
 								icon="mdi:github"
-								class="text-white text-2xl group-hover:scale-110 transition-transform duration-300"
+								class="text-2xl text-white transition-transform duration-300 group-hover:scale-110"
 							/>
 						</a>
 						<a
 							href="mailto:damiankorver@gmail.com"
-							class="group w-16 h-16 bg-error-500 hover:bg-error-600 rounded-2xl flex items-center justify-center shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300"
+							class="group bg-error-500 hover:bg-error-600 flex h-16 w-16 transform items-center justify-center rounded-2xl shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-2xl"
 							aria-label="Email Contact"
 						>
 							<Icon
 								icon="mdi:email"
-								class="text-white text-2xl group-hover:scale-110 transition-transform duration-300"
+								class="text-2xl text-white transition-transform duration-300 group-hover:scale-110"
 							/>
 						</a>
 					</div>

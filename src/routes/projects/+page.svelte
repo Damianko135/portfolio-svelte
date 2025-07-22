@@ -2,9 +2,9 @@
 	import { fade, fly } from 'svelte/transition';
 	import { Icon } from '$lib';
 
-const { data } = $props<import('./$types').PageData>();
-let projects = $state(data.projects);
-let visible = $state(false);
+	const { data } = $props<import('./$types').PageData>();
+	let projects = $state(data.projects);
+	let visible = $state(false);
 
 	$effect(() => {
 		visible = true;
@@ -22,43 +22,43 @@ let visible = $state(false);
 {#if visible}
 	<div class="relative overflow-hidden" transition:fade>
 		<!-- Hero Section -->
-		<section class="relative py-20 px-4">
+		<section class="relative px-4 py-20">
 			<!-- Background Pattern -->
 			<div class="absolute inset-0 opacity-5">
-				<div class="absolute inset-0 bg-grid-pattern"></div>
+				<div class="bg-grid-pattern absolute inset-0"></div>
 			</div>
 
 			<!-- Floating Elements -->
 			<div class="absolute inset-0 overflow-hidden">
 				<div
-					class="absolute top-20 right-20 w-32 h-32 bg-primary-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"
+					class="bg-primary-500 absolute top-20 right-20 h-32 w-32 animate-pulse rounded-full opacity-20 mix-blend-multiply blur-xl filter"
 				></div>
-<div
-	class="absolute bottom-20 left-20 w-40 h-40 bg-secondary-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-2s"
-></div>
+				<div
+					class="bg-secondary-500 delay-2s absolute bottom-20 left-20 h-40 w-40 animate-pulse rounded-full opacity-20 mix-blend-multiply blur-xl filter"
+				></div>
 			</div>
 
 			<div class="relative container mx-auto max-w-4xl text-center">
 				<div class="space-y-8" in:fly={{ y: 30, duration: 800, delay: 200 }}>
 					<div
-						class="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-primary-500/20 to-secondary-500/20 border border-primary-500/30 backdrop-blur-sm"
+						class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 inline-flex items-center rounded-full border bg-gradient-to-r px-6 py-3 backdrop-blur-sm"
 					>
 						<Icon icon="mdi:folder-open" class="text-primary-600 mr-2" />
-						<span class="text-sm font-medium text-surface-700 dark:text-surface-300"
+						<span class="text-surface-700 dark:text-surface-300 text-sm font-medium"
 							>Things I've built</span
 						>
 					</div>
 
-					<h1 class="text-4xl md:text-6xl font-bold">
+					<h1 class="text-4xl font-bold md:text-6xl">
 						<span
-							class="block bg-gradient-to-r from-primary-600 via-secondary-600 to-tertiary-600 bg-clip-text text-transparent"
+							class="from-primary-600 via-secondary-600 to-tertiary-600 block bg-gradient-to-r bg-clip-text text-transparent"
 						>
 							My Projects
 						</span>
 					</h1>
 
 					<p
-						class="text-xl text-surface-600 dark:text-surface-400 max-w-3xl mx-auto leading-relaxed"
+						class="text-surface-600 dark:text-surface-400 mx-auto max-w-3xl text-xl leading-relaxed"
 					>
 						Here's some stuff I've been working on - a mix of security tools, web apps, and
 						experiments. Always learning something new with each one.
@@ -68,179 +68,183 @@ let visible = $state(false);
 		</section>
 
 		<!-- Projects Grid -->
-		<section class="py-20 px-4">
+		<section class="px-4 py-20">
 			<div class="container mx-auto max-w-7xl">
 				{#if projects.length > 0}
-						<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-							{#each projects as project, i (project.id)}
-								<article
-									class="group relative bg-white/60 dark:bg-surface-800/60 backdrop-blur-sm rounded-2xl shadow-lg border border-surface-200/50 dark:border-surface-700/50 hover:shadow-2xl transition-all duration-500 hover:scale-105 overflow-hidden"
-									in:fly={{ y: 30, duration: 600, delay: 100 + i * 100 }}
-								>
-									<!-- Project Header -->
-									<header class="p-6 pb-4">
-										<div class="flex items-start justify-between mb-4">
-											<div class="flex-1">
-												<h2
-													class="text-xl font-bold text-surface-900 dark:text-surface-50 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300"
-												>
-													{project.name}
-												</h2>
-											</div>
-											<div
-												class="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+					<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+						{#each projects as project, i (project.id)}
+							<article
+								class="group dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 relative overflow-hidden rounded-2xl border bg-white/60 shadow-lg backdrop-blur-sm transition-all duration-500 hover:scale-105 hover:shadow-2xl"
+								in:fly={{ y: 30, duration: 600, delay: 100 + i * 100 }}
+							>
+								<!-- Project Header -->
+								<header class="p-6 pb-4">
+									<div class="mb-4 flex items-start justify-between">
+										<div class="flex-1">
+											<h2
+												class="text-surface-900 dark:text-surface-50 group-hover:text-primary-600 dark:group-hover:text-primary-400 text-xl font-bold transition-colors duration-300"
 											>
-												<Icon icon="mdi:code-tags" class="text-white text-sm" />
-											</div>
+												{project.name}
+											</h2>
 										</div>
-									</header>
+										<div
+											class="from-primary-500 to-secondary-500 flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+										>
+											<Icon icon="mdi:code-tags" class="text-sm text-white" />
+										</div>
+									</div>
+								</header>
 
-									<!-- Project Screenshot -->
-									{#if project.screenshot}
-										<div class="px-6 mb-4">
-											<a
-												href={project.url}
-												target="_blank"
-												rel="noopener noreferrer"
-												class="block group-hover:scale-105 transition-transform duration-300"
-											>
-												<div class="relative overflow-hidden rounded-xl shadow-md">
-													<img
-														src={project.screenshot?.startsWith('/screenshots/') ? project.screenshot : project.screenshot ? '/screenshots/' + project.screenshot : ''}
-														alt={project.name + ' screenshot'}
-														class="w-full aspect-video object-cover"
-														loading="lazy"
-													/>
-													<div
-														class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-													></div>
-													<div
-														class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-													>
-														<div
-															class="w-12 h-12 bg-white/90 dark:bg-surface-800/90 rounded-full flex items-center justify-center shadow-lg"
-														>
-															<Icon icon="mdi:open-in-new" class="text-primary-600 text-lg" />
-														</div>
-													</div>
-												</div>
-											</a>
-										</div>
-									{:else}
-										<!-- Placeholder for projects without screenshots -->
-										<div class="px-6 mb-4">
-											<div
-												class="aspect-video bg-gradient-to-br from-primary-500/20 to-secondary-500/20 rounded-xl flex items-center justify-center border border-primary-500/30"
-											>
-												<div class="text-center space-y-2">
-													<Icon icon="mdi:code-tags" class="text-4xl text-primary-500/60" />
-													<p class="text-sm text-surface-600 dark:text-surface-400">
-														Project Preview
-													</p>
-												</div>
-											</div>
-										</div>
-									{/if}
-
-									<!-- Project Description -->
-									{#if project.description}
-										<div class="px-6 mb-4">
-											<p class="text-surface-600 dark:text-surface-400 leading-relaxed">
-												{project.description}
-											</p>
-										</div>
-									{/if}
-
-									<!-- Technologies -->
-									{#if project.technologies && project.technologies.length > 0}
-										<div class="px-6 mb-6">
-											<h3 class="text-sm font-semibold text-surface-700 dark:text-surface-300 mb-3">
-												Technologies:
-											</h3>
-											<div class="flex flex-wrap gap-2">
-												{#each project.technologies as technology (technology.name)}
-													<span
-														class="inline-flex items-center px-3 py-1 bg-gradient-to-r from-primary-500/20 to-secondary-500/20 rounded-full border border-primary-500/30 text-xs font-medium text-surface-700 dark:text-surface-300"
-													>
-														{#if technology.icon}
-															<Icon icon={technology.icon} class="mr-1.5" />
-														{/if}
-														{technology.name}
-													</span>
-												{/each}
-											</div>
-										</div>
-									{/if}
-
-									<!-- Project Footer -->
-									<footer class="p-6 pt-0">
+								<!-- Project Screenshot -->
+								{#if project.screenshot}
+									<div class="mb-4 px-6">
 										<a
 											href={project.url}
 											target="_blank"
 											rel="noopener noreferrer"
-											class="group inline-flex items-center justify-center w-full px-6 py-3 bg-gradient-to-r from-primary-500 to-secondary-500 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+											class="block transition-transform duration-300 group-hover:scale-105"
 										>
-											<span>View Project</span>
-											<svg
-												class="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1"
-												fill="none"
-												stroke="currentColor"
-												viewBox="0 0 24 24"
-											>
-												<path
-													stroke-linecap="round"
-													stroke-linejoin="round"
-													stroke-width="2"
-													d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+											<div class="relative overflow-hidden rounded-xl shadow-md">
+												<img
+													src={project.screenshot?.startsWith('/screenshots/')
+														? project.screenshot
+														: project.screenshot
+															? '/screenshots/' + project.screenshot
+															: ''}
+													alt={project.name + ' screenshot'}
+													class="aspect-video w-full object-cover"
+													loading="lazy"
 												/>
-											</svg>
+												<div
+													class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+												></div>
+												<div
+													class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+												>
+													<div
+														class="dark:bg-surface-800/90 flex h-12 w-12 items-center justify-center rounded-full bg-white/90 shadow-lg"
+													>
+														<Icon icon="mdi:open-in-new" class="text-primary-600 text-lg" />
+													</div>
+												</div>
+											</div>
 										</a>
-									</footer>
-								</article>
-							{/each}
+									</div>
+								{:else}
+									<!-- Placeholder for projects without screenshots -->
+									<div class="mb-4 px-6">
+										<div
+											class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 flex aspect-video items-center justify-center rounded-xl border bg-gradient-to-br"
+										>
+											<div class="space-y-2 text-center">
+												<Icon icon="mdi:code-tags" class="text-primary-500/60 text-4xl" />
+												<p class="text-surface-600 dark:text-surface-400 text-sm">
+													Project Preview
+												</p>
+											</div>
+										</div>
+									</div>
+								{/if}
+
+								<!-- Project Description -->
+								{#if project.description}
+									<div class="mb-4 px-6">
+										<p class="text-surface-600 dark:text-surface-400 leading-relaxed">
+											{project.description}
+										</p>
+									</div>
+								{/if}
+
+								<!-- Technologies -->
+								{#if project.technologies && project.technologies.length > 0}
+									<div class="mb-6 px-6">
+										<h3 class="text-surface-700 dark:text-surface-300 mb-3 text-sm font-semibold">
+											Technologies:
+										</h3>
+										<div class="flex flex-wrap gap-2">
+											{#each project.technologies as technology (technology.name)}
+												<span
+													class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 text-surface-700 dark:text-surface-300 inline-flex items-center rounded-full border bg-gradient-to-r px-3 py-1 text-xs font-medium"
+												>
+													{#if technology.icon}
+														<Icon icon={technology.icon} class="mr-1.5" />
+													{/if}
+													{technology.name}
+												</span>
+											{/each}
+										</div>
+									</div>
+								{/if}
+
+								<!-- Project Footer -->
+								<footer class="p-6 pt-0">
+									<a
+										href={project.url}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="group from-primary-500 to-secondary-500 inline-flex w-full transform items-center justify-center rounded-xl bg-gradient-to-r px-6 py-3 font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg"
+									>
+										<span>View Project</span>
+										<svg
+											class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1"
+											fill="none"
+											stroke="currentColor"
+											viewBox="0 0 24 24"
+										>
+											<path
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												stroke-width="2"
+												d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+											/>
+										</svg>
+									</a>
+								</footer>
+							</article>
+						{/each}
+					</div>
+				{:else}
+					<!-- Empty State -->
+					<div class="py-20 text-center">
+						<div
+							class="from-surface-200 to-surface-300 dark:from-surface-700 dark:to-surface-600 mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-2xl bg-gradient-to-br"
+						>
+							<Icon
+								icon="mdi:folder-open"
+								class="text-surface-500 dark:text-surface-400 text-4xl"
+							/>
 						</div>
-					{:else}
-						<!-- Empty State -->
-						<div class="text-center py-20">
-							<div
-								class="w-24 h-24 bg-gradient-to-br from-surface-200 to-surface-300 dark:from-surface-700 dark:to-surface-600 rounded-2xl flex items-center justify-center mx-auto mb-6"
-							>
-								<Icon
-									icon="mdi:folder-open"
-									class="text-4xl text-surface-500 dark:text-surface-400"
-								/>
-							</div>
-							<h3 class="text-2xl font-bold text-surface-900 dark:text-surface-50 mb-4">
-								No Projects Found
-							</h3>
-							<p class="text-surface-600 dark:text-surface-400 max-w-md mx-auto">
-								Projects are currently being updated. Check back soon for new and exciting work!
-							</p>
-						</div>
-					{/if}
+						<h3 class="text-surface-900 dark:text-surface-50 mb-4 text-2xl font-bold">
+							No Projects Found
+						</h3>
+						<p class="text-surface-600 dark:text-surface-400 mx-auto max-w-md">
+							Projects are currently being updated. Check back soon for new and exciting work!
+						</p>
+					</div>
+				{/if}
 			</div>
 		</section>
 
 		<!-- Call to Action -->
 		<section
-			class="py-20 px-4 bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20"
+			class="from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 bg-gradient-to-br px-4 py-20"
 		>
 			<div class="container mx-auto max-w-4xl text-center">
 				<div class="space-y-8">
-					<h3 class="text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-50">
+					<h3 class="text-surface-900 dark:text-surface-50 text-3xl font-bold md:text-4xl">
 						Interested in Working Together?
 					</h3>
-					<p class="text-lg text-surface-600 dark:text-surface-400 max-w-2xl mx-auto">
+					<p class="text-surface-600 dark:text-surface-400 mx-auto max-w-2xl text-lg">
 						I'm always open to new opportunities and exciting projects. Let's connect and discuss
 						how we can create something amazing together.
 					</p>
-					<div class="flex flex-col sm:flex-row gap-4 justify-center">
+					<div class="flex flex-col justify-center gap-4 sm:flex-row">
 						<a
 							href="/contact"
-							class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-500 to-secondary-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+							class="from-primary-500 to-secondary-500 inline-flex transform items-center rounded-xl bg-gradient-to-r px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
 						>
 							<span>Get In Touch</span>
-							<svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path
 									stroke-linecap="round"
 									stroke-linejoin="round"
@@ -253,7 +257,7 @@ let visible = $state(false);
 							href="https://github.com/damianko135"
 							target="_blank"
 							rel="noopener noreferrer"
-							class="inline-flex items-center px-8 py-4 border-2 border-primary-500 text-primary-600 dark:text-primary-400 font-semibold rounded-xl hover:bg-primary-500 hover:text-white transition-all duration-300"
+							class="border-primary-500 text-primary-600 dark:text-primary-400 hover:bg-primary-500 inline-flex items-center rounded-xl border-2 px-8 py-4 font-semibold transition-all duration-300 hover:text-white"
 						>
 							<span>View GitHub</span>
 							<Icon icon="mdi:github" class="ml-2" />
@@ -264,5 +268,3 @@ let visible = $state(false);
 		</section>
 	</div>
 {/if}
-
-

@@ -90,26 +90,26 @@
 {#if visible}
 	<div class="relative overflow-hidden" transition:fade>
 		<!-- Hero Section -->
-		<section class="relative py-20 px-4">
+		<section class="relative px-4 py-20">
 			<!-- Background Pattern -->
 			<div class="absolute inset-0 opacity-5">
-				<div class="absolute inset-0 bg-grid-pattern"></div>
+				<div class="bg-grid-pattern absolute inset-0"></div>
 			</div>
 
 			<div class="relative container mx-auto max-w-4xl text-center">
 				<div class="space-y-8" in:fly={{ y: 30, duration: 800, delay: 200 }}>
 					<div
-						class="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-primary-500/20 to-secondary-500/20 border border-primary-500/30 backdrop-blur-sm"
+						class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 inline-flex items-center rounded-full border bg-gradient-to-r px-6 py-3 backdrop-blur-sm"
 					>
-						<span class="text-sm font-medium text-surface-700 dark:text-surface-300"
+						<span class="text-surface-700 dark:text-surface-300 text-sm font-medium"
 							>Here's my story</span
 						>
 					</div>
 
-					<h1 class="text-4xl md:text-6xl font-bold">
-						<span class="block text-surface-900 dark:text-surface-50">Hello!</span>
+					<h1 class="text-4xl font-bold md:text-6xl">
+						<span class="text-surface-900 dark:text-surface-50 block">Hello!</span>
 						<span
-							class="block bg-gradient-to-r from-primary-600 via-secondary-600 to-tertiary-600 bg-clip-text text-transparent"
+							class="from-primary-600 via-secondary-600 to-tertiary-600 block bg-gradient-to-r bg-clip-text text-transparent"
 						>
 							I'm Damian Korver
 						</span>
@@ -117,19 +117,19 @@
 
 					<div class="flex flex-wrap justify-center gap-4 pt-4">
 						<div
-							class="flex items-center px-4 py-2 bg-white/60 dark:bg-surface-800/60 backdrop-blur-sm rounded-full border border-surface-200/50 dark:border-surface-700/50"
+							class="dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 flex items-center rounded-full border bg-white/60 px-4 py-2 backdrop-blur-sm"
 						>
 							<Icon icon="mdi:map-marker" class="text-success-500 mr-2" />
 							<span class="text-sm font-medium">Netherlands</span>
 						</div>
 						<div
-							class="flex items-center px-4 py-2 bg-white/60 dark:bg-surface-800/60 backdrop-blur-sm rounded-full border border-surface-200/50 dark:border-surface-700/50"
+							class="dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 flex items-center rounded-full border bg-white/60 px-4 py-2 backdrop-blur-sm"
 						>
 							<Icon icon="mdi:school" class="text-primary-500 mr-2" />
 							<span class="text-sm font-medium">Student</span>
 						</div>
 						<div
-							class="flex items-center px-4 py-2 bg-white/60 dark:bg-surface-800/60 backdrop-blur-sm rounded-full border border-surface-200/50 dark:border-surface-700/50"
+							class="dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 flex items-center rounded-full border bg-white/60 px-4 py-2 backdrop-blur-sm"
 						>
 							<Icon icon="mdi:heart" class="text-tertiary-500 mr-2" />
 							<span class="text-sm font-medium">Tech Enthusiast</span>
@@ -141,18 +141,18 @@
 
 		<!-- About Story -->
 		<section
-			class="py-20 px-4 bg-gradient-to-br from-surface-50 to-surface-100 dark:from-surface-900 dark:to-surface-800"
+			class="from-surface-50 to-surface-100 dark:from-surface-900 dark:to-surface-800 bg-gradient-to-br px-4 py-20"
 		>
 			<div class="container mx-auto max-w-4xl">
-				<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+				<div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
 					<div class="space-y-6" in:fly={{ x: -30, duration: 600, delay: 300 }}>
-						<h2 class="text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-50">
+						<h2 class="text-surface-900 dark:text-surface-50 text-3xl font-bold md:text-4xl">
 							How I got here
 						</h2>
 						<div
-							class="w-16 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full"
+							class="from-primary-500 to-secondary-500 h-1 w-16 rounded-full bg-gradient-to-r"
 						></div>
-						<div class="space-y-4 text-lg text-surface-600 dark:text-surface-400 leading-relaxed">
+						<div class="text-surface-600 dark:text-surface-400 space-y-4 text-lg leading-relaxed">
 							<p>
 								I love learning about tech, especially when it comes to keeping things secure and
 								making them work in the cloud. Right now I'm studying cybersecurity at Hogeschool
@@ -172,10 +172,10 @@
 
 					<div class="relative" in:fly={{ x: 30, duration: 600, delay: 400 }}>
 						<div
-							class="relative bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl p-8 text-white shadow-2xl"
+							class="from-primary-500 to-secondary-500 relative rounded-2xl bg-gradient-to-br p-8 text-white shadow-2xl"
 						>
-							<div class="absolute -top-4 -right-4 w-24 h-24 bg-white/10 rounded-full"></div>
-							<div class="absolute -bottom-4 -left-4 w-16 h-16 bg-white/10 rounded-full"></div>
+							<div class="absolute -top-4 -right-4 h-24 w-24 rounded-full bg-white/10"></div>
+							<div class="absolute -bottom-4 -left-4 h-16 w-16 rounded-full bg-white/10"></div>
 							<div class="relative space-y-4">
 								<h3 class="text-2xl font-bold">Current Focus</h3>
 								<ul class="space-y-3">
@@ -204,10 +204,10 @@
 		</section>
 
 		<!-- Timeline -->
-		<section class="py-20 px-4">
+		<section class="px-4 py-20">
 			<div class="container mx-auto max-w-4xl">
-				<div class="text-center mb-16">
-					<h3 class="text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-50 mb-4">
+				<div class="mb-16 text-center">
+					<h3 class="text-surface-900 dark:text-surface-50 mb-4 text-3xl font-bold md:text-4xl">
 						My Timeline
 					</h3>
 					<SectionDivider variant="delayed" />
@@ -216,7 +216,7 @@
 				<div class="relative">
 					<!-- Timeline Line -->
 					<div
-						class="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-500 to-secondary-500 transform md:-translate-x-1/2"
+						class="from-primary-500 to-secondary-500 absolute top-0 bottom-0 left-4 w-0.5 transform bg-gradient-to-b md:left-1/2 md:-translate-x-1/2"
 					></div>
 
 					<div class="space-y-12">
@@ -229,16 +229,16 @@
 							>
 								<!-- Timeline Dot -->
 								<div
-									class="absolute left-4 md:left-1/2 w-4 h-4 bg-gradient-to-r {item.color} rounded-full transform -translate-x-1/2 z-10 shadow-lg"
+									class="absolute left-4 h-4 w-4 bg-gradient-to-r md:left-1/2 {item.color} z-10 -translate-x-1/2 transform rounded-full shadow-lg"
 								></div>
 
 								<!-- Content -->
 								<div class="ml-12 md:ml-0 md:w-1/2 {i % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}">
 									<div
-										class="bg-white/60 dark:bg-surface-800/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-surface-200/50 dark:border-surface-700/50 hover:shadow-xl transition-all duration-300"
+										class="dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 rounded-2xl border bg-white/60 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl"
 									>
 										<div class="space-y-3">
-											<div class="text-sm font-medium text-primary-600 dark:text-primary-400">
+											<div class="text-primary-600 dark:text-primary-400 text-sm font-medium">
 												{(() => {
 													const currentYear = getCurrentTime();
 													if (item.endYear === null) {
@@ -256,10 +256,10 @@
 													}
 												})()}
 											</div>
-											<h4 class="text-xl font-bold text-surface-900 dark:text-surface-50">
+											<h4 class="text-surface-900 dark:text-surface-50 text-xl font-bold">
 												{item.title}
 											</h4>
-											<div class="text-sm font-medium text-secondary-600 dark:text-secondary-400">
+											<div class="text-secondary-600 dark:text-secondary-400 text-sm font-medium">
 												{item.organization}
 											</div>
 											<p class="text-surface-600 dark:text-surface-400">{item.description}</p>
@@ -275,28 +275,28 @@
 
 		<!-- Skills Section -->
 		<section
-			class="py-20 px-4 bg-gradient-to-br from-surface-50 to-surface-100 dark:from-surface-900 dark:to-surface-800"
+			class="from-surface-50 to-surface-100 dark:from-surface-900 dark:to-surface-800 bg-gradient-to-br px-4 py-20"
 		>
 			<div class="container mx-auto max-w-6xl">
-				<div class="text-center mb-16">
-					<h3 class="text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-50 mb-4">
+				<div class="mb-16 text-center">
+					<h3 class="text-surface-900 dark:text-surface-50 mb-4 text-3xl font-bold md:text-4xl">
 						What I know
 					</h3>
 					<SectionDivider variant="on-scroll" />
 				</div>
 
-				<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+				<div class="grid grid-cols-2 gap-6 md:grid-cols-4">
 					{#each skills as skill, i (skill.name)}
 						<div
-							class="group bg-white/70 dark:bg-surface-800/70 backdrop-blur-sm rounded-xl p-6 text-center shadow-md border border-surface-200/50 dark:border-surface-700/50 hover:shadow-xl transition-all duration-300 hover:scale-105"
+							class="group dark:bg-surface-800/70 border-surface-200/50 dark:border-surface-700/50 rounded-xl border bg-white/70 p-6 text-center shadow-md backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl"
 							in:fly={{ y: 30, duration: 600, delay: 100 + i * 50 }}
 						>
 							<div
-								class="text-4xl {skill.color} mb-3 group-hover:scale-110 transition-transform duration-300"
+								class="text-4xl {skill.color} mb-3 transition-transform duration-300 group-hover:scale-110"
 							>
 								<Icon icon={skill.icon} class="text-4xl" />
 							</div>
-							<p class="font-semibold text-surface-900 dark:text-surface-50">{skill.name}</p>
+							<p class="text-surface-900 dark:text-surface-50 font-semibold">{skill.name}</p>
 						</div>
 					{/each}
 				</div>
@@ -304,27 +304,27 @@
 		</section>
 
 		<!-- Interests Section -->
-		<section class="py-20 px-4">
+		<section class="px-4 py-20">
 			<div class="container mx-auto max-w-4xl">
-				<div class="text-center mb-16">
-					<h3 class="text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-50 mb-4">
+				<div class="mb-16 text-center">
+					<h3 class="text-surface-900 dark:text-surface-50 mb-4 text-3xl font-bold md:text-4xl">
 						What gets me excited
 					</h3>
 					<SectionDivider variant="on-scroll" />
 				</div>
 
-				<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+				<div class="grid grid-cols-1 gap-8 md:grid-cols-3">
 					{#each interests as interest, i (interest.name)}
 						<div
-							class="group bg-gradient-to-br from-white/60 to-surface-50/60 dark:from-surface-800/60 dark:to-surface-700/60 backdrop-blur-sm rounded-2xl p-8 text-center shadow-lg border border-surface-200/50 dark:border-surface-700/50 hover:shadow-2xl transition-all duration-300 hover:scale-105"
+							class="group to-surface-50/60 dark:from-surface-800/60 dark:to-surface-700/60 border-surface-200/50 dark:border-surface-700/50 rounded-2xl border bg-gradient-to-br from-white/60 p-8 text-center shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-2xl"
 							in:fly={{ y: 30, duration: 600, delay: 200 + i * 100 }}
 						>
 							<div
-								class="text-5xl {interest.color} mb-4 group-hover:scale-110 transition-transform duration-300"
+								class="text-5xl {interest.color} mb-4 transition-transform duration-300 group-hover:scale-110"
 							>
 								<Icon icon={interest.icon} class="text-5xl" />
 							</div>
-							<h4 class="text-lg font-bold text-surface-900 dark:text-surface-50">
+							<h4 class="text-surface-900 dark:text-surface-50 text-lg font-bold">
 								{interest.name}
 							</h4>
 						</div>
@@ -334,5 +334,3 @@
 		</section>
 	</div>
 {/if}
-
-

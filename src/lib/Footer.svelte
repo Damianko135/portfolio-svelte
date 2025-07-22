@@ -4,22 +4,22 @@
 </script>
 
 <footer
-	class="relative bg-gradient-to-r from-surface-900 via-surface-800 to-surface-900 text-surface-50 overflow-hidden"
+	class="from-surface-900 via-surface-800 to-surface-900 text-surface-50 relative overflow-hidden bg-gradient-to-r"
 >
 	<!-- Background Pattern -->
 	<div class="absolute inset-0 opacity-5">
-		<div class="absolute inset-0 bg-grid-pattern"></div>
+		<div class="bg-grid-pattern absolute inset-0"></div>
 	</div>
 
 	<div class="relative container mx-auto px-4 py-12">
-		<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+		<div class="grid grid-cols-1 gap-8 md:grid-cols-4">
 			<!-- Brand Section -->
-			<div class="md:col-span-2 space-y-4">
+			<div class="space-y-4 md:col-span-2">
 				<div class="flex items-center space-x-3">
 					<div
-						class="w-12 h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center"
+						class="from-primary-500 to-secondary-500 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br"
 					>
-						<span class="text-white font-bold text-xl">DK</span>
+						<span class="text-xl font-bold text-white">DK</span>
 					</div>
 					<div>
 						<h3 class="text-xl font-bold">Damian Korver</h3>
@@ -34,7 +34,7 @@
 
 			<!-- Quick Links -->
 			<div class="space-y-4">
-				<h4 class="text-lg font-semibold text-primary-400">Quick Links</h4>
+				<h4 class="text-primary-400 text-lg font-semibold">Quick Links</h4>
 				<nav>
 					<ul class="space-y-2">
 						<li>
@@ -71,42 +71,42 @@
 
 			<!-- Connect Section -->
 			<div class="space-y-4">
-				<h4 class="text-lg font-semibold text-primary-400">Connect</h4>
+				<h4 class="text-primary-400 text-lg font-semibold">Connect</h4>
 				<div class="flex space-x-3">
 					<a
 						href="https://www.linkedin.com/in/dkorver/"
-						class="group w-10 h-10 bg-surface-700 hover:bg-primary-600 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
+						class="group bg-surface-700 hover:bg-primary-600 flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-300 hover:scale-110 hover:shadow-lg"
 						aria-label="Damian Korver on LinkedIn"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
 						<Icon
 							icon="mdi:linkedin"
-							class="text-surface-300 group-hover:text-white transition-colors duration-300"
+							class="text-surface-300 transition-colors duration-300 group-hover:text-white"
 						/>
 					</a>
 					<a
 						href="https://github.com/damianko135"
-						class="group w-10 h-10 bg-surface-700 hover:bg-surface-900 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
+						class="group bg-surface-700 hover:bg-surface-900 flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-300 hover:scale-110 hover:shadow-lg"
 						aria-label="Damian Korver on GitHub"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
 						<Icon
 							icon="mdi:github"
-							class="text-surface-300 group-hover:text-white transition-colors duration-300"
+							class="text-surface-300 transition-colors duration-300 group-hover:text-white"
 						/>
 					</a>
 					<a
 						href="https://twitter.com/damianko135"
-						class="group w-10 h-10 bg-surface-700 hover:bg-tertiary-600 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
+						class="group bg-surface-700 hover:bg-tertiary-600 flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-300 hover:scale-110 hover:shadow-lg"
 						aria-label="Damian Korver on Twitter"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
 						<Icon
 							icon="mdi:twitter"
-							class="text-surface-300 group-hover:text-white transition-colors duration-300"
+							class="text-surface-300 transition-colors duration-300 group-hover:text-white"
 						/>
 					</a>
 				</div>
@@ -115,25 +115,23 @@
 
 		<!-- Bottom Section -->
 		<div
-			class="mt-12 pt-8 border-t border-surface-700 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0"
+			class="border-surface-700 mt-12 flex flex-col items-center justify-between space-y-4 border-t pt-8 md:flex-row md:space-y-0"
 		>
 			<p class="text-surface-400 text-sm">
 				&copy; {currentYear} Damian Korver. All rights reserved.
 			</p>
-			<div class="flex items-center space-x-4 text-surface-400 text-sm">
+			<div class="text-surface-400 flex items-center space-x-4 text-sm">
 				<span>Built with</span>
 				<div class="flex items-center space-x-2">
-					<Icon icon="simple-icons:svelte" class="w-4 h-4 text-secondary-500" />
+					<Icon icon="simple-icons:svelte" class="text-secondary-500 h-4 w-4" />
 					<span>SvelteKit</span>
 				</div>
 				<span>&</span>
 				<div class="flex items-center space-x-2">
-					<Icon icon="simple-icons:tailwindcss" class="w-4 h-4 text-primary-500" />
+					<Icon icon="simple-icons:tailwindcss" class="text-primary-500 h-4 w-4" />
 					<span>Tailwind CSS</span>
 				</div>
 			</div>
 		</div>
 	</div>
 </footer>
-
-

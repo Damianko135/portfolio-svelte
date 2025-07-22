@@ -31,7 +31,7 @@
 
 <header
 	class="sticky top-0 z-50 transition-all duration-300 {isScrolled
-		? 'bg-surface-50/95 dark:bg-surface-900/95 backdrop-blur-md shadow-lg'
+		? 'bg-surface-50/95 dark:bg-surface-900/95 shadow-lg backdrop-blur-md'
 		: 'bg-transparent'}"
 >
 	<div class="container mx-auto px-4">
@@ -39,26 +39,26 @@
 			<!-- Logo -->
 			<div class="flex items-center space-x-2">
 				<div
-					class="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center"
+					class="from-primary-500 to-secondary-500 flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br"
 				>
-					<span class="text-white font-bold text-lg">DK</span>
+					<span class="text-lg font-bold text-white">DK</span>
 				</div>
 				<h1
-					class="text-xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent"
+					class="from-primary-600 to-secondary-600 bg-gradient-to-r bg-clip-text text-xl font-bold text-transparent"
 				>
 					Damian Korver
 				</h1>
 			</div>
 
 			<!-- Desktop Navigation -->
-			<div class="hidden md:flex items-center space-x-6">
+			<div class="hidden items-center space-x-6 md:flex">
 				<nav aria-label="Main navigation">
 					<ul class="flex space-x-1">
 						{#each links as link (link.url)}
 							<li>
 								<a
-									class="px-4 py-2 rounded-lg transition-all duration-200 {link.url === currentPath
-										? 'bg-gradient-to-r from-primary-500 to-secondary-500 text-white shadow-md'
+									class="rounded-lg px-4 py-2 transition-all duration-200 {link.url === currentPath
+										? 'from-primary-500 to-secondary-500 bg-gradient-to-r text-white shadow-md'
 										: 'hover:bg-surface-200 dark:hover:bg-surface-700 text-surface-700 dark:text-surface-300'}"
 									href={link.url}
 									aria-current={link.url === currentPath ? 'page' : undefined}
@@ -74,17 +74,17 @@
 			</div>
 
 			<!-- Mobile Menu Button -->
-			<div class="md:hidden flex items-center space-x-2">
+			<div class="flex items-center space-x-2 md:hidden">
 				<ThemeToggle />
 				<button
-					class="p-2 rounded-lg hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors duration-200"
+					class="hover:bg-surface-200 dark:hover:bg-surface-700 rounded-lg p-2 transition-colors duration-200"
 					onclick={toggleMobileMenu}
 					aria-label="Toggle mobile menu"
 				>
 					{#if mobileMenuOpen}
-						<Icon icon="mdi:close" class="w-6 h-6" />
+						<Icon icon="mdi:close" class="h-6 w-6" />
 					{:else}
-						<Icon icon="mdi:menu" class="w-6 h-6" />
+						<Icon icon="mdi:menu" class="h-6 w-6" />
 					{/if}
 				</button>
 			</div>
@@ -92,15 +92,15 @@
 
 		<!-- Mobile Menu -->
 		{#if mobileMenuOpen}
-			<div class="md:hidden pb-4 border-t border-surface-300 dark:border-surface-600 mt-4 pt-4">
+			<div class="border-surface-300 dark:border-surface-600 mt-4 border-t pt-4 pb-4 md:hidden">
 				<nav aria-label="Mobile navigation">
 					<ul class="space-y-2">
 						{#each links as link (link.url)}
 							<li>
 								<a
-									class="block px-4 py-3 rounded-lg transition-all duration-200 {link.url ===
+									class="block rounded-lg px-4 py-3 transition-all duration-200 {link.url ===
 									currentPath
-										? 'bg-gradient-to-r from-primary-500 to-secondary-500 text-white shadow-md'
+										? 'from-primary-500 to-secondary-500 bg-gradient-to-r text-white shadow-md'
 										: 'hover:bg-surface-200 dark:hover:bg-surface-700 text-surface-700 dark:text-surface-300'}"
 									href={link.url}
 									onclick={() => (mobileMenuOpen = false)}

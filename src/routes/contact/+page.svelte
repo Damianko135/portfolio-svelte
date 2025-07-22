@@ -6,7 +6,7 @@
 	let formSubmitted = $state(false);
 	let isSubmitting = $state(false);
 
-		$effect(() => {
+	$effect(() => {
 		visible = true;
 	});
 
@@ -71,7 +71,7 @@
 			icon: 'mdi:github',
 			color: 'hover:bg-surface-900',
 			description: 'Check out my code'
-		},
+		}
 		// {
 		// 	platform: 'Twitter',
 		// 	href: 'https://twitter.com/damianko135',
@@ -93,43 +93,43 @@
 {#if visible}
 	<div class="relative overflow-hidden" transition:fade>
 		<!-- Hero Section -->
-		<section class="relative py-20 px-4">
+		<section class="relative px-4 py-20">
 			<!-- Background Pattern -->
 			<div class="absolute inset-0 opacity-5">
-				<div class="absolute inset-0 bg-grid-pattern"></div>
+				<div class="bg-grid-pattern absolute inset-0"></div>
 			</div>
 
 			<!-- Floating Elements -->
 			<div class="absolute inset-0 overflow-hidden">
 				<div
-					class="absolute top-20 right-20 w-32 h-32 bg-primary-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"
+					class="bg-primary-500 absolute top-20 right-20 h-32 w-32 animate-pulse rounded-full opacity-20 mix-blend-multiply blur-xl filter"
 				></div>
-<div
-	class="absolute bottom-20 left-20 w-40 h-40 bg-secondary-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-2s"
-></div>
+				<div
+					class="bg-secondary-500 delay-2s absolute bottom-20 left-20 h-40 w-40 animate-pulse rounded-full opacity-20 mix-blend-multiply blur-xl filter"
+				></div>
 			</div>
 
 			<div class="relative container mx-auto max-w-4xl text-center">
 				<div class="space-y-8" in:fly={{ y: 30, duration: 800, delay: 200 }}>
 					<div
-						class="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-primary-500/20 to-secondary-500/20 border border-primary-500/30 backdrop-blur-sm"
+						class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 inline-flex items-center rounded-full border bg-gradient-to-r px-6 py-3 backdrop-blur-sm"
 					>
 						<Icon icon="mdi:send" class="text-primary-600 mr-2" />
-						<span class="text-sm font-medium text-surface-700 dark:text-surface-300"
+						<span class="text-surface-700 dark:text-surface-300 text-sm font-medium"
 							>Drop me a line</span
 						>
 					</div>
 
-					<h1 class="text-4xl md:text-6xl font-bold">
+					<h1 class="text-4xl font-bold md:text-6xl">
 						<span
-							class="block bg-gradient-to-r from-primary-600 via-secondary-600 to-tertiary-600 bg-clip-text text-transparent"
+							class="from-primary-600 via-secondary-600 to-tertiary-600 block bg-gradient-to-r bg-clip-text text-transparent"
 						>
 							Let's chat
 						</span>
 					</h1>
 
 					<p
-						class="text-xl text-surface-600 dark:text-surface-400 max-w-3xl mx-auto leading-relaxed"
+						class="text-surface-600 dark:text-surface-400 mx-auto max-w-3xl text-xl leading-relaxed"
 					>
 						Got a question? Want to work on something cool together? Or just want to say hi? I'd
 						love to hear from you!
@@ -139,20 +139,20 @@
 		</section>
 
 		<!-- Contact Methods -->
-		<section class="py-12 px-4">
+		<section class="px-4 py-12">
 			<div class="container mx-auto max-w-4xl">
-				<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+				<div class="mb-16 grid grid-cols-1 gap-6 md:grid-cols-3">
 					{#each contactMethods as method, i (method.title)}
 						<div
-							class="group bg-white/60 dark:bg-surface-800/60 backdrop-blur-sm rounded-2xl p-6 text-center shadow-lg border border-surface-200/50 dark:border-surface-700/50 hover:shadow-xl transition-all duration-300 hover:scale-105"
+							class="group dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 rounded-2xl border bg-white/60 p-6 text-center shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl"
 							in:fly={{ y: 30, duration: 600, delay: 100 + i * 100 }}
 						>
 							<div
-								class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r {method.color} rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300"
+								class="mx-auto mb-4 h-16 w-16 bg-gradient-to-r {method.color} flex items-center justify-center rounded-2xl shadow-lg transition-transform duration-300 group-hover:scale-110"
 							>
-								<Icon icon={method.icon} class="text-white text-2xl" />
+								<Icon icon={method.icon} class="text-2xl text-white" />
 							</div>
-							<h3 class="text-lg font-bold text-surface-900 dark:text-surface-50 mb-2">
+							<h3 class="text-surface-900 dark:text-surface-50 mb-2 text-lg font-bold">
 								{method.title}
 							</h3>
 							{#if method.href}
@@ -172,31 +172,31 @@
 		</section>
 
 		<!-- Main Content -->
-		<section class="py-12 px-4">
+		<section class="px-4 py-12">
 			<div class="container mx-auto max-w-6xl">
-				<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+				<div class="grid grid-cols-1 gap-12 lg:grid-cols-2">
 					<!-- Contact Form -->
 					<div class="space-y-8" in:fly={{ x: -30, duration: 600, delay: 300 }}>
 						<div
-							class="bg-white/60 dark:bg-surface-800/60 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-surface-200/50 dark:border-surface-700/50"
+							class="dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 rounded-2xl border bg-white/60 p-8 shadow-lg backdrop-blur-sm"
 						>
 							<div class="mb-8">
-								<h2 class="text-2xl font-bold text-surface-900 dark:text-surface-50 mb-2">
+								<h2 class="text-surface-900 dark:text-surface-50 mb-2 text-2xl font-bold">
 									Send me a message
 								</h2>
 								<div
-									class="w-16 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full"
+									class="from-primary-500 to-secondary-500 h-1 w-16 rounded-full bg-gradient-to-r"
 								></div>
 							</div>
 
 							{#if formSubmitted}
-								<div class="text-center py-8 space-y-4" in:fly={{ y: 20, duration: 400 }}>
+								<div class="space-y-4 py-8 text-center" in:fly={{ y: 20, duration: 400 }}>
 									<div
-										class="w-16 h-16 bg-success-500 rounded-full flex items-center justify-center mx-auto"
+										class="bg-success-500 mx-auto flex h-16 w-16 items-center justify-center rounded-full"
 									>
-										<Icon icon="mdi:check" class="text-white text-2xl" />
+										<Icon icon="mdi:check" class="text-2xl text-white" />
 									</div>
-									<h3 class="text-xl font-bold text-surface-900 dark:text-surface-50">Got it!</h3>
+									<h3 class="text-surface-900 dark:text-surface-50 text-xl font-bold">Got it!</h3>
 									<p class="text-surface-600 dark:text-surface-400">
 										Thanks for reaching out! I'll get back to you soon.
 									</p>
@@ -207,7 +207,7 @@
 										<div>
 											<label
 												for="name"
-												class="block text-sm font-semibold text-surface-700 dark:text-surface-300 mb-2"
+												class="text-surface-700 dark:text-surface-300 mb-2 block text-sm font-semibold"
 											>
 												Name *
 											</label>
@@ -217,7 +217,7 @@
 												bind:value={name}
 												required
 												disabled={isSubmitting}
-												class="w-full px-4 py-3 bg-white/50 dark:bg-surface-900/50 border border-surface-300 dark:border-surface-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 disabled:opacity-50"
+												class="dark:bg-surface-900/50 border-surface-300 dark:border-surface-600 focus:ring-primary-500 w-full rounded-xl border bg-white/50 px-4 py-3 transition-all duration-200 focus:border-transparent focus:ring-2 disabled:opacity-50"
 												placeholder="Your name"
 											/>
 										</div>
@@ -225,7 +225,7 @@
 										<div>
 											<label
 												for="email"
-												class="block text-sm font-semibold text-surface-700 dark:text-surface-300 mb-2"
+												class="text-surface-700 dark:text-surface-300 mb-2 block text-sm font-semibold"
 											>
 												Email *
 											</label>
@@ -235,7 +235,7 @@
 												bind:value={email}
 												required
 												disabled={isSubmitting}
-												class="w-full px-4 py-3 bg-white/50 dark:bg-surface-900/50 border border-surface-300 dark:border-surface-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 disabled:opacity-50"
+												class="dark:bg-surface-900/50 border-surface-300 dark:border-surface-600 focus:ring-primary-500 w-full rounded-xl border bg-white/50 px-4 py-3 transition-all duration-200 focus:border-transparent focus:ring-2 disabled:opacity-50"
 												placeholder="your.email@example.com"
 											/>
 										</div>
@@ -243,7 +243,7 @@
 										<div>
 											<label
 												for="message"
-												class="block text-sm font-semibold text-surface-700 dark:text-surface-300 mb-2"
+												class="text-surface-700 dark:text-surface-300 mb-2 block text-sm font-semibold"
 											>
 												Message *
 											</label>
@@ -253,7 +253,7 @@
 												required
 												disabled={isSubmitting}
 												rows="5"
-												class="w-full px-4 py-3 bg-white/50 dark:bg-surface-900/50 border border-surface-300 dark:border-surface-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 resize-none disabled:opacity-50"
+												class="dark:bg-surface-900/50 border-surface-300 dark:border-surface-600 focus:ring-primary-500 w-full resize-none rounded-xl border bg-white/50 px-4 py-3 transition-all duration-200 focus:border-transparent focus:ring-2 disabled:opacity-50"
 												placeholder="Your message..."
 											></textarea>
 										</div>
@@ -262,11 +262,11 @@
 									<button
 										type="submit"
 										disabled={isSubmitting || !name || !email || !message}
-										class="group w-full flex items-center justify-center px-8 py-4 bg-gradient-to-r from-primary-500 to-secondary-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+										class="group from-primary-500 to-secondary-500 flex w-full transform items-center justify-center rounded-xl bg-gradient-to-r px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl disabled:transform-none disabled:cursor-not-allowed disabled:opacity-50"
 									>
 										{#if isSubmitting}
 											<svg
-												class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+												class="mr-3 -ml-1 h-5 w-5 animate-spin text-white"
 												xmlns="http://www.w3.org/2000/svg"
 												fill="none"
 												viewBox="0 0 24 24"
@@ -289,7 +289,7 @@
 										{:else}
 											<Icon
 												icon="mdi:send"
-												class="mr-2 group-hover:translate-x-1 transition-transform duration-200"
+												class="mr-2 transition-transform duration-200 group-hover:translate-x-1"
 											/>
 											Send it my way
 										{/if}
@@ -303,14 +303,14 @@
 					<div class="space-y-8" in:fly={{ x: 30, duration: 600, delay: 400 }}>
 						<!-- Social Media -->
 						<div
-							class="bg-white/60 dark:bg-surface-800/60 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-surface-200/50 dark:border-surface-700/50"
+							class="dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 rounded-2xl border bg-white/60 p-8 shadow-lg backdrop-blur-sm"
 						>
 							<div class="mb-8">
-								<h3 class="text-2xl font-bold text-surface-900 dark:text-surface-50 mb-2">
+								<h3 class="text-surface-900 dark:text-surface-50 mb-2 text-2xl font-bold">
 									Connect With Me
 								</h3>
 								<div
-									class="w-16 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full"
+									class="from-primary-500 to-secondary-500 h-1 w-16 rounded-full bg-gradient-to-r"
 								></div>
 							</div>
 
@@ -320,27 +320,27 @@
 										href={social.href}
 										target="_blank"
 										rel="noopener noreferrer"
-										class="group flex items-center p-4 bg-white/50 dark:bg-surface-900/50 rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-105"
+										class="group dark:bg-surface-900/50 flex items-center rounded-xl bg-white/50 p-4 transition-all duration-300 hover:scale-105 hover:shadow-lg"
 										in:fly={{ x: 20, duration: 400, delay: 500 + i * 100 }}
 									>
 										<div
-											class="w-12 h-12 bg-surface-700 {social.color} rounded-lg flex items-center justify-center transition-all duration-300 mr-4"
+											class="bg-surface-700 h-12 w-12 {social.color} mr-4 flex items-center justify-center rounded-lg transition-all duration-300"
 										>
 											<Icon icon={social.icon} class="text-white" />
 										</div>
 										<div class="flex-1">
 											<h4
-												class="font-semibold text-surface-900 dark:text-surface-50 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200"
+												class="text-surface-900 dark:text-surface-50 group-hover:text-primary-600 dark:group-hover:text-primary-400 font-semibold transition-colors duration-200"
 											>
 												{social.platform}
 											</h4>
-											<p class="text-sm text-surface-600 dark:text-surface-400">
+											<p class="text-surface-600 dark:text-surface-400 text-sm">
 												{social.description}
 											</p>
 										</div>
 										<Icon
 											icon="mdi:arrow-right"
-											class="text-surface-400 group-hover:text-primary-500 group-hover:translate-x-1 transition-all duration-200"
+											class="text-surface-400 group-hover:text-primary-500 transition-all duration-200 group-hover:translate-x-1"
 										/>
 									</a>
 								{/each}
@@ -349,15 +349,15 @@
 
 						<!-- Additional Info -->
 						<div
-							class="bg-gradient-to-br from-primary-500/10 to-secondary-500/10 backdrop-blur-sm rounded-2xl p-8 border border-primary-500/20"
+							class="from-primary-500/10 to-secondary-500/10 border-primary-500/20 rounded-2xl border bg-gradient-to-br p-8 backdrop-blur-sm"
 						>
-							<div class="text-center space-y-4">
+							<div class="space-y-4 text-center">
 								<div
-									class="w-16 h-16 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center mx-auto"
+									class="from-primary-500 to-secondary-500 mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br"
 								>
-									<Icon icon="mdi:lightbulb" class="text-white text-2xl" />
+									<Icon icon="mdi:lightbulb" class="text-2xl text-white" />
 								</div>
-								<h4 class="text-xl font-bold text-surface-900 dark:text-surface-50">
+								<h4 class="text-surface-900 dark:text-surface-50 text-xl font-bold">
 									Let's Collaborate
 								</h4>
 								<p class="text-surface-600 dark:text-surface-400 leading-relaxed">
@@ -372,5 +372,3 @@
 		</section>
 	</div>
 {/if}
-
-

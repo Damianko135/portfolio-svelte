@@ -83,7 +83,7 @@ async function sendEmail({
 			Message:
 			${message}
 		`,
-	html: `
+		html: `
 		<div class="portfolio-email">
 			<h2>New Portfolio Contact</h2>
 			<div class="portfolio-email-details">
