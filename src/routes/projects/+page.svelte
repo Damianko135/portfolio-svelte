@@ -20,19 +20,23 @@
 	let visible = $state(false);
 	let projectsLoaded = $state(false);
 
-	onMount(() => {
-		visible = true;
-		fetch('/projects.json')
-			.then((res) => res.json())
-			.then((data) => {
-				projects = data;
-				projectsLoaded = true;
-			})
-			.catch((error) => {
-				console.error('Error loading projects:', error);
-				projectsLoaded = true;
-			});
-	});
+onMount(async () => {
+    visible = true;
+    try {
+        const res = await fetch('/projects.json');
+        projects = (await res.json()) as Project[];
+        projectsLoaded = true;
+        if (!Array.isArray(projects)) {
+            throw new Error('Invalid data format');
+        }
+        
+    } catch (error) {
+        console.error('Error loading projects:', error);
+        projectsLoaded = true;
+    }
+});
+
+
 </script>
 
 <svelte:head>

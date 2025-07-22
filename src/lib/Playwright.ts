@@ -2,8 +2,7 @@ import { firefox } from 'playwright';
 import type { Browser, Page, LaunchOptions } from 'playwright';
 import path from 'path';
 import fs from 'fs/promises';
-
-import type { Project } from '$lib/types';
+import type { Project } from './types'; // { name: string; url: string; screenshot: string; ...? }
 
 /* ------------------------------------------------------------------ */
 /* Types                                                              */
@@ -165,7 +164,7 @@ async function screenshotProject(
 /* Public API                                                         */
 /* ------------------------------------------------------------------ */
 
-async function preloadProjects(
+export async function preloadProjects(
     projects: Project[],
     opts: PreloadOptions = {}
 ): Promise<PreloadResult[]> {

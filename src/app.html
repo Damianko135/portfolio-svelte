@@ -1,5 +1,10 @@
 <!doctype html>
-<html lang="en" data-theme="cerberus" data-mode="dark">
+<html
+	lang="en"
+	data-theme="cerberus"
+	data-mode="dark"
+	class="bg-surface-50 dark:bg-surface-600 text-surface-600 dark:text-surface-50"
+>
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.svg" />
@@ -7,9 +12,10 @@
 		%sveltekit.head%
 	</head>
 	<body
+		class="bg-surface-50 dark:bg-surface-600 text-surface-600 dark:text-surface-50 min-h-screen antialiased"
 		data-sveltekit-preload-data="hover"
-		class="bg-surface-50 dark:bg-surface-600 text-surface-600 dark:text-surface-50"
 	>
-		<div class="display-contents">%sveltekit.body%</div>
+		<!-- Use a real block container; avoid display:contents so we can guarantee full background coverage -->
+		<div id="app-root" class="min-h-screen w-full">%sveltekit.body%</div>
 	</body>
 </html>

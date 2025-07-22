@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import { Icon, SectionDivider } from '$lib';
 	import type { AboutItem, Interest } from '$lib/types';
