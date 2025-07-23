@@ -16,21 +16,9 @@
 
 	function handleSubmit(event: Event) {
 		event.preventDefault();
-		if (name && email && message) {
-			isSubmitting = true;
-			// Simulate form submission
-			setTimeout(() => {
-				isSubmitting = false;
-				formSubmitted = true;
-				// Reset form after successful submission
-				setTimeout(() => {
-					name = '';
-					email = '';
-					message = '';
-					formSubmitted = false;
-				}, 3000);
-			}, 1500);
-		}
+		if (isSubmitting || !name || !email || !message) return;
+		formSubmitted = !formSubmitted
+
 	}
 
 	const contactMethods = [
@@ -182,7 +170,7 @@
 						>
 							<div class="mb-8">
 								<h2 class="text-surface-900 dark:text-surface-50 mb-2 text-2xl font-bold">
-									Send me a message
+									TODO: Contact Form
 								</h2>
 								<div
 									class="from-primary-500 to-secondary-500 h-1 w-16 rounded-full bg-gradient-to-r"
@@ -197,12 +185,12 @@
 										<Icon icon="mdi:check" class="text-2xl text-white" />
 									</div>
 									<h3 class="text-surface-900 dark:text-surface-50 text-xl font-bold">Got it!</h3>
-									<p class="text-surface-600 dark:text-surface-400">
-										Thanks for reaching out! I'll get back to you soon.
+									<p class="text-surface-600 dark:text-surface-400 text-lg">
+										Thanks for wanting to reach out! Sadly I currently have not implemented the contact form functionality.
 									</p>
 								</div>
 							{:else}
-								<form onsubmit={handleSubmit} class="space-y-6">
+								<form onsubmit={(e) => handleSubmit(e)} class="space-y-6">
 									<div class="space-y-4">
 										<div>
 											<label
