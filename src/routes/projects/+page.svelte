@@ -12,18 +12,6 @@
 		visible = true;
 	});
 
-	function getScreenShotUrl(name: string | undefined): string {
-		if (!name) return '';
-		if (name.startsWith('http://') || name.startsWith('https://')) {
-			return name;
-		}
-		// Handle screenshots with spaces in name
-		if (name.includes(' ')) {
-			name = name.replace(/_/g, '%20');
-		}
-
-		return `${screenPath}${name}`;
-	}
 </script>
 
 <svelte:head>
@@ -35,7 +23,7 @@
 </svelte:head>
 
 {#if visible}
-	<div class="relative overflow-hidden" transition:fade>
+	<div class="relative" transition:fade>
 		<!-- Hero Section -->
 		<section class="relative px-4 py-20">
 			<!-- Background Pattern -->
@@ -85,7 +73,7 @@
 		<!-- Projects Grid -->
 		<section class="px-4 py-20">
 			<div class="container mx-auto max-w-7xl">
-				{#if projects.length > 0}
+				{#if projects?.length > 0}
 					<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
 						{#each projects as project, i (project.id)}
 							<article

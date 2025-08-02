@@ -17,7 +17,7 @@
 	function handleSubmit(event: Event) {
 		event.preventDefault();
 		if (isSubmitting || !name || !email || !message) return;
-		formSubmitted = !formSubmitted
+		formSubmitted = true
 
 	}
 
@@ -25,7 +25,7 @@
 		{
 			icon: 'mdi:email',
 			title: 'Email',
-			value: 'damiankorver@gmail.com',
+			value: 'damiankorver [at] gmail [dot] com',
 			href: 'mailto:damiankorver@gmail.com',
 			color: 'from-error-500 to-error-600'
 		},
@@ -125,7 +125,7 @@
 				</div>
 			</div>
 		</section>
-
+		
 		<!-- Contact Methods -->
 		<section class="px-4 py-12">
 			<div class="container mx-auto max-w-4xl">
