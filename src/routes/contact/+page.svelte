@@ -21,13 +21,34 @@
 
 	}
 
+	// Email obfuscation
+	const emailParts = ['damiankorver', 'gmail', 'com'];
+	const getEmail = () => `${emailParts[0]}@${emailParts[1]}.${emailParts[2]}`;
+	const getObfuscatedEmail = () => `${emailParts[0]} [at] ${emailParts[1]} [dot] ${emailParts[2]}`;
+	
+	let emailRevealed = $state(false);
+	
+	function handleEmailClick(event: Event) {
+		event.preventDefault();
+		if (!emailRevealed) {
+			emailRevealed = true;
+			// Small delay to show the reveal animation, then open email client
+			setTimeout(() => {
+				window.location.href = `mailto:${getEmail()}`;
+			}, 500);
+		} else {
+			window.location.href = `mailto:${getEmail()}`;
+		}
+	}
+
 	const contactMethods = [
 		{
 			icon: 'mdi:email',
 			title: 'Email',
-			value: 'damiankorver [at] gmail [dot] com',
-			href: 'mailto:damiankorver@gmail.com',
-			color: 'from-error-500 to-error-600'
+			getValue: () => emailRevealed ? getEmail() : getObfuscatedEmail(),
+			href: `mailto:${getEmail()}`,
+			color: 'from-error-500 to-error-600',
+			clickHandler: handleEmailClick
 		},
 		{
 			icon: 'mdi:map-marker',
@@ -143,15 +164,25 @@
 							<h3 class="text-surface-900 dark:text-surface-50 mb-2 text-lg font-bold">
 								{method.title}
 							</h3>
-							{#if method.href}
+							{#if method.clickHandler}
+								<button
+									onclick={method.clickHandler}
+									class="text-surface-600 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 cursor-pointer underline-offset-2 hover:underline"
+								>
+									{method.getValue ? method.getValue() : method.value}
+									{#if method.title === 'Email' && !emailRevealed}
+										<span class="text-xs ml-1 opacity-60">(click to reveal)</span>
+									{/if}
+								</button>
+							{:else if method.href}
 								<a
 									href={method.href}
 									class="text-surface-600 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
 								>
-									{method.value}
+									{method.getValue ? method.getValue() : method.value}
 								</a>
 							{:else}
-								<p class="text-surface-600 dark:text-surface-400">{method.value}</p>
+								<p class="text-surface-600 dark:text-surface-400">{method.getValue ? method.getValue() : method.value}</p>
 							{/if}
 						</div>
 					{/each}
