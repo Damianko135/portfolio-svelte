@@ -1,8 +1,6 @@
-// Dynamic import for Cloudflare Playwright to avoid build issues
-let firefox: any;
-
 import projects from '$lib/data/projects.json';
-import type { R2Bucket } from '@cloudflare/workers-types';
+import type { R2Bucket, Fetcher } from '@cloudflare/workers-types';
+import playwright from '@cloudflare/playwright';
 
 interface Project {
 	name: string;
@@ -10,20 +8,13 @@ interface Project {
 }
 
 // Function to capture screenshot using Cloudflare Playwright
-async function captureScreenshot(url: string): Promise<ArrayBuffer> {
+async function captureScreenshot(url: string, browserBinding: Fetcher): Promise<ArrayBuffer> {
 	console.log(`Starting screenshot capture for: ${url}`);
 
 	try {
-		// Lazy load firefox only when needed
-		if (!firefox) {
-			console.log('Loading Firefox from @cloudflare/playwright');
-			const playwright = await import('@cloudflare/playwright');
-			firefox = playwright.firefox;
-			console.log('Firefox loaded successfully');
-		}
 
 		console.log('Launching Firefox browser');
-		const browser = await firefox.launch();
+		const browser = await (playwright as any).launch(browserBinding);
 		console.log('Browser launched, creating new page');
 
 		const page = await browser.newPage();
@@ -65,6 +56,7 @@ async function captureScreenshot(url: string): Promise<ArrayBuffer> {
 
 export interface EnsureOpts {
 	bucket: R2Bucket;
+	browser: Fetcher;
 	force?: boolean;
 	versionTag?: string;
 	cacheSeconds?: number;
@@ -106,7 +98,7 @@ export async function ensureScreenshotResponse(slug: string, opts: EnsureOpts): 
 
 		// Capture new screenshot
 		console.log(`Capturing screenshot for ${project.url}`);
-		const screenshotBuffer = await captureScreenshot(project.url);
+		const screenshotBuffer = await captureScreenshot(project.url, opts.browser);
 
 		// Store screenshot in R2 bucket
 		console.log(`Uploading screenshot to R2: ${screenshotKey}`);
