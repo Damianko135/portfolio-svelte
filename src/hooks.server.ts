@@ -15,16 +15,14 @@ const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute window
 const RATE_LIMIT_MAX_REQUESTS = 30; // Max requests per window
 const RATE_LIMIT_API_MAX_REQUESTS = 10; // Stricter limit for API endpoints
 
-// Cleanup old rate limit entries every 5 minutes
-if (!dev) {
-	setInterval(() => {
-		const now = Date.now();
-		for (const [key, entry] of rateLimitStore.entries()) {
-			if (entry.resetTime < now) {
-				rateLimitStore.delete(key);
-			}
+// Cleanup old rate limit entries inline during checks (no setInterval in Cloudflare Workers)
+function cleanupRateLimits() {
+	const now = Date.now();
+	for (const [key, entry] of rateLimitStore.entries()) {
+		if (entry.resetTime < now) {
+			rateLimitStore.delete(key);
 		}
-	}, 5 * 60 * 1000);
+	}
 }
 
 /**
@@ -51,6 +49,9 @@ function getClientIdentifier(request: Request): string {
  * Check if request exceeds rate limit
  */
 function checkRateLimit(clientId: string, maxRequests: number): boolean {
+	// Clean up old entries periodically
+	cleanupRateLimits();
+	
 	const now = Date.now();
 	const entry = rateLimitStore.get(clientId);
 
