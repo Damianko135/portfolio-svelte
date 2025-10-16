@@ -25,7 +25,8 @@
 	"r2_buckets": [
 		{
 			"binding": "SCREENSHOTS",
-			"bucket_name": "portfolio-screenshots"
+			"bucket_name": "portfolio-screenshots",
+			"remote": true
 		}
 	]
 }

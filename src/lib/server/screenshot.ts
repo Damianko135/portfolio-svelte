@@ -11,35 +11,55 @@ interface Project {
 
 // Function to capture screenshot using Cloudflare Playwright
 async function captureScreenshot(url: string): Promise<ArrayBuffer> {
-	// Lazy load firefox only when needed
-	if (!firefox) {
-		const playwright = await import('@cloudflare/playwright');
-		firefox = playwright.firefox;
-	}
-
-	const browser = await firefox.launch();
-	const page = await browser.newPage();
+	console.log(`Starting screenshot capture for: ${url}`);
 
 	try {
-		// Set viewport size for consistent screenshots
-		await page.setViewportSize({ width: 1280, height: 720 });
+		// Lazy load firefox only when needed
+		if (!firefox) {
+			console.log('Loading Firefox from @cloudflare/playwright');
+			const playwright = await import('@cloudflare/playwright');
+			firefox = playwright.firefox;
+			console.log('Firefox loaded successfully');
+		}
 
-		// Navigate to the URL
-		await page.goto(url, { waitUntil: 'networkidle' });
+		console.log('Launching Firefox browser');
+		const browser = await firefox.launch();
+		console.log('Browser launched, creating new page');
 
-		// Wait a bit for any dynamic content to load
-		await page.waitForTimeout(2000);
+		const page = await browser.newPage();
+		console.log('Page created, setting viewport');
 
-		// Take screenshot
-		const screenshot = await page.screenshot({ type: 'png' });
+		try {
+			// Set viewport size for consistent screenshots
+			await page.setViewportSize({ width: 1280, height: 720 });
+			console.log('Viewport set, navigating to URL');
 
-		// Convert Buffer to ArrayBuffer
-		const arrayBuffer = new ArrayBuffer(screenshot.length);
-		const view = new Uint8Array(arrayBuffer);
-		view.set(screenshot);
-		return arrayBuffer;
-	} finally {
-		await browser.close();
+			// Navigate to the URL
+			await page.goto(url, { waitUntil: 'networkidle' });
+			console.log('Navigation complete, waiting for content to load');
+
+			// Wait a bit for any dynamic content to load
+			await page.waitForTimeout(2000);
+			console.log('Content loaded, taking screenshot');
+
+			// Take screenshot
+			const screenshot = await page.screenshot({ type: 'png' });
+			console.log(`Screenshot taken, size: ${screenshot.length} bytes`);
+
+			// Convert Buffer to ArrayBuffer
+			const arrayBuffer = new ArrayBuffer(screenshot.length);
+			const view = new Uint8Array(arrayBuffer);
+			view.set(screenshot);
+
+			console.log('Screenshot converted to ArrayBuffer');
+			return arrayBuffer;
+		} finally {
+			console.log('Closing browser');
+			await browser.close();
+		}
+	} catch (error) {
+		console.error('Error in captureScreenshot:', error);
+		throw error;
 	}
 }
 
@@ -66,8 +86,10 @@ export async function ensureScreenshotResponse(slug: string, opts: EnsureOpts): 
 	try {
 		// Check if screenshot already exists in bucket (unless force is true)
 		if (!opts.force) {
+			console.log(`Checking for existing screenshot: ${screenshotKey}`);
 			const existingScreenshot = await opts.bucket.get(screenshotKey);
 			if (existingScreenshot) {
+				console.log(`Found existing screenshot for ${slug}`);
 				const headers = new Headers({
 					'Content-Type': 'image/png',
 					'Cache-Control': `public, max-age=${opts.cacheSeconds || 3600}`,
@@ -79,18 +101,22 @@ export async function ensureScreenshotResponse(slug: string, opts: EnsureOpts): 
 				const arrayBuffer = await existingScreenshot.arrayBuffer();
 				return new Response(arrayBuffer, { headers });
 			}
+			console.log(`No existing screenshot found for ${slug}, generating new one`);
 		}
 
 		// Capture new screenshot
+		console.log(`Capturing screenshot for ${project.url}`);
 		const screenshotBuffer = await captureScreenshot(project.url);
 
 		// Store screenshot in R2 bucket
+		console.log(`Uploading screenshot to R2: ${screenshotKey}`);
 		await opts.bucket.put(screenshotKey, screenshotBuffer, {
 			httpMetadata: {
 				contentType: 'image/png',
 				cacheControl: `public, max-age=${opts.cacheSeconds || 3600}`
 			}
 		});
+		console.log(`Successfully uploaded screenshot for ${slug}`);
 
 		const headers = new Headers({
 			'Content-Type': 'image/png',
