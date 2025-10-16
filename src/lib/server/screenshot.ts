@@ -1,6 +1,5 @@
 import projects from '$lib/data/projects.json';
 import type { R2Bucket, Fetcher } from '@cloudflare/workers-types';
-import playwright from '@cloudflare/playwright';
 
 interface Project {
 	name: string;
@@ -12,8 +11,11 @@ async function captureScreenshot(url: string, browserBinding: Fetcher): Promise<
 	console.log(`Starting screenshot capture for: ${url}`);
 
 	try {
+		// Dynamic import to avoid loading at build time
+		const playwright = await import('@cloudflare/playwright');
+		
 		console.log('Launching Firefox browser');
-		const browser = await (playwright as any).launch(browserBinding);
+		const browser = await (playwright.default as any).launch(browserBinding);
 		console.log('Browser launched, creating new page');
 
 		const page = await browser.newPage();
