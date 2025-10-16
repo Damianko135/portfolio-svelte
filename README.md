@@ -9,7 +9,9 @@ A modern, performant portfolio website built with SvelteKit 5, TypeScript, and T
 - 📸 **Auto Screenshots** - Automated project screenshots using Cloudflare Browser Rendering API
 - ⚡ **Edge Deployment** - Deployed on Cloudflare Pages for global performance
 - 🔒 **UUID-based Security** - Secure project identification preventing enumeration
-- 📱 **Responsive Design** - Mobile-first design with smooth animations
+- �️ **Rate Limiting** - Protection against API abuse and DDoS attacks
+- 🔐 **Security Headers** - CSP, HSTS, and other security best practices
+- �📱 **Responsive Design** - Mobile-first design with smooth animations
 - 🎭 **Iconify Integration** - Access to 200,000+ icons via `@iconify/svelte`
 - 🧪 **E2E Testing** - Playwright tests for quality assurance
 
@@ -206,6 +208,47 @@ The application uses Cloudflare bindings configured in `wrangler.jsonc`:
 
 - `SCREENSHOTS` - R2 bucket for storing project screenshots
 - `MYBROWSER` - Browser Rendering API binding
+
+## 🛡️ Security Features
+
+This application implements multiple layers of security protection:
+
+### Rate Limiting
+
+- **General Endpoints**: 30 requests per minute per IP
+- **API Endpoints**: 10 requests per minute per IP
+- Automatic cleanup of rate limit data
+- Returns `429 Too Many Requests` when limit exceeded
+
+### Security Headers
+
+All responses include comprehensive security headers:
+
+- **Content Security Policy (CSP)** - Restricts resource loading
+- **X-Frame-Options** - Prevents clickjacking attacks
+- **X-Content-Type-Options** - Prevents MIME sniffing
+- **Referrer-Policy** - Controls referrer information
+- **Permissions-Policy** - Restricts browser features
+- **HSTS** - Forces HTTPS connections (production only)
+
+### API Protection
+
+- UUID-based project identification (prevents enumeration)
+- User agent validation to block suspicious bots
+- Content-Type validation for POST/PUT/DELETE requests
+- IP-based request tracking via Cloudflare headers
+
+### Configuration
+
+Rate limiting and security settings can be adjusted in `src/hooks.server.ts`:
+
+```typescript
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
+const RATE_LIMIT_MAX_REQUESTS = 30; // General endpoints
+const RATE_LIMIT_API_MAX_REQUESTS = 10; // API endpoints
+```
+
+**Note**: For production-scale applications, consider using Cloudflare KV or Durable Objects for distributed rate limiting.
 
 ## 🎨 Customization
 
