@@ -1,5 +1,4 @@
 import projectsData from '$lib/data/projects.json';
-import { ensureScreenshotResponse } from '$lib/server/screenshot';
 
 function slugify(name: string): string {
 	return name
@@ -9,11 +8,10 @@ function slugify(name: string): string {
 }
 
 export const load = async ({ platform }: any) => {
-	// For now, just return projects without screenshots due to build issues
 	return {
 		projects: projectsData.map((project) => ({
 			...project,
-			screenshot: undefined
+			screenshot: `/api/screenshot/${project.id}`
 		}))
 	};
 };
