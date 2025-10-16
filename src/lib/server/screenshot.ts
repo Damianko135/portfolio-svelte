@@ -139,7 +139,7 @@ export async function ensureScreenshotResponse(
 		if (sharingProjects.length > 1) {
 			console.log(`🔄 Deduplication: ${sharingProjects.length} projects share this URL:`);
 			sharingProjects.forEach(p => {
-				console.log(`   - ${p.name} (${p.uuid})`);
+				console.log(`   - ${p.name} (ID: ${p.url})`);
 			});
 		}
 		console.log('===================================================\n');
@@ -197,11 +197,11 @@ export async function ensureScreenshotResponse(
 					urlBasedUuid: urlBasedUuid,
 					projectUrl: projectUrl,
 					capturedAt: new Date().toISOString(),
-					// Store all project UUIDs that use this URL (for tracking)
+					// Store all project names that use this URL (for tracking)
 					usedByProjects: projects
 						.filter(p => p.url === projectUrl)
-						.map(p => p.uuid)
-						.join(',')
+						.map(p => p.name)
+						.join(', ')
 				}
 			});
 			if (dev) console.log(`✅ Uploaded successfully to R2`);
