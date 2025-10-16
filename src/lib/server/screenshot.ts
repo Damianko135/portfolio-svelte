@@ -20,7 +20,6 @@ async function getBrowser(browserBinding: Fetcher) {
 	
 	// Reuse existing browser if it was used recently
 	if (cachedBrowser && (now - browserLastUsed) < BROWSER_REUSE_TIMEOUT) {
-		console.log('Reusing existing browser session');
 		browserLastUsed = now;
 		return cachedBrowser;
 	}
@@ -30,13 +29,12 @@ async function getBrowser(browserBinding: Fetcher) {
 		try {
 			await cachedBrowser.close();
 		} catch (e) {
-			console.log('Old browser already closed');
+			// Browser already closed, ignore
 		}
 		cachedBrowser = null;
 	}
 	
 	// Launch new browser with keep_alive to prevent early timeout
-	console.log('Launching new browser session');
 	cachedBrowser = await puppeteer.default.launch(browserBinding as any, {
 		keep_alive: 60000 // Keep alive for 60 seconds
 	});
@@ -47,37 +45,28 @@ async function getBrowser(browserBinding: Fetcher) {
 
 // Function to capture screenshot using Cloudflare Browser Rendering API with Puppeteer
 async function captureScreenshot(url: string, browserBinding: Fetcher): Promise<ArrayBuffer> {
-	console.log(`Starting screenshot capture for: ${url}`);
-
 	try {
 		const browser = await getBrowser(browserBinding);
-		console.log('Browser ready, creating new page');
-
 		const page = await browser.newPage();
-		console.log('Page created, setting viewport');
 
 		try {
 			// Set viewport size for consistent screenshots
 			await page.setViewport({ width: 1280, height: 720 });
-			console.log('Viewport set, navigating to URL');
 
 			// Navigate to the URL with timeout protection
 			await page.goto(url, { 
 				waitUntil: 'networkidle2',
 				timeout: 30000 // 30 second timeout
 			});
-			console.log('Navigation complete, waiting for content to load');
 
 			// Wait a bit for any dynamic content to load
 			await new Promise(resolve => setTimeout(resolve, 2000));
-			console.log('Content loaded, taking screenshot');
 
 			// Take screenshot with quality settings
 			const screenshot = await page.screenshot({ 
 				type: 'png',
 				fullPage: false // Only capture viewport, not full page
 			});
-			console.log(`Screenshot taken, size: ${screenshot.length} bytes`);
 			
 			// Validate screenshot size (max 5MB)
 			const maxSize = 5 * 1024 * 1024;
@@ -98,15 +87,13 @@ async function captureScreenshot(url: string, browserBinding: Fetcher): Promise<
 				new Uint8Array(arrayBuffer).set(new Uint8Array(sharedBuffer, screenshot.byteOffset, screenshot.byteLength));
 			}
 
-			console.log('Screenshot ready');
 			return arrayBuffer;
 		} finally {
 			// Close the page but keep browser alive for reuse
-			console.log('Closing page');
 			await page.close();
 		}
 	} catch (error) {
-		console.error('Error in captureScreenshot:', error);
+		console.error(`[Screenshot Error] Failed to capture ${url}:`, error);
 		
 		// Check if it's a rate limit error
 		const errorMessage = error instanceof Error ? error.message : String(error);
@@ -145,11 +132,9 @@ export async function ensureScreenshotResponse(uuid: string, opts: EnsureOpts): 
 	try {
 		// Check if screenshot already exists in bucket (unless force is true)
 		if (!opts.force) {
-			console.log(`Checking for existing screenshot: ${screenshotKey}`);
 			try {
 				const existingScreenshot = await opts.bucket.get(screenshotKey);
 				if (existingScreenshot) {
-					console.log(`Found existing screenshot for ${uuid}`);
 					const headers = new Headers({
 						'Content-Type': 'image/png',
 						'Cache-Control': `public, max-age=${opts.cacheSeconds || DEFAULT_CACHE_SECONDS}`,
@@ -161,20 +146,17 @@ export async function ensureScreenshotResponse(uuid: string, opts: EnsureOpts): 
 					const arrayBuffer = await existingScreenshot.arrayBuffer();
 					return new Response(arrayBuffer, { headers });
 				}
-				console.log(`No existing screenshot found for ${uuid}, generating new one`);
 			} catch (r2Error) {
-				console.error(`R2 bucket access error for ${uuid}:`, r2Error);
+				console.warn(`[Screenshot] R2 read failed for ${uuid}, will generate new screenshot:`, r2Error);
 				// Continue to try generating a new screenshot
 			}
 		}
 
 		// Capture new screenshot
-		console.log(`Capturing screenshot for ${project.url}`);
 		const screenshotBuffer = await captureScreenshot(project.url, opts.browser);
 
 		// Store screenshot in R2 bucket (but don't fail if this fails)
 		try {
-			console.log(`Uploading screenshot to R2: ${screenshotKey}`);
 			await opts.bucket.put(screenshotKey, screenshotBuffer, {
 				httpMetadata: {
 					contentType: 'image/png',
@@ -187,9 +169,8 @@ export async function ensureScreenshotResponse(uuid: string, opts: EnsureOpts): 
 					projectUrl: project.url
 				}
 			});
-			console.log(`Successfully uploaded screenshot for ${uuid}`);
 		} catch (uploadError) {
-			console.error(`Failed to upload screenshot to R2 for ${uuid}:`, uploadError);
+			console.warn(`[Screenshot] R2 upload failed for ${uuid}, screenshot will not be cached:`, uploadError);
 			// Continue anyway - we can still return the screenshot
 		}
 		const headers = new Headers({
@@ -199,7 +180,7 @@ export async function ensureScreenshotResponse(uuid: string, opts: EnsureOpts): 
 
 		return new Response(screenshotBuffer, { headers });
 	} catch (error) {
-		console.error(`Screenshot error for ${uuid}:`, error);
+		console.error(`[Screenshot] Failed to generate screenshot for ${uuid} (${project?.name}):`, error);
 		
 		// Return a placeholder SVG instead of 500 error
 		const placeholder = `
