@@ -1,5 +1,7 @@
 import projects from '$lib/data/projects.json';
 import type { R2Bucket, Fetcher } from '@cloudflare/workers-types';
+import { urlToUuid } from './uuid';
+import { dev } from '$app/environment';
 
 interface Project {
 	id: number;
@@ -21,12 +23,17 @@ async function getBrowser(browserBinding: Fetcher) {
 	// Reuse existing browser if it was used recently
 	if (cachedBrowser && (now - browserLastUsed) < BROWSER_REUSE_TIMEOUT) {
 		browserLastUsed = now;
+		if (dev) {
+			const ageSeconds = Math.floor((now - (browserLastUsed - BROWSER_REUSE_TIMEOUT)) / 1000);
+			console.log(`♻️  Reusing existing browser session (age: ${ageSeconds}s)`);
+		}
 		return cachedBrowser;
 	}
 	
 	// Close old browser if it exists
 	if (cachedBrowser) {
 		try {
+			if (dev) console.log(`🔄 Closing old browser session...`);
 			await cachedBrowser.close();
 		} catch (e) {
 			// Browser already closed, ignore
@@ -35,10 +42,12 @@ async function getBrowser(browserBinding: Fetcher) {
 	}
 	
 	// Launch new browser with keep_alive to prevent early timeout
+	if (dev) console.log(`🚀 Launching new browser session...`);
 	cachedBrowser = await puppeteer.default.launch(browserBinding as any, {
 		keep_alive: 60000 // Keep alive for 60 seconds
 	});
 	browserLastUsed = now;
+	if (dev) console.log(`✅ Browser launched successfully`);
 	
 	return cachedBrowser;
 }
@@ -117,24 +126,47 @@ export interface EnsureOpts {
 const DEFAULT_CACHE_SECONDS = 7 * 24 * 60 * 60;
 
 /**
- * Takes a screenshot of the project with the given UUID
+ * Takes a screenshot of the given URL
+ * Uses URL-based UUID for storage to deduplicate identical URLs
  */
-export async function ensureScreenshotResponse(uuid: string, opts: EnsureOpts): Promise<Response> {
-	// Find the project by UUID
-	const project = projects.find((p) => p.uuid === uuid);
-
-	if (!project) {
-		return new Response('Project not found', { status: 404 });
+export async function ensureScreenshotResponse(
+	projectUrl: string,
+	urlBasedUuid: string,
+	opts: EnsureOpts
+): Promise<Response> {
+	const screenshotKey = `screenshots/${urlBasedUuid}.png`;
+	
+	if (dev) {
+		console.log('\n🔍 [Screenshot Dev] ===================================');
+		console.log(` URL: ${projectUrl}`);
+		console.log(`🎯 URL-based UUID: ${urlBasedUuid}`);
+		console.log(`📁 Storage Key: ${screenshotKey}`);
+		
+		// Check if other projects share this URL
+		const sharingProjects = projects.filter(p => p.url === projectUrl);
+		if (sharingProjects.length > 1) {
+			console.log(`🔄 Deduplication: ${sharingProjects.length} projects share this URL:`);
+			sharingProjects.forEach(p => {
+				console.log(`   - ${p.name} (${p.uuid})`);
+			});
+		}
+		console.log('===================================================\n');
 	}
-
-	const screenshotKey = `screenshots/${uuid}.png`;
 
 	try {
 		// Check if screenshot already exists in bucket (unless force is true)
 		if (!opts.force) {
 			try {
+				if (dev) console.log(`💾 Checking R2 cache for: ${screenshotKey}`);
 				const existingScreenshot = await opts.bucket.get(screenshotKey);
 				if (existingScreenshot) {
+					if (dev) {
+						const metadata = existingScreenshot.customMetadata || {};
+						console.log(`✅ Cache HIT! Found existing screenshot`);
+						console.log(`   Captured at: ${metadata.capturedAt || 'unknown'}`);
+						console.log(`   Used by projects: ${metadata.usedByProjects || 'unknown'}`);
+					}
+					
 					const headers = new Headers({
 						'Content-Type': 'image/png',
 						'Cache-Control': `public, max-age=${opts.cacheSeconds || DEFAULT_CACHE_SECONDS}`,
@@ -145,32 +177,44 @@ export async function ensureScreenshotResponse(uuid: string, opts: EnsureOpts): 
 					// Convert the readable stream to ArrayBuffer for Response
 					const arrayBuffer = await existingScreenshot.arrayBuffer();
 					return new Response(arrayBuffer, { headers });
+				} else {
+					if (dev) console.log(`❌ Cache MISS - will generate new screenshot`);
 				}
 			} catch (r2Error) {
-				console.warn(`[Screenshot] R2 read failed for ${uuid}, will generate new screenshot:`, r2Error);
+				console.warn(`[Screenshot] R2 read failed for ${urlBasedUuid}, will generate new screenshot:`, r2Error);
 				// Continue to try generating a new screenshot
 			}
+		} else {
+			if (dev) console.log(`🔄 Force refresh requested - will regenerate screenshot`);
 		}
 
 		// Capture new screenshot
-		const screenshotBuffer = await captureScreenshot(project.url, opts.browser);
+		if (dev) console.log(`📸 Generating new screenshot...`);
+		const screenshotBuffer = await captureScreenshot(projectUrl, opts.browser);
+		if (dev) console.log(`✅ Screenshot captured successfully (${screenshotBuffer.byteLength} bytes)`);
 
 		// Store screenshot in R2 bucket (but don't fail if this fails)
 		try {
+			if (dev) console.log(`💾 Uploading to R2: ${screenshotKey}`);
 			await opts.bucket.put(screenshotKey, screenshotBuffer, {
 				httpMetadata: {
 					contentType: 'image/png',
 					cacheControl: `public, max-age=${opts.cacheSeconds || DEFAULT_CACHE_SECONDS}`
 				},
 				customMetadata: {
-					projectUuid: uuid,
-					projectId: project.id.toString(),
+					urlBasedUuid: urlBasedUuid,
+					projectUrl: projectUrl,
 					capturedAt: new Date().toISOString(),
-					projectUrl: project.url
+					// Store all project UUIDs that use this URL (for tracking)
+					usedByProjects: projects
+						.filter(p => p.url === projectUrl)
+						.map(p => p.uuid)
+						.join(',')
 				}
 			});
+			if (dev) console.log(`✅ Uploaded successfully to R2`);
 		} catch (uploadError) {
-			console.warn(`[Screenshot] R2 upload failed for ${uuid}, screenshot will not be cached:`, uploadError);
+			console.warn(`[Screenshot] R2 upload failed for ${urlBasedUuid}, screenshot will not be cached:`, uploadError);
 			// Continue anyway - we can still return the screenshot
 		}
 		const headers = new Headers({
@@ -180,7 +224,7 @@ export async function ensureScreenshotResponse(uuid: string, opts: EnsureOpts): 
 
 		return new Response(screenshotBuffer, { headers });
 	} catch (error) {
-		console.error(`[Screenshot] Failed to generate screenshot for ${uuid} (${project?.name}):`, error);
+		console.error(`[Screenshot] Failed to generate screenshot for URL ${projectUrl}:`, error);
 		
 		// Return a placeholder SVG instead of 500 error
 		const placeholder = `
@@ -190,7 +234,7 @@ export async function ensureScreenshotResponse(uuid: string, opts: EnsureOpts): 
 					Screenshot Unavailable
 				</text>
 				<text x="50%" y="55%" font-family="Arial" font-size="18" fill="#888888" text-anchor="middle" dominant-baseline="middle">
-					${project?.name || 'Project'}
+					Error generating screenshot
 				</text>
 			</svg>
 		`.trim();
