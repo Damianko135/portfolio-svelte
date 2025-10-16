@@ -118,24 +118,28 @@ function validateApiRequest(url: URL, request: Request): Response | null {
 		}
 	}
 
-	// Block requests with suspicious user agents
+	// Skip user agent validation for screenshot API - it's internal server-side only
+	// The browser API uses legitimate browser user agents
+	if (url.pathname.includes('/api/')) {
+		return null;
+	}
+
+	// Block requests with suspicious user agents on other APIs
 	const userAgent = request.headers.get('user-agent') || '';
 	const suspiciousPatterns = [
 		/bot/i,
 		/crawler/i,
 		/spider/i,
-		/scraper/i,
-		// Allow legitimate bots
-		/(?!googlebot|bingbot)/i
+		/scraper/i
 	];
 
-	// Only block on screenshot API to prevent abuse
-	if (url.pathname.includes('/api/screenshot/')) {
-		for (const pattern of suspiciousPatterns) {
-			if (pattern.test(userAgent) && !/(googlebot|bingbot)/i.test(userAgent)) {
-				console.warn(`Blocked suspicious user agent: ${userAgent}`);
-				return new Response('Forbidden', { status: 403 });
-			}
+	// Allow legitimate bots (Google, Bing, etc.)
+	const legitimateBots = /(googlebot|bingbot|slurp|duckduckbot)/i;
+	
+	for (const pattern of suspiciousPatterns) {
+		if (pattern.test(userAgent) && !legitimateBots.test(userAgent)) {
+			console.warn(`Blocked suspicious user agent: ${userAgent}`);
+			return new Response('Forbidden', { status: 403 });
 		}
 	}
 
