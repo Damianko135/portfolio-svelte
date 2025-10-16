@@ -1,12 +1,15 @@
 import { ensureScreenshotResponse } from '$lib/server/screenshot';
 import type { RequestHandler } from './$types';
+import projects from '$lib/data/projects.json';
 
 export const GET: RequestHandler = async ({ params, platform, request }) => {
 	const { slug } = params;
 
-	// Basic validation - only allow requests for valid project IDs
-	const validIds = [1, 2, 3]; // From projects.json
-	if (!validIds.includes(parseInt(slug))) {
+	// Validate that the project exists in our projects.json
+	const validIds = projects.map(p => p.id);
+	const projectId = parseInt(slug);
+	
+	if (isNaN(projectId) || !validIds.includes(projectId)) {
 		return new Response('Invalid project ID', { status: 400 });
 	}
 

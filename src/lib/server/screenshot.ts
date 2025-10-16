@@ -12,7 +12,6 @@ async function captureScreenshot(url: string, browserBinding: Fetcher): Promise<
 	console.log(`Starting screenshot capture for: ${url}`);
 
 	try {
-
 		console.log('Launching Firefox browser');
 		const browser = await (playwright as any).launch(browserBinding);
 		console.log('Browser launched, creating new page');
@@ -25,17 +24,29 @@ async function captureScreenshot(url: string, browserBinding: Fetcher): Promise<
 			await page.setViewportSize({ width: 1280, height: 720 });
 			console.log('Viewport set, navigating to URL');
 
-			// Navigate to the URL
-			await page.goto(url, { waitUntil: 'networkidle' });
+			// Navigate to the URL with timeout protection
+			await page.goto(url, { 
+				waitUntil: 'networkidle',
+				timeout: 30000 // 30 second timeout
+			});
 			console.log('Navigation complete, waiting for content to load');
 
 			// Wait a bit for any dynamic content to load
 			await page.waitForTimeout(2000);
 			console.log('Content loaded, taking screenshot');
 
-			// Take screenshot
-			const screenshot = await page.screenshot({ type: 'png' });
+			// Take screenshot with quality settings
+			const screenshot = await page.screenshot({ 
+				type: 'png',
+				fullPage: false // Only capture viewport, not full page
+			});
 			console.log(`Screenshot taken, size: ${screenshot.length} bytes`);
+			
+			// Validate screenshot size (max 5MB)
+			const maxSize = 5 * 1024 * 1024;
+			if (screenshot.length > maxSize) {
+				throw new Error(`Screenshot too large: ${screenshot.length} bytes (max: ${maxSize})`);
+			}
 
 			// Convert Buffer to ArrayBuffer
 			const arrayBuffer = new ArrayBuffer(screenshot.length);
@@ -62,6 +73,9 @@ export interface EnsureOpts {
 	cacheSeconds?: number;
 }
 
+// Default cache duration: 7 days
+const DEFAULT_CACHE_SECONDS = 7 * 24 * 60 * 60;
+
 /**
  * Takes a screenshot of the project with the given slug
  */
@@ -84,7 +98,7 @@ export async function ensureScreenshotResponse(slug: string, opts: EnsureOpts): 
 				console.log(`Found existing screenshot for ${slug}`);
 				const headers = new Headers({
 					'Content-Type': 'image/png',
-					'Cache-Control': `public, max-age=${opts.cacheSeconds || 3600}`,
+					'Cache-Control': `public, max-age=${opts.cacheSeconds || DEFAULT_CACHE_SECONDS}`,
 					'ETag': existingScreenshot.etag || '',
 					'Last-Modified': existingScreenshot.uploaded?.toUTCString() || ''
 				});
@@ -105,14 +119,19 @@ export async function ensureScreenshotResponse(slug: string, opts: EnsureOpts): 
 		await opts.bucket.put(screenshotKey, screenshotBuffer, {
 			httpMetadata: {
 				contentType: 'image/png',
-				cacheControl: `public, max-age=${opts.cacheSeconds || 3600}`
+				cacheControl: `public, max-age=${opts.cacheSeconds || DEFAULT_CACHE_SECONDS}`
+			},
+			customMetadata: {
+				projectId: slug,
+				capturedAt: new Date().toISOString(),
+				projectUrl: project.url
 			}
 		});
 		console.log(`Successfully uploaded screenshot for ${slug}`);
 
 		const headers = new Headers({
 			'Content-Type': 'image/png',
-			'Cache-Control': `public, max-age=${opts.cacheSeconds || 3600}`
+			'Cache-Control': `public, max-age=${opts.cacheSeconds || DEFAULT_CACHE_SECONDS}`
 		});
 
 		return new Response(screenshotBuffer, { headers });
