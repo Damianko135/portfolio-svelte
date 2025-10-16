@@ -19,14 +19,5 @@
 	},
 	"observability": {
 		"enabled": true
-	},
-	"browser": {
-		"binding": "MYBROWSER"
-	},
-	"r2_buckets": [
-		{
-			"binding": "project_screenshots",
-			"bucket_name": "project-screenshots"
-		}
-	]
+	}
 }

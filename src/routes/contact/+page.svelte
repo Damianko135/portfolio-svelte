@@ -2,6 +2,16 @@
 	import { fade, fly } from 'svelte/transition';
 	import { Icon } from '$lib';
 
+	type ContactMethod = {
+		icon: string;
+		title: string;
+		color: string;
+		value?: string;
+		getValue?: () => string;
+		href?: string | null;
+		clickHandler?: (event: Event) => void;
+	};
+
 	let visible = $state(false);
 	let formSubmitted = $state(false);
 	let isSubmitting = $state(false);
@@ -41,7 +51,7 @@
 		}
 	}
 
-	const contactMethods = [
+	const contactMethods: ContactMethod[] = [
 		{
 			icon: 'mdi:email',
 			title: 'Email',
