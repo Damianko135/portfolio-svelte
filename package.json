@@ -48,6 +48,7 @@
 		]
 	},
 	"dependencies": {
+		"@cloudflare/playwright": "^1.0.0",
 		"@iconify/svelte": "^5.0.0"
 	}
 }
