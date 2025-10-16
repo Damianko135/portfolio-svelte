@@ -6,7 +6,7 @@ import { dev } from '$app/environment';
 // Disable prerendering for this API route
 export const prerender = false;
 
-export const GET: RequestHandler = async ({ params, platform, request, url }) => {
+export const GET: RequestHandler = async ({ params, platform, url }) => {
 	const { slug } = params;
 	
 	// Get the project URL from query parameter (no rehashing needed!)

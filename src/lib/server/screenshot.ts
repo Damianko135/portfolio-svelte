@@ -1,14 +1,6 @@
 import projects from '$lib/data/projects.json';
 import type { R2Bucket, Fetcher } from '@cloudflare/workers-types';
-import { urlToUuid } from './uuid';
 import { dev } from '$app/environment';
-
-interface Project {
-	id: number;
-	uuid: string;
-	name: string;
-	url: string;
-}
 
 // Cache browser instance to reuse sessions and avoid rate limits
 let cachedBrowser: any = null;

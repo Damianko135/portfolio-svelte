@@ -1,7 +1,7 @@
 import projectsData from '$lib/data/projects.json';
 import { urlToUuid } from '$lib/server/uuid';
 
-export const load = async ({ platform }: any) => {
+export const load = async () => {
 	// Generate URL-based UUIDs for all projects
 	const projectsWithScreenshots = await Promise.all(
 		projectsData.map(async (project) => {
