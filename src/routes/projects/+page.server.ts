@@ -6,7 +6,6 @@ export const load = async () => {
 	const projectsWithScreenshots = await Promise.all(
 		projectsData.map(async (project) => {
 			const urlBasedUuid = await urlToUuid(project.url);
-			// console.log(`[Page Load] ${project.name}: ${project.url} → ${urlBasedUuid}`);
 			return {
 				...project,
 				screenshot: `/api/screenshot/${urlBasedUuid}?url=${encodeURIComponent(project.url)}`
