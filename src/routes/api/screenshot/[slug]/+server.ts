@@ -58,10 +58,32 @@ export const GET: RequestHandler = async ({ params, platform, request }) => {
 	try {
 		return await ensureScreenshotResponse(slug, {
 			bucket: bucket,
-			browser: browser
+			browser: browser,
+			cacheSeconds: 30 * 24 * 60 * 60 // Cache for 30 days to reduce API calls
 		});
 	} catch (error) {
 		console.error(`Screenshot error for ${slug}:`, error);
-		return new Response('Screenshot not available', { status: 500 });
+		
+		// If rate limited or error, return a cached placeholder
+		const project = projects.find(p => p.uuid === slug);
+		const placeholder = `
+			<svg width="1280" height="720" xmlns="http://www.w3.org/2000/svg">
+				<rect width="1280" height="720" fill="#1a1a1a"/>
+				<text x="50%" y="45%" font-family="Arial" font-size="32" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">
+					Screenshot Unavailable
+				</text>
+				<text x="50%" y="55%" font-family="Arial" font-size="18" fill="#888888" text-anchor="middle" dominant-baseline="middle">
+					${project?.name || 'Project'}
+				</text>
+			</svg>
+		`.trim();
+		
+		return new Response(placeholder, {
+			status: 200,
+			headers: {
+				'Content-Type': 'image/svg+xml',
+				'Cache-Control': 'public, max-age=3600' // Cache placeholder for 1 hour
+			}
+		});
 	}
 };

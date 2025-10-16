@@ -8,18 +8,50 @@ interface Project {
 	url: string;
 }
 
+// Cache browser instance to reuse sessions and avoid rate limits
+let cachedBrowser: any = null;
+let browserLastUsed = 0;
+const BROWSER_REUSE_TIMEOUT = 50000; // Keep browser alive for 50 seconds
+
+// Function to get or create a browser instance
+async function getBrowser(browserBinding: Fetcher) {
+	const puppeteer = await import('@cloudflare/puppeteer');
+	const now = Date.now();
+	
+	// Reuse existing browser if it was used recently
+	if (cachedBrowser && (now - browserLastUsed) < BROWSER_REUSE_TIMEOUT) {
+		console.log('Reusing existing browser session');
+		browserLastUsed = now;
+		return cachedBrowser;
+	}
+	
+	// Close old browser if it exists
+	if (cachedBrowser) {
+		try {
+			await cachedBrowser.close();
+		} catch (e) {
+			console.log('Old browser already closed');
+		}
+		cachedBrowser = null;
+	}
+	
+	// Launch new browser with keep_alive to prevent early timeout
+	console.log('Launching new browser session');
+	cachedBrowser = await puppeteer.default.launch(browserBinding as any, {
+		keep_alive: 60000 // Keep alive for 60 seconds
+	});
+	browserLastUsed = now;
+	
+	return cachedBrowser;
+}
+
 // Function to capture screenshot using Cloudflare Browser Rendering API with Puppeteer
 async function captureScreenshot(url: string, browserBinding: Fetcher): Promise<ArrayBuffer> {
 	console.log(`Starting screenshot capture for: ${url}`);
 
 	try {
-		// Use Puppeteer with Cloudflare Browser Rendering API
-		// This is the recommended approach and avoids filesystem operations
-		const puppeteer = await import('@cloudflare/puppeteer');
-		
-		console.log('Connecting to browser via Cloudflare Browser Rendering API');
-		const browser = await puppeteer.default.launch(browserBinding as any);
-		console.log('Browser connected, creating new page');
+		const browser = await getBrowser(browserBinding);
+		console.log('Browser ready, creating new page');
 
 		const page = await browser.newPage();
 		console.log('Page created, setting viewport');
@@ -69,11 +101,19 @@ async function captureScreenshot(url: string, browserBinding: Fetcher): Promise<
 			console.log('Screenshot ready');
 			return arrayBuffer;
 		} finally {
-			console.log('Closing browser');
-			await browser.close();
+			// Close the page but keep browser alive for reuse
+			console.log('Closing page');
+			await page.close();
 		}
 	} catch (error) {
 		console.error('Error in captureScreenshot:', error);
+		
+		// Check if it's a rate limit error
+		const errorMessage = error instanceof Error ? error.message : String(error);
+		if (errorMessage.includes('429') || errorMessage.includes('Rate limit')) {
+			throw new Error('RATE_LIMITED: Browser API rate limit exceeded');
+		}
+		
 		throw error;
 	}
 }
