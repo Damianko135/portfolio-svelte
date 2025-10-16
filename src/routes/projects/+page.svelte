@@ -11,7 +11,6 @@
 	$effect(() => {
 		visible = true;
 	});
-
 </script>
 
 <svelte:head>

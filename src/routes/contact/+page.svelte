@@ -27,17 +27,16 @@
 	function handleSubmit(event: Event) {
 		event.preventDefault();
 		if (isSubmitting || !name || !email || !message) return;
-		formSubmitted = true
-
+		formSubmitted = true;
 	}
 
 	// Email obfuscation
 	const emailParts = ['damiankorver', 'gmail', 'com'];
 	const getEmail = () => `${emailParts[0]}@${emailParts[1]}.${emailParts[2]}`;
 	const getObfuscatedEmail = () => `${emailParts[0]} [at] ${emailParts[1]} [dot] ${emailParts[2]}`;
-	
+
 	let emailRevealed = $state(false);
-	
+
 	function handleEmailClick(event: Event) {
 		event.preventDefault();
 		if (!emailRevealed) {
@@ -55,7 +54,7 @@
 		{
 			icon: 'mdi:email',
 			title: 'Email',
-			getValue: () => emailRevealed ? getEmail() : getObfuscatedEmail(),
+			getValue: () => (emailRevealed ? getEmail() : getObfuscatedEmail()),
 			href: `mailto:${getEmail()}`,
 			color: 'from-error-500 to-error-600',
 			clickHandler: handleEmailClick
@@ -156,7 +155,7 @@
 				</div>
 			</div>
 		</section>
-		
+
 		<!-- Contact Methods -->
 		<section class="px-4 py-12">
 			<div class="container mx-auto max-w-4xl">
@@ -177,11 +176,11 @@
 							{#if method.clickHandler}
 								<button
 									onclick={method.clickHandler}
-									class="text-surface-600 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 cursor-pointer underline-offset-2 hover:underline"
+									class="text-surface-600 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 cursor-pointer underline-offset-2 transition-colors duration-200 hover:underline"
 								>
 									{method.getValue ? method.getValue() : method.value}
 									{#if method.title === 'Email' && !emailRevealed}
-										<span class="text-xs ml-1 opacity-60">(click to reveal)</span>
+										<span class="ml-1 text-xs opacity-60">(click to reveal)</span>
 									{/if}
 								</button>
 							{:else if method.href}
@@ -192,7 +191,9 @@
 									{method.getValue ? method.getValue() : method.value}
 								</a>
 							{:else}
-								<p class="text-surface-600 dark:text-surface-400">{method.getValue ? method.getValue() : method.value}</p>
+								<p class="text-surface-600 dark:text-surface-400">
+									{method.getValue ? method.getValue() : method.value}
+								</p>
 							{/if}
 						</div>
 					{/each}
@@ -227,7 +228,8 @@
 									</div>
 									<h3 class="text-surface-900 dark:text-surface-50 text-xl font-bold">Got it!</h3>
 									<p class="text-surface-600 dark:text-surface-400 text-lg">
-										Thanks for wanting to reach out! Sadly I currently have not implemented the contact form functionality.
+										Thanks for wanting to reach out! Sadly I currently have not implemented the
+										contact form functionality.
 									</p>
 								</div>
 							{:else}

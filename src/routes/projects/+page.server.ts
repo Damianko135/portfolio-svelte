@@ -11,7 +11,7 @@ function slugify(name: string): string {
 export const load = async ({ platform }: any) => {
 	// For now, just return projects without screenshots due to build issues
 	return {
-		projects: projectsData.map(project => ({
+		projects: projectsData.map((project) => ({
 			...project,
 			screenshot: undefined
 		}))

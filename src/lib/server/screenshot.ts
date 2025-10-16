@@ -3,7 +3,10 @@ let firefox: any;
 
 import projects from '$lib/data/projects.json';
 
-interface Project { name: string; url: string; }
+interface Project {
+	name: string;
+	url: string;
+}
 
 // Function to capture screenshot using Cloudflare Playwright
 async function captureScreenshot(url: string): Promise<ArrayBuffer> {
@@ -51,7 +54,7 @@ export interface EnsureOpts {
  */
 export async function ensureScreenshotResponse(slug: string, opts: EnsureOpts): Promise<Response> {
 	// Find the project by slug (assuming slug is the project id)
-	const project = projects.find(p => p.id.toString() === slug);
+	const project = projects.find((p) => p.id.toString() === slug);
 
 	if (!project) {
 		return new Response('Project not found', { status: 404 });
@@ -62,7 +65,7 @@ export async function ensureScreenshotResponse(slug: string, opts: EnsureOpts): 
 
 		const headers = new Headers({
 			'Content-Type': 'image/png',
-			'Cache-Control': `public, max-age=${opts.cacheSeconds || 3600}`,
+			'Cache-Control': `public, max-age=${opts.cacheSeconds || 3600}`
 		});
 
 		return new Response(screenshotBuffer, { headers });
