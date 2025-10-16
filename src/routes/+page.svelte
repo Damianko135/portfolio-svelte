@@ -51,7 +51,6 @@
 		visible = true;
 		setTimeout(() => {
 			heroVisible = true;
-			heroVisible = true;
 		}, 200);
 	});
 </script>

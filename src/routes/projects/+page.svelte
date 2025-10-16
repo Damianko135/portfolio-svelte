@@ -6,8 +6,6 @@
 	let projects = $state(data.projects);
 	let visible = $state(false);
 
-	const screenPath = '$libs/creenshots/';
-
 	$effect(() => {
 		visible = true;
 	});
