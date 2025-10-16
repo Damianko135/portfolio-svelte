@@ -2,6 +2,7 @@
 let firefox: any;
 
 import projects from '$lib/data/projects.json';
+import type { R2Bucket } from '@cloudflare/workers-types';
 
 interface Project {
 	name: string;
@@ -43,7 +44,7 @@ async function captureScreenshot(url: string): Promise<ArrayBuffer> {
 }
 
 export interface EnsureOpts {
-	bucket: any; // Mock bucket
+	bucket: R2Bucket;
 	force?: boolean;
 	versionTag?: string;
 	cacheSeconds?: number;
@@ -60,8 +61,36 @@ export async function ensureScreenshotResponse(slug: string, opts: EnsureOpts): 
 		return new Response('Project not found', { status: 404 });
 	}
 
+	const screenshotKey = `screenshots/${slug}.png`;
+
 	try {
+		// Check if screenshot already exists in bucket (unless force is true)
+		if (!opts.force) {
+			const existingScreenshot = await opts.bucket.get(screenshotKey);
+			if (existingScreenshot) {
+				const headers = new Headers({
+					'Content-Type': 'image/png',
+					'Cache-Control': `public, max-age=${opts.cacheSeconds || 3600}`,
+					'ETag': existingScreenshot.etag || '',
+					'Last-Modified': existingScreenshot.uploaded?.toUTCString() || ''
+				});
+
+				// Convert the readable stream to ArrayBuffer for Response
+				const arrayBuffer = await existingScreenshot.arrayBuffer();
+				return new Response(arrayBuffer, { headers });
+			}
+		}
+
+		// Capture new screenshot
 		const screenshotBuffer = await captureScreenshot(project.url);
+
+		// Store screenshot in R2 bucket
+		await opts.bucket.put(screenshotKey, screenshotBuffer, {
+			httpMetadata: {
+				contentType: 'image/png',
+				cacheControl: `public, max-age=${opts.cacheSeconds || 3600}`
+			}
+		});
 
 		const headers = new Headers({
 			'Content-Type': 'image/png',
