@@ -4,6 +4,7 @@ import tsParser from '@typescript-eslint/parser';
 import sveltePlugin from 'eslint-plugin-svelte';
 import svelteParser from 'svelte-eslint-parser';
 import prettierConfig from 'eslint-config-prettier';
+import globals from 'globals';
 
 export default [
 	// Global ignores
@@ -27,9 +28,9 @@ export default [
 			ecmaVersion: 2020,
 			sourceType: 'module',
 			globals: {
-				browser: true,
-				es2017: true,
-				node: true
+				...globals.browser,
+				...globals.node,
+				...globals.es2021
 			}
 		},
 		plugins: {

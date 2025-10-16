@@ -1,9 +1,10 @@
 import projects from '$lib/data/projects.json';
 import type { R2Bucket, Fetcher } from '@cloudflare/workers-types';
 import { dev } from '$app/environment';
+import type { Browser, BrowserWorker } from '@cloudflare/puppeteer';
 
 // Cache browser instance to reuse sessions and avoid rate limits
-let cachedBrowser: any = null;
+let cachedBrowser: Browser | null = null;
 let browserLastUsed = 0;
 const BROWSER_REUSE_TIMEOUT = 50000; // Keep browser alive for 50 seconds
 
@@ -17,7 +18,7 @@ async function getBrowser(browserBinding: Fetcher) {
 		browserLastUsed = now;
 		if (dev) {
 			const ageSeconds = Math.floor((now - (browserLastUsed - BROWSER_REUSE_TIMEOUT)) / 1000);
-			console.log(`♻️  Reusing existing browser session (age: ${ageSeconds}s)`);
+			console.warn(`♻️  Reusing existing browser session (age: ${ageSeconds}s)`);
 		}
 		return cachedBrowser;
 	}
@@ -25,7 +26,7 @@ async function getBrowser(browserBinding: Fetcher) {
 	// Close old browser if it exists
 	if (cachedBrowser) {
 		try {
-			if (dev) console.log(`🔄 Closing old browser session...`);
+			if (dev) console.warn(`🔄 Closing old browser session...`);
 			await cachedBrowser.close();
 		} catch (e) {
 			// Browser already closed, ignore
@@ -34,12 +35,12 @@ async function getBrowser(browserBinding: Fetcher) {
 	}
 	
 	// Launch new browser with keep_alive to prevent early timeout
-	if (dev) console.log(`🚀 Launching new browser session...`);
-	cachedBrowser = await puppeteer.default.launch(browserBinding as any, {
+	if (dev) console.warn(`🚀 Launching new browser session...`);
+	cachedBrowser = await puppeteer.default.launch(browserBinding as unknown as BrowserWorker, {
 		keep_alive: 60000 // Keep alive for 60 seconds
 	});
 	browserLastUsed = now;
-	if (dev) console.log(`✅ Browser launched successfully`);
+	if (dev) console.warn(`✅ Browser launched successfully`);
 	
 	return cachedBrowser;
 }
@@ -129,34 +130,34 @@ export async function ensureScreenshotResponse(
 	const screenshotKey = `screenshots/${urlBasedUuid}.png`;
 	
 	if (dev) {
-		console.log('\n🔍 [Screenshot Dev] ===================================');
-		console.log(` URL: ${projectUrl}`);
-		console.log(`🎯 URL-based UUID: ${urlBasedUuid}`);
-		console.log(`📁 Storage Key: ${screenshotKey}`);
+		console.warn('\n🔍 [Screenshot Dev] ===================================');
+		console.warn(` URL: ${projectUrl}`);
+		console.warn(`🎯 URL-based UUID: ${urlBasedUuid}`);
+		console.warn(`📁 Storage Key: ${screenshotKey}`);
 		
 		// Check if other projects share this URL
 		const sharingProjects = projects.filter(p => p.url === projectUrl);
 		if (sharingProjects.length > 1) {
-			console.log(`🔄 Deduplication: ${sharingProjects.length} projects share this URL:`);
+			console.warn(`🔄 Deduplication: ${sharingProjects.length} projects share this URL:`);
 			sharingProjects.forEach(p => {
-				console.log(`   - ${p.name} (ID: ${p.url})`);
+				console.warn(`   - ${p.name} (ID: ${p.url})`);
 			});
 		}
-		console.log('===================================================\n');
+		console.warn('===================================================\n');
 	}
 
 	try {
 		// Check if screenshot already exists in bucket (unless force is true)
 		if (!opts.force) {
 			try {
-				if (dev) console.log(`💾 Checking R2 cache for: ${screenshotKey}`);
+				if (dev) console.warn(`💾 Checking R2 cache for: ${screenshotKey}`);
 				const existingScreenshot = await opts.bucket.get(screenshotKey);
 				if (existingScreenshot) {
 					if (dev) {
 						const metadata = existingScreenshot.customMetadata || {};
-						console.log(`✅ Cache HIT! Found existing screenshot`);
-						console.log(`   Captured at: ${metadata.capturedAt || 'unknown'}`);
-						console.log(`   Used by projects: ${metadata.usedByProjects || 'unknown'}`);
+						console.warn(`✅ Cache HIT! Found existing screenshot`);
+						console.warn(`   Captured at: ${metadata.capturedAt || 'unknown'}`);
+						console.warn(`   Used by projects: ${metadata.usedByProjects || 'unknown'}`);
 					}
 					
 					const headers = new Headers({
@@ -170,24 +171,24 @@ export async function ensureScreenshotResponse(
 					const arrayBuffer = await existingScreenshot.arrayBuffer();
 					return new Response(arrayBuffer, { headers });
 				} else {
-					if (dev) console.log(`❌ Cache MISS - will generate new screenshot`);
+					if (dev) console.warn(`❌ Cache MISS - will generate new screenshot`);
 				}
 			} catch (r2Error) {
 				console.warn(`[Screenshot] R2 read failed for ${urlBasedUuid}, will generate new screenshot:`, r2Error);
 				// Continue to try generating a new screenshot
 			}
 		} else {
-			if (dev) console.log(`🔄 Force refresh requested - will regenerate screenshot`);
+			if (dev) console.warn(`🔄 Force refresh requested - will regenerate screenshot`);
 		}
 
 		// Capture new screenshot
-		if (dev) console.log(`📸 Generating new screenshot...`);
+		if (dev) console.warn(`📸 Generating new screenshot...`);
 		const screenshotBuffer = await captureScreenshot(projectUrl, opts.browser);
-		if (dev) console.log(`✅ Screenshot captured successfully (${screenshotBuffer.byteLength} bytes)`);
+		if (dev) console.warn(`✅ Screenshot captured successfully (${screenshotBuffer.byteLength} bytes)`);
 
 		// Store screenshot in R2 bucket (but don't fail if this fails)
 		try {
-			if (dev) console.log(`💾 Uploading to R2: ${screenshotKey}`);
+			if (dev) console.warn(`💾 Uploading to R2: ${screenshotKey}`);
 			await opts.bucket.put(screenshotKey, screenshotBuffer, {
 				httpMetadata: {
 					contentType: 'image/png',
@@ -204,7 +205,7 @@ export async function ensureScreenshotResponse(
 						.join(', ')
 				}
 			});
-			if (dev) console.log(`✅ Uploaded successfully to R2`);
+			if (dev) console.warn(`✅ Uploaded successfully to R2`);
 		} catch (uploadError) {
 			console.warn(`[Screenshot] R2 upload failed for ${urlBasedUuid}, screenshot will not be cached:`, uploadError);
 			// Continue anyway - we can still return the screenshot

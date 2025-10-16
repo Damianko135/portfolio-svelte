@@ -13,8 +13,8 @@ export const GET: RequestHandler = async ({ params, platform, url }) => {
 	const projectUrl = url.searchParams.get('url');
 	
 	if (dev) {
-		console.log(`[API] Received screenshot request for UUID: ${slug}`);
-		console.log(`[API] Project URL: ${projectUrl}`);
+		console.warn(`[API] Received screenshot request for UUID: ${slug}`);
+		console.warn(`[API] Project URL: ${projectUrl}`);
 	}
 
 	if (!projectUrl) {
@@ -29,18 +29,18 @@ export const GET: RequestHandler = async ({ params, platform, url }) => {
 	}
 	
 	if (dev) {
-		console.log(`[API] Matched project: ${matchingProject.name}`);
+		console.warn(`[API] Matched project: ${matchingProject.name}`);
 	}
 
 	// Get Cloudflare bindings (available in both dev with wrangler and production)
-	const bucket = (platform as any)?.env?.SCREENSHOTS;
-	const browser = (platform as any)?.env?.MYBROWSER;
+	const bucket = platform?.env?.SCREENSHOTS;
+	const browser = platform?.env?.MYBROWSER;
 	
 	// If bindings aren't available (running with normal vite dev instead of wrangler), return placeholder
 	if (!bucket || !browser) {
 		if (dev) {
-			console.log(`[DEV] Bindings unavailable for ${matchingProject.name} (${slug}) - returning placeholder`);
-			console.log(`[DEV] To test screenshots locally, run: pnpm run preview`);
+			console.warn(`[DEV] Bindings unavailable for ${matchingProject.name} (${slug}) - returning placeholder`);
+			console.warn(`[DEV] To test screenshots locally, run: pnpm run preview`);
 		}
 		
 		// Return a simple SVG placeholder
