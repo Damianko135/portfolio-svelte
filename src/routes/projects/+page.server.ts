@@ -4,7 +4,7 @@ export const load = async ({ platform }: any) => {
 	return {
 		projects: projectsData.map((project) => ({
 			...project,
-			screenshot: `/api/screenshot/${project.id}`
+			screenshot: `/api/screenshot/${project.uuid}`
 		}))
 	};
 };

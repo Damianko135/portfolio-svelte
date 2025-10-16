@@ -2,6 +2,8 @@ import projects from '$lib/data/projects.json';
 import type { R2Bucket, Fetcher } from '@cloudflare/workers-types';
 
 interface Project {
+	id: number;
+	uuid: string;
 	name: string;
 	url: string;
 }
@@ -79,17 +81,17 @@ export interface EnsureOpts {
 const DEFAULT_CACHE_SECONDS = 7 * 24 * 60 * 60;
 
 /**
- * Takes a screenshot of the project with the given slug
+ * Takes a screenshot of the project with the given UUID
  */
-export async function ensureScreenshotResponse(slug: string, opts: EnsureOpts): Promise<Response> {
-	// Find the project by slug (assuming slug is the project id)
-	const project = projects.find((p) => p.id.toString() === slug);
+export async function ensureScreenshotResponse(uuid: string, opts: EnsureOpts): Promise<Response> {
+	// Find the project by UUID
+	const project = projects.find((p) => p.uuid === uuid);
 
 	if (!project) {
 		return new Response('Project not found', { status: 404 });
 	}
 
-	const screenshotKey = `screenshots/${slug}.png`;
+	const screenshotKey = `screenshots/${uuid}.png`;
 
 	try {
 		// Check if screenshot already exists in bucket (unless force is true)
@@ -97,7 +99,7 @@ export async function ensureScreenshotResponse(slug: string, opts: EnsureOpts): 
 			console.log(`Checking for existing screenshot: ${screenshotKey}`);
 			const existingScreenshot = await opts.bucket.get(screenshotKey);
 			if (existingScreenshot) {
-				console.log(`Found existing screenshot for ${slug}`);
+				console.log(`Found existing screenshot for ${uuid}`);
 				const headers = new Headers({
 					'Content-Type': 'image/png',
 					'Cache-Control': `public, max-age=${opts.cacheSeconds || DEFAULT_CACHE_SECONDS}`,
@@ -109,7 +111,7 @@ export async function ensureScreenshotResponse(slug: string, opts: EnsureOpts): 
 				const arrayBuffer = await existingScreenshot.arrayBuffer();
 				return new Response(arrayBuffer, { headers });
 			}
-			console.log(`No existing screenshot found for ${slug}, generating new one`);
+			console.log(`No existing screenshot found for ${uuid}, generating new one`);
 		}
 
 		// Capture new screenshot
@@ -124,12 +126,13 @@ export async function ensureScreenshotResponse(slug: string, opts: EnsureOpts): 
 				cacheControl: `public, max-age=${opts.cacheSeconds || DEFAULT_CACHE_SECONDS}`
 			},
 			customMetadata: {
-				projectId: slug,
+				projectUuid: uuid,
+				projectId: project.id.toString(),
 				capturedAt: new Date().toISOString(),
 				projectUrl: project.url
 			}
 		});
-		console.log(`Successfully uploaded screenshot for ${slug}`);
+		console.log(`Successfully uploaded screenshot for ${uuid}`);
 
 		const headers = new Headers({
 			'Content-Type': 'image/png',
@@ -138,7 +141,7 @@ export async function ensureScreenshotResponse(slug: string, opts: EnsureOpts): 
 
 		return new Response(screenshotBuffer, { headers });
 	} catch (error) {
-		console.error(`Screenshot error for ${slug}:`, error);
+		console.error(`Screenshot error for ${uuid}:`, error);
 		return new Response('Screenshot failed', { status: 500 });
 	}
 }

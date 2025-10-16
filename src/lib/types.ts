@@ -1,5 +1,6 @@
 export interface Project {
 	id: number;
+	uuid: string;
 	name: string;
 	url: string;
 	screenshot?: string; // Optional screenshot path

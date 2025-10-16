@@ -9,17 +9,17 @@ export const prerender = false;
 export const GET: RequestHandler = async ({ params, platform, request }) => {
 	const { slug } = params;
 
-	// Validate that the project exists in our projects.json
-	const validIds = projects.map(p => p.id);
-	const projectId = parseInt(slug);
+	// Validate that the project exists in our projects.json (slug is now a UUID)
+	const validUuids = projects.map(p => p.uuid);
 	
-	if (isNaN(projectId) || !validIds.includes(projectId)) {
-		return new Response('Invalid project ID', { status: 400 });
+	if (!validUuids.includes(slug)) {
+		return new Response('Invalid project UUID', { status: 400 });
 	}
 
 	// In development, return a placeholder response
 	if (dev) {
-		console.log(`[DEV] Screenshot request for project ${slug} - returning placeholder`);
+		const project = projects.find(p => p.uuid === slug);
+		console.log(`[DEV] Screenshot request for project ${project?.name} (${slug}) - returning placeholder`);
 		
 		// Return a simple SVG placeholder
 		const placeholder = `
@@ -29,7 +29,7 @@ export const GET: RequestHandler = async ({ params, platform, request }) => {
 					Screenshot Preview (Dev Mode)
 				</text>
 				<text x="50%" y="60%" font-family="Arial" font-size="20" fill="#888888" text-anchor="middle" dominant-baseline="middle">
-					Project ID: ${slug}
+					${project?.name || 'Project'}
 				</text>
 			</svg>
 		`.trim();
