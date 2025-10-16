@@ -1,9 +1,8 @@
-// src/lib/types.ts
 export interface Project {
 	id: number;
 	name: string;
 	url: string;
-	screenshot: string; // Required field for screenshot path
+	screenshot?: string; // Optional screenshot path
 	description: string; // Description field
 	technologies: Array<{ icon: string; name: string }>; // Array of technologies (icon and name)
 }

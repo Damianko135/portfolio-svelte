@@ -1,6 +1,6 @@
 import { launch, type BrowserWorker } from '@cloudflare/playwright';
-import projects from '$lib/data/projects.json';
 import type { R2Bucket } from '@cloudflare/workers-types';
+import projects from '$lib/data/projects.json';
 
 interface Project { name: string; url: string; }
 
@@ -23,7 +23,8 @@ async function captureScreenshot(envBrowser: BrowserWorker, url: string): Promis
 	const page = await browser.newPage();
 	try {
 		await page.goto(url, { waitUntil: 'load' });
-		return await page.screenshot({ fullPage: true });
+		const buffer = await page.screenshot({ fullPage: true });
+		return buffer as any as ArrayBuffer;
 	} finally {
 		await page.close();
 		await browser.close();
