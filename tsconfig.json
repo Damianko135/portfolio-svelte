@@ -10,7 +10,7 @@
 		"sourceMap": true,
 		"strict": true,
 		"moduleResolution": "bundler",
-		
+
 		// Unused code detection
 		"noUnusedLocals": true,
 		"noUnusedParameters": true

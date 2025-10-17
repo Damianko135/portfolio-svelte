@@ -237,7 +237,9 @@
 									>
 										<Icon icon="mdi:check" class="text-2xl text-white" />
 									</div>
-									<h3 class="text-surface-900 dark:text-surface-50 text-xl font-bold">Message Sent!</h3>
+									<h3 class="text-surface-900 dark:text-surface-50 text-xl font-bold">
+										Message Sent!
+									</h3>
 									<p class="text-surface-600 dark:text-surface-400 text-lg">
 										{form?.message || "Thanks for reaching out! I'll get back to you soon."}
 									</p>
@@ -267,7 +269,10 @@
 											in:fly={{ y: -10, duration: 300 }}
 										>
 											<div class="flex items-start">
-												<Icon icon="mdi:alert-circle" class="text-error-600 dark:text-error-400 mr-3 mt-0.5" />
+												<Icon
+													icon="mdi:alert-circle"
+													class="text-error-600 dark:text-error-400 mt-0.5 mr-3"
+												/>
 												<p class="text-error-700 dark:text-error-300 text-sm font-medium">
 													{form.error}
 												</p>

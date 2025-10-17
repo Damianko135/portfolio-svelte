@@ -64,14 +64,12 @@ To add a new project to your portfolio, edit `src/lib/data/projects.json` and ad
 
 ```json
 {
-  "id": 4,
-  "uuid": "d4e5f6a7-b8c9-0123-def4-567890123456",
-  "name": "Your Project Name",
-  "url": "https://your-project-url.com",
-  "description": "A brief description of your project",
-  "technologies": [
-    { "name": "Technology Name", "icon": "simple-icons:iconname" }
-  ]
+	"id": 4,
+	"uuid": "d4e5f6a7-b8c9-0123-def4-567890123456",
+	"name": "Your Project Name",
+	"url": "https://your-project-url.com",
+	"description": "A brief description of your project",
+	"technologies": [{ "name": "Technology Name", "icon": "simple-icons:iconname" }]
 }
 ```
 
@@ -81,15 +79,15 @@ Each project requires a unique UUID for screenshot identification. Here are seve
 
 #### Option 1: Using Node.js (Recommended)
 
-   ```bash
-   node -e "console.log(require('crypto').randomUUID())"
-   ```
+```bash
+node -e "console.log(require('crypto').randomUUID())"
+```
 
 #### Option 2: Using PowerShell (Windows)
 
-   ```powershell
-   [guid]::NewGuid().ToString()
-   ```
+```powershell
+[guid]::NewGuid().ToString()
+```
 
 #### Option 3: Using Online Tools
 
@@ -181,12 +179,10 @@ portfolio-svelte/
    ```
 
 1. **Configure R2 Bucket** (for screenshots):
-
    - Create an R2 bucket named `screenshots` in your Cloudflare dashboard
    - Update `wrangler.jsonc` with your bucket name if different
 
 1. **Configure Browser Rendering**:
-
    - Enable Browser Rendering in your Cloudflare account
    - Update the browser binding in `wrangler.jsonc` if needed
 

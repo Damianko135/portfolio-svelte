@@ -12,9 +12,9 @@ const BROWSER_REUSE_TIMEOUT = 50000; // Keep browser alive for 50 seconds
 async function getBrowser(browserBinding: Fetcher) {
 	const puppeteer = await import('@cloudflare/puppeteer');
 	const now = Date.now();
-	
+
 	// Reuse existing browser if it was used recently
-	if (cachedBrowser && (now - browserLastUsed) < BROWSER_REUSE_TIMEOUT) {
+	if (cachedBrowser && now - browserLastUsed < BROWSER_REUSE_TIMEOUT) {
 		browserLastUsed = now;
 		if (dev) {
 			const ageSeconds = Math.floor((now - (browserLastUsed - BROWSER_REUSE_TIMEOUT)) / 1000);
@@ -22,7 +22,7 @@ async function getBrowser(browserBinding: Fetcher) {
 		}
 		return cachedBrowser;
 	}
-	
+
 	// Close old browser if it exists
 	if (cachedBrowser) {
 		try {
@@ -33,7 +33,7 @@ async function getBrowser(browserBinding: Fetcher) {
 		}
 		cachedBrowser = null;
 	}
-	
+
 	// Launch new browser with keep_alive to prevent early timeout
 	if (dev) console.warn(`🚀 Launching new browser session...`);
 	cachedBrowser = await puppeteer.default.launch(browserBinding as unknown as BrowserWorker, {
@@ -41,7 +41,7 @@ async function getBrowser(browserBinding: Fetcher) {
 	});
 	browserLastUsed = now;
 	if (dev) console.warn(`✅ Browser launched successfully`);
-	
+
 	return cachedBrowser;
 }
 
@@ -56,20 +56,20 @@ async function captureScreenshot(url: string, browserBinding: Fetcher): Promise<
 			await page.setViewport({ width: 1280, height: 720 });
 
 			// Navigate to the URL with timeout protection
-			await page.goto(url, { 
+			await page.goto(url, {
 				waitUntil: 'networkidle2',
 				timeout: 30000 // 30 second timeout
 			});
 
 			// Wait a bit for any dynamic content to load
-			await new Promise(resolve => setTimeout(resolve, 2000));
+			await new Promise((resolve) => setTimeout(resolve, 2000));
 
 			// Take screenshot with quality settings
-			const screenshot = await page.screenshot({ 
+			const screenshot = await page.screenshot({
 				type: 'png',
 				fullPage: false // Only capture viewport, not full page
 			});
-			
+
 			// Validate screenshot size (max 5MB)
 			const maxSize = 5 * 1024 * 1024;
 			if (screenshot.length > maxSize) {
@@ -81,12 +81,17 @@ async function captureScreenshot(url: string, browserBinding: Fetcher): Promise<
 			if (screenshot instanceof ArrayBuffer) {
 				arrayBuffer = screenshot;
 			} else if (screenshot.buffer instanceof ArrayBuffer) {
-				arrayBuffer = screenshot.buffer.slice(screenshot.byteOffset, screenshot.byteOffset + screenshot.byteLength);
+				arrayBuffer = screenshot.buffer.slice(
+					screenshot.byteOffset,
+					screenshot.byteOffset + screenshot.byteLength
+				);
 			} else {
 				// Handle SharedArrayBuffer by copying to ArrayBuffer
 				const sharedBuffer = screenshot.buffer;
 				arrayBuffer = new ArrayBuffer(screenshot.byteLength);
-				new Uint8Array(arrayBuffer).set(new Uint8Array(sharedBuffer, screenshot.byteOffset, screenshot.byteLength));
+				new Uint8Array(arrayBuffer).set(
+					new Uint8Array(sharedBuffer, screenshot.byteOffset, screenshot.byteLength)
+				);
 			}
 
 			return arrayBuffer;
@@ -96,13 +101,13 @@ async function captureScreenshot(url: string, browserBinding: Fetcher): Promise<
 		}
 	} catch (error) {
 		console.error(`[Screenshot Error] Failed to capture ${url}:`, error);
-		
+
 		// Check if it's a rate limit error
 		const errorMessage = error instanceof Error ? error.message : String(error);
 		if (errorMessage.includes('429') || errorMessage.includes('Rate limit')) {
 			throw new Error('RATE_LIMITED: Browser API rate limit exceeded');
 		}
-		
+
 		throw error;
 	}
 }
@@ -128,18 +133,18 @@ export async function ensureScreenshotResponse(
 	opts: EnsureOpts
 ): Promise<Response> {
 	const screenshotKey = `screenshots/${urlBasedUuid}.png`;
-	
+
 	if (dev) {
 		console.warn('\n🔍 [Screenshot Dev] ===================================');
 		console.warn(` URL: ${projectUrl}`);
 		console.warn(`🎯 URL-based UUID: ${urlBasedUuid}`);
 		console.warn(`📁 Storage Key: ${screenshotKey}`);
-		
+
 		// Check if other projects share this URL
-		const sharingProjects = projects.filter(p => p.url === projectUrl);
+		const sharingProjects = projects.filter((p) => p.url === projectUrl);
 		if (sharingProjects.length > 1) {
 			console.warn(`🔄 Deduplication: ${sharingProjects.length} projects share this URL:`);
-			sharingProjects.forEach(p => {
+			sharingProjects.forEach((p) => {
 				console.warn(`   - ${p.name} (ID: ${p.url})`);
 			});
 		}
@@ -159,11 +164,11 @@ export async function ensureScreenshotResponse(
 						console.warn(`   Captured at: ${metadata.capturedAt || 'unknown'}`);
 						console.warn(`   Used by projects: ${metadata.usedByProjects || 'unknown'}`);
 					}
-					
+
 					const headers = new Headers({
 						'Content-Type': 'image/png',
 						'Cache-Control': `public, max-age=${opts.cacheSeconds || DEFAULT_CACHE_SECONDS}`,
-						'ETag': existingScreenshot.etag || '',
+						ETag: existingScreenshot.etag || '',
 						'Last-Modified': existingScreenshot.uploaded?.toUTCString() || ''
 					});
 
@@ -174,7 +179,10 @@ export async function ensureScreenshotResponse(
 					if (dev) console.warn(`❌ Cache MISS - will generate new screenshot`);
 				}
 			} catch (r2Error) {
-				console.warn(`[Screenshot] R2 read failed for ${urlBasedUuid}, will generate new screenshot:`, r2Error);
+				console.warn(
+					`[Screenshot] R2 read failed for ${urlBasedUuid}, will generate new screenshot:`,
+					r2Error
+				);
 				// Continue to try generating a new screenshot
 			}
 		} else {
@@ -184,7 +192,8 @@ export async function ensureScreenshotResponse(
 		// Capture new screenshot
 		if (dev) console.warn(`📸 Generating new screenshot...`);
 		const screenshotBuffer = await captureScreenshot(projectUrl, opts.browser);
-		if (dev) console.warn(`✅ Screenshot captured successfully (${screenshotBuffer.byteLength} bytes)`);
+		if (dev)
+			console.warn(`✅ Screenshot captured successfully (${screenshotBuffer.byteLength} bytes)`);
 
 		// Store screenshot in R2 bucket (but don't fail if this fails)
 		try {
@@ -200,14 +209,17 @@ export async function ensureScreenshotResponse(
 					capturedAt: new Date().toISOString(),
 					// Store all project names that use this URL (for tracking)
 					usedByProjects: projects
-						.filter(p => p.url === projectUrl)
-						.map(p => p.name)
+						.filter((p) => p.url === projectUrl)
+						.map((p) => p.name)
 						.join(', ')
 				}
 			});
 			if (dev) console.warn(`✅ Uploaded successfully to R2`);
 		} catch (uploadError) {
-			console.warn(`[Screenshot] R2 upload failed for ${urlBasedUuid}, screenshot will not be cached:`, uploadError);
+			console.warn(
+				`[Screenshot] R2 upload failed for ${urlBasedUuid}, screenshot will not be cached:`,
+				uploadError
+			);
 			// Continue anyway - we can still return the screenshot
 		}
 		const headers = new Headers({
@@ -218,7 +230,7 @@ export async function ensureScreenshotResponse(
 		return new Response(screenshotBuffer, { headers });
 	} catch (error) {
 		console.error(`[Screenshot] Failed to generate screenshot for URL ${projectUrl}:`, error);
-		
+
 		// Return a placeholder SVG instead of 500 error
 		const placeholder = `
 			<svg width="1280" height="720" xmlns="http://www.w3.org/2000/svg">
@@ -231,7 +243,7 @@ export async function ensureScreenshotResponse(
 				</text>
 			</svg>
 		`.trim();
-		
+
 		return new Response(placeholder, {
 			status: 200,
 			headers: {

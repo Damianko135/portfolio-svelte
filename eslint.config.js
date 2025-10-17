@@ -39,16 +39,16 @@ export default [
 		rules: {
 			...js.configs.recommended.rules,
 			...tsPlugin.configs.recommended.rules,
-			
+
 			// TypeScript handles this
 			'@typescript-eslint/no-unused-vars': 'off',
-			
+
 			// Allow 'any' for now
 			'@typescript-eslint/no-explicit-any': 'warn',
-			
+
 			// Only allow console.warn and console.error
 			'no-console': ['warn', { allow: ['warn', 'error'] }],
-			
+
 			// Enforce best practices
 			'prefer-const': 'error',
 			'no-var': 'error'

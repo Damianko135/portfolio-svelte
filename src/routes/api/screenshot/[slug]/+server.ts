@@ -8,10 +8,10 @@ export const prerender = false;
 
 export const GET: RequestHandler = async ({ params, platform, url }) => {
 	const { slug } = params;
-	
+
 	// Get the project URL from query parameter (no rehashing needed!)
 	const projectUrl = url.searchParams.get('url');
-	
+
 	if (dev) {
 		console.warn(`[API] Received screenshot request for UUID: ${slug}`);
 		console.warn(`[API] Project URL: ${projectUrl}`);
@@ -20,14 +20,14 @@ export const GET: RequestHandler = async ({ params, platform, url }) => {
 	if (!projectUrl) {
 		return new Response('Missing URL parameter', { status: 400 });
 	}
-	
+
 	// Find the project by URL (simple lookup, no hashing)
-	const matchingProject = projects.find(p => p.url === projectUrl);
-	
+	const matchingProject = projects.find((p) => p.url === projectUrl);
+
 	if (!matchingProject) {
 		return new Response('Invalid project URL', { status: 400 });
 	}
-	
+
 	if (dev) {
 		console.warn(`[API] Matched project: ${matchingProject.name}`);
 	}
@@ -35,14 +35,16 @@ export const GET: RequestHandler = async ({ params, platform, url }) => {
 	// Get Cloudflare bindings (available in both dev with wrangler and production)
 	const bucket = platform?.env?.SCREENSHOTS;
 	const browser = platform?.env?.MYBROWSER;
-	
+
 	// If bindings aren't available (running with normal vite dev instead of wrangler), return placeholder
 	if (!bucket || !browser) {
 		if (dev) {
-			console.warn(`[DEV] Bindings unavailable for ${matchingProject.name} (${slug}) - returning placeholder`);
+			console.warn(
+				`[DEV] Bindings unavailable for ${matchingProject.name} (${slug}) - returning placeholder`
+			);
 			console.warn(`[DEV] To test screenshots locally, run: pnpm run preview`);
 		}
-		
+
 		// Return a simple SVG placeholder
 		const placeholder = `
 			<svg width="1280" height="720" xmlns="http://www.w3.org/2000/svg">
@@ -56,7 +58,7 @@ export const GET: RequestHandler = async ({ params, platform, url }) => {
 				${dev ? `<text x="50%" y="65%" font-family="Arial" font-size="14" fill="#666666" text-anchor="middle" dominant-baseline="middle">Run 'pnpm run preview' to test with Cloudflare bindings</text>` : ''}
 			</svg>
 		`.trim();
-		
+
 		return new Response(placeholder, {
 			headers: {
 				'Content-Type': 'image/svg+xml',
@@ -73,7 +75,7 @@ export const GET: RequestHandler = async ({ params, platform, url }) => {
 		});
 	} catch (error) {
 		console.error(`Screenshot error for ${slug}:`, error);
-		
+
 		// If rate limited or error, return a cached placeholder
 		const placeholder = `
 			<svg width="1280" height="720" xmlns="http://www.w3.org/2000/svg">
@@ -86,7 +88,7 @@ export const GET: RequestHandler = async ({ params, platform, url }) => {
 				</text>
 			</svg>
 		`.trim();
-		
+
 		return new Response(placeholder, {
 			status: 200,
 			headers: {
