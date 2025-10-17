@@ -11,29 +11,7 @@
 		]
 	},
 	{
-		"id": 2,
-		"name": "Homelab Setup",
-		"url": "https://github.com/damianko135",
-		"description": "Complete homelab infrastructure with Proxmox, Docker, and various services",
-		"technologies": [
-			{ "name": "Proxmox", "icon": "mdi:server" },
-			{ "name": "Docker", "icon": "simple-icons:docker" },
-			{ "name": "Linux", "icon": "simple-icons:linux" }
-		]
-	},
-	{
-		"id": 3,
-		"name": "Network Security Lab",
-		"url": "https://github.com/damianko135",
-		"description": "Virtual lab environment for practicing network security and penetration testing",
-		"technologies": [
-			{ "name": "VMware", "icon": "simple-icons:vmware" },
-			{ "name": "pfSense", "icon": "mdi:shield-check" },
-			{ "name": "Kali Linux", "icon": "simple-icons:kalilinux" }
-		]
-	},
-	{
-		"id": 4,
+		"id": 2	,
 		"name": "Gopteran",
 		"url": "https://gopteran.dev",
 		"description": "Documentation hub for the Gopteran infrastructure ecosystem, featuring Aerie, Avis, Carina, Remora, and Ventus projects",
@@ -41,6 +19,28 @@
 			{ "name": "HUGO", "icon": "simple-icons:hugo" },
 			{ "name": "Markdown", "icon": "simple-icons:markdown" },
 			{ "name": "CSS", "icon": "simple-icons:css3" }
+		]
+	},
+	{
+		"id": 3,
+		"name": "Tandem IT",
+		"url": "https://tandem-it.nl",
+		"description": "Student-run IT company from Hogeschool Utrecht providing infrastructure and security services, featuring modern frameworks and agile development practices",
+		"technologies": [
+			{ "name": "Svelte", "icon": "simple-icons:svelte" },
+			{ "name": "TypeScript", "icon": "simple-icons:typescript" },
+			{ "name": "Tailwind CSS", "icon": "simple-icons:tailwindcss" }
+		]
+	},
+	{
+		"id": 4,
+		"name": "Kamur.nl",
+		"url": "https://kamur.nl",
+		"description": "Student housing search platform aggregating listings from Facebook groups and websites. Implemented CI/CD pipeline for automated deployment and testing",
+		"technologies": [
+			{ "name": "GitHub Actions", "icon": "simple-icons:githubactions" },
+			{ "name": "Docker", "icon": "simple-icons:docker" },
+			{ "name": "CI/CD", "icon": "mdi:pipe" }
 		]
 	}
 ]
