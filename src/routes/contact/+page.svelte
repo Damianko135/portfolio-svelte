@@ -22,6 +22,7 @@
 
 	let visible = $state(false);
 	let isSubmitting = $state(false);
+	let showSuccessMessage = $state(false);
 
 	$effect(() => {
 		visible = true;
@@ -31,8 +32,14 @@
 	$effect(() => {
 		if (form?.success) {
 			isSubmitting = false;
+			showSuccessMessage = true;
 		}
 	});
+
+	function resetForm() {
+		showSuccessMessage = false;
+		form = undefined;
+	}
 
 	// Email obfuscation
 	const emailParts = ['damiankorver', 'gmail', 'com'];
@@ -223,7 +230,7 @@
 								></div>
 							</div>
 
-							{#if form?.success}
+							{#if showSuccessMessage}
 								<div class="space-y-4 py-8 text-center" in:fly={{ y: 20, duration: 400 }}>
 									<div
 										class="bg-success-500 mx-auto flex h-16 w-16 items-center justify-center rounded-full"
@@ -232,10 +239,11 @@
 									</div>
 									<h3 class="text-surface-900 dark:text-surface-50 text-xl font-bold">Message Sent!</h3>
 									<p class="text-surface-600 dark:text-surface-400 text-lg">
-										{form.message || "Thanks for reaching out! I'll get back to you soon."}
+										{form?.message || "Thanks for reaching out! I'll get back to you soon."}
 									</p>
 									<button
-										onclick={() => window.location.reload()}
+										onclick={resetForm}
+										type="button"
 										class="from-primary-500 to-secondary-500 mt-4 rounded-xl bg-gradient-to-r px-6 py-2 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105"
 									>
 										Send Another Message
