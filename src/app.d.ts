@@ -12,6 +12,7 @@ declare global {
 			env?: {
 				SCREENSHOTS?: R2Bucket;
 				MYBROWSER?: Fetcher;
+				RESEND_API_KEY?: string;
 			};
 		}
 	}

@@ -32,4 +32,6 @@
 	"browser": {
 		"binding": "MYBROWSER"
 	}
+	// Add your Resend API key as a secret using: wrangler secret put RESEND_API_KEY
+	// For local development, add RESEND_API_KEY to your .env file
 }

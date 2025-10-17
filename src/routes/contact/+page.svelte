@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { fade, fly } from 'svelte/transition';
 	import { Icon } from '$lib';
+	import { enhance } from '$app/forms';
+	import type { ActionData } from './$types';
 
 	type ContactMethod = {
 		icon: string;
@@ -12,23 +14,25 @@
 		clickHandler?: (event: Event) => void;
 	};
 
+	interface Props {
+		form?: ActionData;
+	}
+
+	let { form }: Props = $props();
+
 	let visible = $state(false);
-	let formSubmitted = $state(false);
 	let isSubmitting = $state(false);
 
 	$effect(() => {
 		visible = true;
 	});
 
-	let name: string = $state('');
-	let email: string = $state('');
-	let message: string = $state('');
-
-	function handleSubmit(event: Event) {
-		event.preventDefault();
-		if (isSubmitting || !name || !email || !message) return;
-		formSubmitted = true;
-	}
+	// Check if form was successfully submitted
+	$effect(() => {
+		if (form?.success) {
+			isSubmitting = false;
+		}
+	});
 
 	// Email obfuscation
 	const emailParts = ['damiankorver', 'gmail', 'com'];
@@ -212,28 +216,57 @@
 						>
 							<div class="mb-8">
 								<h2 class="text-surface-900 dark:text-surface-50 mb-2 text-2xl font-bold">
-									TODO: Contact Form
+									Send a Message
 								</h2>
 								<div
 									class="from-primary-500 to-secondary-500 h-1 w-16 rounded-full bg-gradient-to-r"
 								></div>
 							</div>
 
-							{#if formSubmitted}
+							{#if form?.success}
 								<div class="space-y-4 py-8 text-center" in:fly={{ y: 20, duration: 400 }}>
 									<div
 										class="bg-success-500 mx-auto flex h-16 w-16 items-center justify-center rounded-full"
 									>
 										<Icon icon="mdi:check" class="text-2xl text-white" />
 									</div>
-									<h3 class="text-surface-900 dark:text-surface-50 text-xl font-bold">Got it!</h3>
+									<h3 class="text-surface-900 dark:text-surface-50 text-xl font-bold">Message Sent!</h3>
 									<p class="text-surface-600 dark:text-surface-400 text-lg">
-										Thanks for wanting to reach out! Sadly I currently have not implemented the
-										contact form functionality.
+										{form.message || "Thanks for reaching out! I'll get back to you soon."}
 									</p>
+									<button
+										onclick={() => window.location.reload()}
+										class="from-primary-500 to-secondary-500 mt-4 rounded-xl bg-gradient-to-r px-6 py-2 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105"
+									>
+										Send Another Message
+									</button>
 								</div>
 							{:else}
-								<form onsubmit={(e) => handleSubmit(e)} class="space-y-6">
+								<form
+									method="POST"
+									use:enhance={() => {
+										isSubmitting = true;
+										return async ({ update }) => {
+											await update();
+											isSubmitting = false;
+										};
+									}}
+									class="space-y-6"
+								>
+									{#if form?.error}
+										<div
+											class="bg-error-50 dark:bg-error-900/20 border-error-200 dark:border-error-800 rounded-xl border p-4"
+											in:fly={{ y: -10, duration: 300 }}
+										>
+											<div class="flex items-start">
+												<Icon icon="mdi:alert-circle" class="text-error-600 dark:text-error-400 mr-3 mt-0.5" />
+												<p class="text-error-700 dark:text-error-300 text-sm font-medium">
+													{form.error}
+												</p>
+											</div>
+										</div>
+									{/if}
+
 									<div class="space-y-4">
 										<div>
 											<label
@@ -244,8 +277,9 @@
 											</label>
 											<input
 												id="name"
+												name="name"
 												type="text"
-												bind:value={name}
+												value={form?.name ?? ''}
 												required
 												disabled={isSubmitting}
 												class="dark:bg-surface-900/50 border-surface-300 dark:border-surface-600 focus:ring-primary-500 w-full rounded-xl border bg-white/50 px-4 py-3 transition-all duration-200 focus:border-transparent focus:ring-2 disabled:opacity-50"
@@ -262,8 +296,9 @@
 											</label>
 											<input
 												id="email"
+												name="email"
 												type="email"
-												bind:value={email}
+												value={form?.email ?? ''}
 												required
 												disabled={isSubmitting}
 												class="dark:bg-surface-900/50 border-surface-300 dark:border-surface-600 focus:ring-primary-500 w-full rounded-xl border bg-white/50 px-4 py-3 transition-all duration-200 focus:border-transparent focus:ring-2 disabled:opacity-50"
@@ -280,7 +315,8 @@
 											</label>
 											<textarea
 												id="message"
-												bind:value={message}
+												name="message"
+												value={form?.message ?? ''}
 												required
 												disabled={isSubmitting}
 												rows="5"
@@ -292,7 +328,7 @@
 
 									<button
 										type="submit"
-										disabled={isSubmitting || !name || !email || !message}
+										disabled={isSubmitting}
 										class="group from-primary-500 to-secondary-500 flex w-full transform items-center justify-center rounded-xl bg-gradient-to-r px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl disabled:transform-none disabled:cursor-not-allowed disabled:opacity-50"
 									>
 										{#if isSubmitting}
