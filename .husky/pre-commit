@@ -1,0 +1,35 @@
+echo "🔍 Running pre-commit checks..."
+
+# Format check
+echo "📝 Checking code formatting..."
+pnpm run lint || {
+  echo "❌ Formatting check failed. Run 'pnpm run format' to fix."
+  FAILED=1
+}
+
+# ESLint check
+echo "🔧 Running ESLint..."
+pnpm run eslint || {
+  echo "❌ ESLint check failed. Run 'pnpm run eslint:fix' to attempt fixes."
+  FAILED=1
+}
+
+# Type check
+echo "🔎 Running Svelte type check..."
+pnpm run check || {
+  echo "❌ Type check failed. Please fix TypeScript/Svelte errors."
+  FAILED=1
+}
+
+# Build check, NOTE: Does not work, because of Cloudflare protocols in adapter
+# echo "🏗️  Testing build..."
+# pnpm run build || {
+#   echo "❌ Build failed. Please fix build errors."
+#   FAILED=1
+# }
+
+if [ "$FAILED" ]; then
+  echo "❌ Some pre-commit checks failed."
+else
+  echo "✅ All pre-commit checks passed!"
+fi
