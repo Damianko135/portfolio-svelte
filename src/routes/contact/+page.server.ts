@@ -1,6 +1,6 @@
 import { fail } from '@sveltejs/kit';
 import type { Actions } from './$types';
-import { RESEND_API_KEY } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 
 export const actions = {
 	default: async ({ request, platform }) => {
@@ -60,9 +60,9 @@ export const actions = {
 
 		try {
 			// Get Resend API key from environment
-			// In development: uses RESEND_API_KEY from .env via $env/static/private
+			// In development: uses RESEND_API_KEY from .env via $env/dynamic/private
 			// In production (Cloudflare): uses platform.env.RESEND_API_KEY
-			const resendApiKey = platform?.env?.RESEND_API_KEY || RESEND_API_KEY;
+			const resendApiKey = platform?.env?.RESEND_API_KEY || env.RESEND_API_KEY;
 
 			if (!resendApiKey) {
 				console.error('RESEND_API_KEY not configured');
