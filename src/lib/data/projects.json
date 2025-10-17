@@ -31,5 +31,16 @@
 			{ "name": "pfSense", "icon": "mdi:shield-check" },
 			{ "name": "Kali Linux", "icon": "simple-icons:kalilinux" }
 		]
+	},
+	{
+		"id": 4,
+		"name": "Gopteran",
+		"url": "https://gopteran.dev",
+		"description": "Documentation hub for the Gopteran infrastructure ecosystem, featuring Aerie, Avis, Carina, Remora, and Ventus projects",
+		"technologies": [
+			{ "name": "HUGO", "icon": "simple-icons:hugo" },
+			{ "name": "Markdown", "icon": "simple-icons:markdown" },
+			{ "name": "CSS", "icon": "simple-icons:css3" }
+		]
 	}
 ]
