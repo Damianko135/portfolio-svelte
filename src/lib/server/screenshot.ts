@@ -45,6 +45,109 @@ async function getBrowser(browserBinding: Fetcher) {
 	return cachedBrowser;
 }
 
+// Function to handle cookie banners by clicking deny/reject buttons
+async function handleCookieBanner(page: Awaited<ReturnType<Browser['newPage']>>) {
+	try {
+		// First, try common CSS selectors (class/id based)
+		const cssSelectors = [
+			// CookieBot specific
+			'#CybotCookiebotDialogBodyButtonDecline',
+			'a[id*="CybotCookiebotDialogBodyLevelButtonLevelOptinDeclineAll"]',
+			// OneTrust specific
+			'.ot-pc-refuse-all-handler',
+			'button[id*="onetrust-reject"]',
+			'.onetrust-close-btn-handler',
+			// Cookie consent specific
+			'.cc-deny',
+			'.cc-dismiss',
+			// Common patterns
+			'button[class*="reject" i]',
+			'button[class*="deny" i]',
+			'button[class*="decline" i]',
+			'button[id*="reject" i]',
+			'button[id*="deny" i]',
+			'a[class*="reject" i]',
+			'a[class*="deny" i]',
+			'[data-testid*="reject"]',
+			'[data-testid*="deny"]'
+		];
+
+		// Try CSS selectors first
+		for (const selector of cssSelectors) {
+			try {
+				const button = await page.$(selector);
+				if (button) {
+					const isVisible = await page.evaluate((el: Element) => {
+						const rect = el.getBoundingClientRect();
+						return rect.width > 0 && rect.height > 0;
+					}, button);
+
+					if (isVisible) {
+						if (dev) console.warn(`🍪 Found cookie button via CSS: ${selector}`);
+						await button.click();
+						await new Promise((resolve) => setTimeout(resolve, 500));
+						if (dev) console.warn(`✅ Clicked cookie deny button`);
+						return;
+					}
+				}
+			} catch (e) {
+				continue;
+			}
+		}
+
+		// Try finding buttons by text content using page.evaluate
+		const clicked = await page.evaluate(() => {
+			const keywords = [
+				'reject all',
+				'reject',
+				'deny all',
+				'deny',
+				'decline all',
+				'decline',
+				'no thanks',
+				'weigeren',
+				'weiger alles',
+				'afwijzen',
+				'ablehnen',
+				'alle ablehnen'
+			];
+
+			// Find all buttons and links
+			const elements = Array.from(document.querySelectorAll('button, a'));
+
+			for (const keyword of keywords) {
+				for (const el of elements) {
+					const text = el.textContent?.toLowerCase().trim() || '';
+					const ariaLabel = el.getAttribute('aria-label')?.toLowerCase() || '';
+
+					if (text === keyword || ariaLabel === keyword || text.includes(keyword)) {
+						// Check if element is visible
+						const rect = el.getBoundingClientRect();
+						if (rect.width > 0 && rect.height > 0) {
+							// Found a match, click it
+							(el as HTMLElement).click();
+							return keyword; // Return the keyword that was clicked
+						}
+					}
+				}
+			}
+			return null;
+		});
+
+		if (clicked) {
+			if (dev) console.warn(`🍪 Found and clicked cookie button with text: "${clicked}"`);
+			await new Promise((resolve) => setTimeout(resolve, 500));
+			return;
+		}
+
+		// If no deny button found, just continue (not all sites have cookie banners)
+		if (dev) console.warn(`ℹ️  No cookie banner found or already dismissed`);
+	} catch (error) {
+		// Don't fail the whole screenshot if cookie handling fails
+		if (dev) console.warn(`⚠️  Cookie banner handling failed (non-critical):`, error);
+	}
+}
+
 // Function to capture screenshot using Cloudflare Browser Rendering API with Puppeteer
 async function captureScreenshot(url: string, browserBinding: Fetcher): Promise<ArrayBuffer> {
 	try {
@@ -52,6 +155,24 @@ async function captureScreenshot(url: string, browserBinding: Fetcher): Promise<
 		const page = await browser.newPage();
 
 		try {
+			// Set realistic user agent to avoid bot detection
+			await page.setUserAgent(
+				'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+			);
+
+			// Set additional headers to look more like a real browser
+			await page.setExtraHTTPHeaders({
+				'Accept-Language': 'en-US,en;q=0.9',
+				Accept:
+					'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+				'Accept-Encoding': 'gzip, deflate, br',
+				'Sec-Fetch-Dest': 'document',
+				'Sec-Fetch-Mode': 'navigate',
+				'Sec-Fetch-Site': 'none',
+				'Sec-Fetch-User': '?1',
+				'Upgrade-Insecure-Requests': '1'
+			});
+
 			// Set viewport size for consistent screenshots
 			await page.setViewport({ width: 1280, height: 720 });
 
@@ -61,8 +182,15 @@ async function captureScreenshot(url: string, browserBinding: Fetcher): Promise<
 				timeout: 30000 // 30 second timeout
 			});
 
-			// Wait a bit for any dynamic content to load
-			await new Promise((resolve) => setTimeout(resolve, 2000));
+			// Wait longer for potential Cloudflare challenges to resolve
+			// and for any dynamic content to load
+			await new Promise((resolve) => setTimeout(resolve, 5000));
+
+			// Try to dismiss cookie banners for cleaner screenshots
+			await handleCookieBanner(page);
+
+			// Wait a moment after clicking cookie banner
+			await new Promise((resolve) => setTimeout(resolve, 1000));
 
 			// Take screenshot with quality settings
 			const screenshot = await page.screenshot({
