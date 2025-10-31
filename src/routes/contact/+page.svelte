@@ -219,7 +219,7 @@
 					<!-- Contact Form -->
 					<div class="space-y-8" in:fly={{ x: -30, duration: 600, delay: 300 }}>
 						<div
-							class="dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 rounded-2xl border bg-white/60 p-8 shadow-lg backdrop-blur-sm"
+							class="dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 h-full rounded-2xl border bg-white/60 p-8 shadow-lg backdrop-blur-sm"
 						>
 							<div class="mb-8">
 								<h2 class="text-surface-900 dark:text-surface-50 mb-2 text-2xl font-bold">
@@ -333,7 +333,7 @@
 												required
 												disabled={isSubmitting}
 												rows="5"
-												class="dark:bg-surface-900/50 border-surface-300 dark:border-surface-600 focus:ring-primary-500 w-full resize-none rounded-xl border bg-white/50 px-4 py-3 transition-all duration-200 focus:border-transparent focus:ring-2 disabled:opacity-50"
+												class="dark:bg-surface-900/50 border-surface-300 dark:border-surface-600 focus:ring-primary-500 mb-4 w-full resize-none rounded-xl border bg-white/50 px-4 py-3 transition-all duration-200 focus:border-transparent focus:ring-2 disabled:opacity-50"
 												placeholder="Your message..."
 											></textarea>
 										</div>
@@ -429,7 +429,7 @@
 
 						<!-- Additional Info -->
 						<div
-							class="from-primary-500/10 to-secondary-500/10 border-primary-500/20 rounded-2xl border bg-gradient-to-br p-8 backdrop-blur-sm"
+							class="from-primary-500/10 to-secondary-500/10 border-primary-500/20 rounded-2xl border bg-gradient-to-br p-8 shadow-lg backdrop-blur-sm"
 						>
 							<div class="space-y-4 text-center">
 								<div

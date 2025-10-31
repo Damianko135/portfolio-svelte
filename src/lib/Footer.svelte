@@ -97,18 +97,6 @@
 							class="text-surface-300 transition-colors duration-300 group-hover:text-white"
 						/>
 					</a>
-					<a
-						href="https://twitter.com/damianko135"
-						class="group bg-surface-700 hover:bg-tertiary-600 flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-300 hover:scale-110 hover:shadow-lg"
-						aria-label="Damian Korver on Twitter"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						<Icon
-							icon="mdi:twitter"
-							class="text-surface-300 transition-colors duration-300 group-hover:text-white"
-						/>
-					</a>
 				</div>
 			</div>
 		</div>
