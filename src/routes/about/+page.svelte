@@ -2,6 +2,7 @@
 	import { fade, fly } from 'svelte/transition';
 	import { onMount } from 'svelte';
 	import { Icon, SectionDivider } from '$lib';
+	import * as m from '$lib/paraglide/messages.js';
 
 	let visible = $state(false);
 	onMount(() => {
@@ -9,52 +10,49 @@
 	});
 
 	const skills = [
-		{ name: 'Proxmox', icon: 'simple-icons:proxmox', color: 'text-secondary-500' },
-		{ name: 'VMware', icon: 'simple-icons:vmware', color: 'text-primary-500' },
-		{ name: 'Hyper-V', icon: 'mdi:microsoft-windows', color: 'text-primary-600' },
+		{ name: m.about_skill_proxmox(), icon: 'simple-icons:proxmox', color: 'text-secondary-500' },
+		{ name: m.about_skill_vmware(), icon: 'simple-icons:vmware', color: 'text-primary-500' },
+		{ name: m.about_skill_hyperv(), icon: 'mdi:microsoft-windows', color: 'text-primary-600' },
 		{
-			name: 'Active Directory',
+			name: m.about_skill_activedirectory(),
 			icon: 'mdi:microsoft-active-directory',
 			color: 'text-tertiary-500'
 		},
-		{ name: 'Docker', icon: 'mdi:docker', color: 'text-primary-400' },
-		{ name: 'Networking', icon: 'mdi:network', color: 'text-success-500' },
-		{ name: 'Firewall', icon: 'mdi:shield-check', color: 'text-error-500' },
-		{ name: 'SvelteKit', icon: 'simple-icons:svelte', color: 'text-secondary-600' }
+		{ name: m.about_skill_docker(), icon: 'mdi:docker', color: 'text-primary-400' },
+		{ name: m.about_skill_networking(), icon: 'mdi:network', color: 'text-success-500' },
+		{ name: m.about_skill_firewall(), icon: 'mdi:shield-check', color: 'text-error-500' },
+		{ name: m.about_skill_sveltekit(), icon: 'simple-icons:svelte', color: 'text-secondary-600' }
 	];
 
 	const interests = [
-		{ name: 'Penetration Testing', icon: 'mdi:bug', color: 'text-error-600' },
-		{ name: 'Red Teaming', icon: 'mdi:sword-cross', color: 'text-error-500' },
-		{ name: 'Purple Teaming', icon: 'mdi:yin-yang', color: 'text-tertiary-500' }
+		{ name: m.about_interest_pentest(), icon: 'mdi:bug', color: 'text-error-600' },
+		{ name: m.about_interest_redteam(), icon: 'mdi:sword-cross', color: 'text-error-500' },
+		{ name: m.about_interest_purpleteam(), icon: 'mdi:yin-yang', color: 'text-tertiary-500' }
 	];
 
 	const timeline = [
 		{
 			year: 2023,
 			endYear: 2027,
-			title: 'Studying Cybersecurity',
-			organization: 'Hogeschool Utrecht',
-			description:
-				'Learning Applied Computer Science with a focus on cybersecurity and cloud stuff. Lots of labs, projects, and figuring things out.',
+			title: m.about_timeline_study(),
+			organization: m.about_timeline_study_org(),
+			description: m.about_timeline_study_desc(),
 			color: 'from-primary-500 to-tertiary-500'
 		},
 		{
 			year: 2024,
 			endYear: null, // Ongoing
-			title: 'Started my homelab',
-			organization: 'Self-taught',
-			description:
-				'Built my own lab setup with Proxmox, Docker, and various tools. Breaking things and learning how to fix them.',
+			title: m.about_timeline_homelab(),
+			organization: m.about_timeline_homelab_org(),
+			description: m.about_timeline_homelab_desc(),
 			color: 'from-success-500 to-primary-500'
 		},
 		{
 			year: 2022,
 			endYear: 2022,
-			title: 'Got into cybersecurity',
-			organization: 'Self-taught',
-			description:
-				'Started exploring security concepts, networking, and system administration. The rabbit hole began.',
+			title: m.about_timeline_security(),
+			organization: m.about_timeline_security_org(),
+			description: m.about_timeline_security_desc(),
 			color: 'from-tertiary-500 to-secondary-500'
 		}
 	].sort((a, b) => {
@@ -80,11 +78,8 @@
 </script>
 
 <svelte:head>
-	<title>About - Damian Korver</title>
-	<meta
-		name="description"
-		content="Get to know Damian Korver, a cybersecurity student who loves tinkering with tech and building cool projects."
-	/>
+	<title>{m.about_title()}</title>
+	<meta name="description" content={m.about_meta_description()} />
 </svelte:head>
 
 {#if visible}
@@ -102,16 +97,16 @@
 						class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 inline-flex items-center rounded-full border bg-gradient-to-r px-6 py-3 backdrop-blur-sm"
 					>
 						<span class="text-surface-700 dark:text-surface-300 text-sm font-medium"
-							>Here's my story</span
+							>{m.about_story()}</span
 						>
 					</div>
 
 					<h1 class="text-4xl font-bold md:text-6xl">
-						<span class="text-surface-900 dark:text-surface-50 block">Hello!</span>
+						<span class="text-surface-900 dark:text-surface-50 block">{m.about_heading()}</span>
 						<span
 							class="from-primary-600 via-secondary-600 to-tertiary-600 block bg-gradient-to-r bg-clip-text text-transparent"
 						>
-							I'm Damian Korver
+							{m.about_intro()}
 						</span>
 					</h1>
 
@@ -120,19 +115,19 @@
 							class="dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 flex items-center rounded-full border bg-white/60 px-4 py-2 backdrop-blur-sm"
 						>
 							<Icon icon="mdi:map-marker" class="text-success-500 mr-2" />
-							<span class="text-sm font-medium">Netherlands</span>
+							<span class="text-sm font-medium">{m.about_location_label()}</span>
 						</div>
 						<div
 							class="dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 flex items-center rounded-full border bg-white/60 px-4 py-2 backdrop-blur-sm"
 						>
 							<Icon icon="mdi:school" class="text-primary-500 mr-2" />
-							<span class="text-sm font-medium">Student</span>
+							<span class="text-sm font-medium">{m.about_student_label()}</span>
 						</div>
 						<div
 							class="dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 flex items-center rounded-full border bg-white/60 px-4 py-2 backdrop-blur-sm"
 						>
 							<Icon icon="mdi:heart" class="text-tertiary-500 mr-2" />
-							<span class="text-sm font-medium">Tech Enthusiast</span>
+							<span class="text-sm font-medium">{m.about_enthusiast_label()}</span>
 						</div>
 					</div>
 				</div>
@@ -147,25 +142,20 @@
 				<div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
 					<div class="space-y-6" in:fly={{ x: -30, duration: 600, delay: 300 }}>
 						<h2 class="text-surface-900 dark:text-surface-50 text-3xl font-bold md:text-4xl">
-							How I got here
+							{m.about_section_title()}
 						</h2>
 						<div
 							class="from-primary-500 to-secondary-500 h-1 w-16 rounded-full bg-gradient-to-r"
 						></div>
 						<div class="text-surface-600 dark:text-surface-400 space-y-4 text-lg leading-relaxed">
 							<p>
-								I love learning about tech, especially when it comes to keeping things secure and
-								making them work in the cloud. Right now I'm studying cybersecurity at Hogeschool
-								Utrecht and having a blast figuring out how systems work.
+								{m.about_story_p1()}
 							</p>
 							<p>
-								My goal? To become really good at protecting digital stuff and building cloud
-								solutions that actually make sense. I want to be someone who can look at a problem
-								and know how to solve it securely.
+								{m.about_story_p2()}
 							</p>
 							<p>
-								Come along for the ride as I build things with SvelteKit, dive deeper into security
-								concepts, and explore whatever new tech catches my eye next.
+								{m.about_story_p3()}
 							</p>
 						</div>
 					</div>
@@ -208,7 +198,7 @@
 			<div class="container mx-auto max-w-4xl">
 				<div class="mb-16 text-center">
 					<h3 class="text-surface-900 dark:text-surface-50 mb-4 text-3xl font-bold md:text-4xl">
-						My Timeline
+						{m.about_my_journey()}
 					</h3>
 					<SectionDivider variant="delayed" />
 				</div>
@@ -280,7 +270,7 @@
 			<div class="container mx-auto max-w-6xl">
 				<div class="mb-16 text-center">
 					<h3 class="text-surface-900 dark:text-surface-50 mb-4 text-3xl font-bold md:text-4xl">
-						What I know
+						{m.about_my_expertise()}
 					</h3>
 					<SectionDivider variant="on-scroll" />
 				</div>
@@ -308,7 +298,7 @@
 			<div class="container mx-auto max-w-4xl">
 				<div class="mb-16 text-center">
 					<h3 class="text-surface-900 dark:text-surface-50 mb-4 text-3xl font-bold md:text-4xl">
-						What gets me excited
+						{m.about_interested_in()}
 					</h3>
 					<SectionDivider variant="on-scroll" />
 				</div>

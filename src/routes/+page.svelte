@@ -2,6 +2,7 @@
 	import { fly } from 'svelte/transition';
 	import { Icon, SectionDivider } from '$lib';
 	import type { AboutItem, Interest } from '$lib/types';
+	import * as m from '$lib/paraglide/messages.js';
 
 	// Using the new $state syntax for reactive variables
 	let visible = $state(false);
@@ -11,33 +12,33 @@
 	const aboutItems: AboutItem[] = [
 		{
 			icon: 'mdi:map-marker',
-			text: 'Netherlands',
-			subText: 'Based in the Netherlands, exploring the world of tech',
+			text: m.home_location(),
+			subText: m.home_location_desc(),
 			color: 'text-success-500'
 		},
 
 		{
 			icon: 'mdi:school',
-			text: 'Student at Hogeschool Utrecht',
-			subText: 'University of Applied Sciences, Utrecht',
+			text: m.home_education(),
+			subText: m.home_education_desc(),
 			color: 'text-primary-500'
 		},
 		{
 			icon: 'mdi:server-security',
-			text: 'Studying Cyber Security & Cloud',
-			subText: 'Focusing on security, cloud computing, and networking',
+			text: m.home_focus(),
+			subText: m.home_focus_desc(),
 			color: 'text-error-500'
 		}
 	];
 
 	const interests: Interest[] = [
-		{ icon: 'mdi:shield-check', text: 'Security', color: 'text-error-500' },
-		{ icon: 'mdi:cloud', text: 'Cloud', color: 'text-primary-500' },
-		{ icon: 'mdi:network', text: 'Networking', color: 'text-success-500' },
-		{ icon: 'mdi:firewall', text: 'Firewalls', color: 'text-secondary-500' },
-		{ icon: 'mdi:terminal', text: 'Command', color: 'text-surface-500' },
-		{ icon: 'mdi:linux', text: 'Linux', color: 'text-warning-500' },
-		{ icon: 'mdi:microsoft-windows', text: 'Windows', color: 'text-primary-600' }
+		{ icon: 'mdi:shield-check', text: m.home_skill_security(), color: 'text-error-500' },
+		{ icon: 'mdi:cloud', text: m.home_skill_cloud(), color: 'text-primary-500' },
+		{ icon: 'mdi:network', text: m.home_skill_networking(), color: 'text-success-500' },
+		{ icon: 'mdi:firewall', text: m.home_skill_firewalls(), color: 'text-secondary-500' },
+		{ icon: 'mdi:terminal', text: m.home_skill_command(), color: 'text-surface-500' },
+		{ icon: 'mdi:linux', text: m.home_skill_linux(), color: 'text-warning-500' },
+		{ icon: 'mdi:microsoft-windows', text: m.home_skill_windows(), color: 'text-primary-600' }
 	];
 
 	const skills = [
@@ -56,20 +57,11 @@
 </script>
 
 <svelte:head>
-	<title>Damian Korver - Student & Tech Enthusiast</title>
-	<meta
-		name="description"
-		content="Damian Korver, a cybersecurity student who loves working with servers, networks, and figuring out how things work."
-	/>
-	<meta
-		name="keywords"
-		content="Damian Korver, Cyber Security, Cloud, Networking, Golang, SvelteKit, Student, Hogeschool Utrecht"
-	/>
-	<meta property="og:title" content="Damian Korver - Student & Tech Enthusiast" />
-	<meta
-		property="og:description"
-		content="A cybersecurity student who loves tinkering with tech and building cool projects."
-	/>
+	<title>{m.home_title()}</title>
+	<meta name="description" content={m.home_meta_description()} />
+	<meta name="keywords" content={m.home_meta_keywords()} />
+	<meta property="og:title" content={m.home_title()} />
+	<meta property="og:description" content={m.home_hero_subtitle()} />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://dkorver.nl" />
 </svelte:head>
@@ -99,12 +91,12 @@
 						>
 							<div class="bg-success-500 mr-3 h-2 w-2 animate-pulse rounded-full"></div>
 							<span class="text-surface-700 dark:text-surface-300 text-sm font-medium"
-								>Open to new projects</span
+								>{m.home_available()}</span
 							>
 						</div>
 
 						<h1 class="text-5xl leading-tight font-bold md:text-7xl">
-							<span class="text-surface-900 dark:text-surface-50 block">Hey there!</span>
+							<span class="text-surface-900 dark:text-surface-50 block">{m.home_hero_title()}</span>
 							<span
 								class="from-primary-600 via-secondary-600 to-tertiary-600 block bg-gradient-to-r bg-clip-text text-transparent"
 							>
@@ -114,9 +106,7 @@
 						<p
 							class="text-surface-600 dark:text-surface-400 mx-auto max-w-3xl text-xl leading-relaxed md:text-2xl"
 						>
-							I'm a cybersecurity student at Hogeschool Utrecht who loves tinkering with servers,
-							setting up networks, and figuring out how things work and break. You'll find me
-							working on side projects, learning new things, or helping out my fellow students.
+							{m.home_hero_subtitle()}
 						</p>
 
 						<div class="flex flex-col items-center justify-center gap-4 pt-6 sm:flex-row">
@@ -124,7 +114,7 @@
 								href="/projects"
 								class="group from-primary-500 to-secondary-500 inline-flex transform items-center rounded-xl bg-gradient-to-r px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
 							>
-								<span>Check out my projects</span>
+								<span>{m.home_cta_primary()}</span>
 								<svg
 									class="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1"
 									fill="none"
@@ -143,7 +133,7 @@
 								href="/contact"
 								class="border-primary-500 text-primary-600 dark:text-primary-400 hover:bg-primary-500 inline-flex items-center rounded-xl border-2 px-8 py-4 font-semibold transition-all duration-300 hover:text-white"
 							>
-								Say hello
+								{m.home_cta_secondary()}
 							</a>
 						</div>
 					</div>
@@ -198,7 +188,7 @@
 			<div class="container mx-auto max-w-6xl">
 				<div class="mb-16 text-center">
 					<h3 class="text-surface-900 dark:text-surface-50 mb-4 text-3xl font-bold md:text-4xl">
-						What I work with
+						{m.home_tech_stack()}
 					</h3>
 					<SectionDivider variant="on-scroll" />
 				</div>
@@ -239,7 +229,7 @@
 			<div class="container mx-auto max-w-6xl">
 				<div class="mb-16 text-center">
 					<h3 class="text-surface-900 dark:text-surface-50 mb-4 text-3xl font-bold md:text-4xl">
-						Things I'm into
+						{m.home_interested_in()}
 					</h3>
 					<SectionDivider variant="on-scroll" />
 				</div>

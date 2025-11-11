@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { fade, fly } from 'svelte/transition';
 	import { Icon } from '$lib';
+	import * as m from '$lib/paraglide/messages.js';
 
 	const { data } = $props<import('./$types').PageData>();
 	let projects = $state(data.projects);
@@ -9,14 +10,21 @@
 	$effect(() => {
 		visible = true;
 	});
+
+	function getProjectName(project: any): string {
+		const translatedName = m[project.name_key as keyof typeof m];
+		return typeof translatedName === 'function' ? translatedName() : project.name_key;
+	}
+
+	function getProjectDescription(project: any): string {
+		const translatedDesc = m[project.description_key as keyof typeof m];
+		return typeof translatedDesc === 'function' ? translatedDesc() : project.description_key;
+	}
 </script>
 
 <svelte:head>
-	<title>Projects - DK</title>
-	<meta
-		name="description"
-		content="Check out the projects I've been working on - from cybersecurity tools to web apps and everything in between."
-	/>
+	<title>{m.projects_title()}</title>
+	<meta name="description" content={m.projects_meta_description()} />
 </svelte:head>
 
 {#if visible}
@@ -45,7 +53,7 @@
 					>
 						<Icon icon="mdi:folder-open" class="text-primary-600 mr-2" />
 						<span class="text-surface-700 dark:text-surface-300 text-sm font-medium"
-							>Things I've built</span
+							>{m.projects_things_i_built()}</span
 						>
 					</div>
 
@@ -53,15 +61,14 @@
 						<span
 							class="from-primary-600 via-secondary-600 to-tertiary-600 block bg-gradient-to-r bg-clip-text text-transparent"
 						>
-							My Projects
+							{m.projects_heading()}
 						</span>
 					</h1>
 
 					<p
 						class="text-surface-600 dark:text-surface-400 mx-auto max-w-3xl text-xl leading-relaxed"
 					>
-						Here's some stuff I've been working on - a mix of security tools, web apps, and
-						experiments. Always learning something new with each one.
+						{m.projects_intro()}
 					</p>
 				</div>
 			</div>
@@ -84,7 +91,7 @@
 											<h2
 												class="text-surface-900 dark:text-surface-50 group-hover:text-primary-600 dark:group-hover:text-primary-400 text-xl font-bold transition-colors duration-300"
 											>
-												{project.name}
+												{getProjectName(project)}
 											</h2>
 										</div>
 										<div
@@ -143,10 +150,10 @@
 								{/if}
 
 								<!-- Project Description -->
-								{#if project.description}
+								{#if project.description_key}
 									<div class="mb-4 px-6">
 										<p class="text-surface-600 dark:text-surface-400 leading-relaxed">
-											{project.description}
+											{getProjectDescription(project)}
 										</p>
 									</div>
 								{/if}
@@ -180,7 +187,7 @@
 										rel="noopener noreferrer"
 										class="group from-primary-500 to-secondary-500 inline-flex w-full transform items-center justify-center rounded-xl bg-gradient-to-r px-6 py-3 font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg"
 									>
-										<span>View Project</span>
+										<span>{m.projects_visit_project()}</span>
 										<svg
 											class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1"
 											fill="none"

@@ -3,12 +3,13 @@
 	import { onMount } from 'svelte';
 	import ThemeToggle from './ThemeToggle.svelte';
 	import { Icon } from '$lib';
+	import * as m from '$lib/paraglide/messages.js';
 
 	let links = [
-		{ name: 'Home', url: '/' },
-		{ name: 'About', url: '/about' },
-		{ name: 'Projects', url: '/projects' },
-		{ name: 'Contact', url: '/contact' }
+		{ name: m.nav_home(), url: '/' },
+		{ name: m.nav_about(), url: '/about' },
+		{ name: m.nav_projects(), url: '/projects' },
+		{ name: m.nav_contact(), url: '/contact' }
 	];
 
 	let currentPath = $derived($page.url.pathname);
@@ -70,7 +71,9 @@
 					</ul>
 				</nav>
 
-				<ThemeToggle />
+				<div class="flex items-center space-x-2">
+					<ThemeToggle />
+				</div>
 			</div>
 
 			<!-- Mobile Menu Button -->

@@ -2,6 +2,7 @@
 	import { fade, fly } from 'svelte/transition';
 	import { Icon } from '$lib';
 	import { enhance } from '$app/forms';
+	import * as m from '$lib/paraglide/messages.js';
 	import type { ActionData } from './$types';
 
 	type ContactMethod = {
@@ -64,7 +65,7 @@
 	const contactMethods: ContactMethod[] = [
 		{
 			icon: 'mdi:email',
-			title: 'Email',
+			title: m.contact_email(),
 			getValue: () => (emailRevealed ? getEmail() : getObfuscatedEmail()),
 			href: `mailto:${getEmail()}`,
 			color: 'from-error-500 to-error-600',
@@ -72,15 +73,15 @@
 		},
 		{
 			icon: 'mdi:map-marker',
-			title: 'Location',
-			value: 'Netherlands',
+			title: m.contact_location(),
+			value: m.home_location(),
 			href: null,
 			color: 'from-success-500 to-success-600'
 		},
 		{
 			icon: 'mdi:clock-outline',
-			title: 'Response Time',
-			value: 'Usually within a work day',
+			title: m.contact_response_time(),
+			value: m.contact_response_time_value(),
 			href: null,
 			color: 'from-primary-500 to-primary-600'
 		}
@@ -88,35 +89,25 @@
 
 	const socialLinks = [
 		{
-			platform: 'LinkedIn',
+			platform: m.contact_social_linkedin(),
 			href: 'https://www.linkedin.com/in/dkorver/',
 			icon: 'mdi:linkedin',
 			color: 'hover:bg-primary-600',
-			description: 'Connect with me'
+			description: m.contact_social_connect()
 		},
 		{
-			platform: 'GitHub',
+			platform: m.contact_social_github(),
 			href: 'https://github.com/damianko135',
 			icon: 'mdi:github',
 			color: 'hover:bg-surface-900',
 			description: 'Check out my code'
 		}
-		// {
-		// 	platform: 'Twitter',
-		// 	href: 'https://twitter.com/damianko135',
-		// 	icon: 'mdi:twitter',
-		// 	color: 'hover:bg-tertiary-600',
-		// 	description: 'Follow along'
-		// }
 	];
 </script>
 
 <svelte:head>
-	<title>Contact - Damian Korver</title>
-	<meta
-		name="description"
-		content="Want to chat with Damian Korver? Drop me a line about tech, projects, or just to say hi. I'd love to hear from you!"
-	/>
+	<title>{m.contact_title()}</title>
+	<meta name="description" content={m.contact_meta_description()} />
 </svelte:head>
 
 {#if visible}
@@ -145,7 +136,7 @@
 					>
 						<Icon icon="mdi:send" class="text-primary-600 mr-2" />
 						<span class="text-surface-700 dark:text-surface-300 text-sm font-medium"
-							>Drop me a line</span
+							>{m.contact_heading()}</span
 						>
 					</div>
 
@@ -153,15 +144,14 @@
 						<span
 							class="from-primary-600 via-secondary-600 to-tertiary-600 block bg-gradient-to-r bg-clip-text text-transparent"
 						>
-							Let's chat
+							{m.contact_heading()}
 						</span>
 					</h1>
 
 					<p
 						class="text-surface-600 dark:text-surface-400 mx-auto max-w-3xl text-xl leading-relaxed"
 					>
-						Got a question? Want to work on something cool together? Or just want to say hi? I'd
-						love to hear from you!
+						{m.contact_intro()}
 					</p>
 				</div>
 			</div>
@@ -238,10 +228,10 @@
 										<Icon icon="mdi:check" class="text-2xl text-white" />
 									</div>
 									<h3 class="text-surface-900 dark:text-surface-50 text-xl font-bold">
-										Message Sent!
+										{m.contact_form_success()}
 									</h3>
 									<p class="text-surface-600 dark:text-surface-400 text-lg">
-										{form?.message || "Thanks for reaching out! I'll get back to you soon."}
+										{form?.message || m.contact_form_success()}
 									</p>
 									<button
 										onclick={resetForm}
@@ -286,7 +276,7 @@
 												for="name"
 												class="text-surface-700 dark:text-surface-300 mb-2 block text-sm font-semibold"
 											>
-												Name *
+												{m.contact_form_name()} *
 											</label>
 											<input
 												id="name"
@@ -296,7 +286,7 @@
 												required
 												disabled={isSubmitting}
 												class="dark:bg-surface-900/50 border-surface-300 dark:border-surface-600 focus:ring-primary-500 w-full rounded-xl border bg-white/50 px-4 py-3 transition-all duration-200 focus:border-transparent focus:ring-2 disabled:opacity-50"
-												placeholder="Your name"
+												placeholder={m.contact_form_name()}
 											/>
 										</div>
 
@@ -305,7 +295,7 @@
 												for="email"
 												class="text-surface-700 dark:text-surface-300 mb-2 block text-sm font-semibold"
 											>
-												Email *
+												{m.contact_form_email()} *
 											</label>
 											<input
 												id="email"
@@ -324,7 +314,7 @@
 												for="message"
 												class="text-surface-700 dark:text-surface-300 mb-2 block text-sm font-semibold"
 											>
-												Message *
+												{m.contact_form_message()} *
 											</label>
 											<textarea
 												id="message"
@@ -371,7 +361,7 @@
 												icon="mdi:send"
 												class="mr-2 transition-transform duration-200 group-hover:translate-x-1"
 											/>
-											Send it my way
+											{m.contact_form_submit()}
 										{/if}
 									</button>
 								</form>

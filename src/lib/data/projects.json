@@ -1,9 +1,9 @@
 [
 	{
 		"id": 1,
-		"name": "Portfolio Website",
+		"name_key": "project_portfolio",
 		"url": "https://dkorver.nl",
-		"description": "Personal portfolio website built with SvelteKit and Tailwind CSS",
+		"description_key": "project_portfolio_desc",
 		"technologies": [
 			{ "name": "SvelteKit", "icon": "simple-icons:svelte" },
 			{ "name": "TypeScript", "icon": "simple-icons:typescript" },
@@ -12,9 +12,9 @@
 	},
 	{
 		"id": 2,
-		"name": "Gopteran",
+		"name_key": "project_gopteran",
 		"url": "https://gopteran.dev",
-		"description": "Documentation hub for the Gopteran infrastructure ecosystem, featuring Aerie, Avis, Carina, Remora, and Ventus projects",
+		"description_key": "project_gopteran_desc",
 		"technologies": [
 			{ "name": "HUGO", "icon": "simple-icons:hugo" },
 			{ "name": "Markdown", "icon": "simple-icons:markdown" },
@@ -23,9 +23,9 @@
 	},
 	{
 		"id": 3,
-		"name": "Tandem IT",
+		"name_key": "project_tandem",
 		"url": "https://tandem-it.nl",
-		"description": "Student-run IT company from Hogeschool Utrecht providing infrastructure and security services, featuring modern frameworks and agile development practices",
+		"description_key": "project_tandem_desc",
 		"technologies": [
 			{ "name": "Svelte", "icon": "simple-icons:svelte" },
 			{ "name": "TypeScript", "icon": "simple-icons:typescript" },
@@ -34,9 +34,9 @@
 	},
 	{
 		"id": 4,
-		"name": "Kamur.nl",
+		"name_key": "project_kamur",
 		"url": "https://kamur.nl",
-		"description": "Student housing search platform aggregating listings from Facebook groups and websites. Implemented CI/CD pipeline for automated deployment and testing",
+		"description_key": "project_kamur_desc",
 		"technologies": [
 			{ "name": "GitHub Actions", "icon": "simple-icons:githubactions" },
 			{ "name": "Docker", "icon": "simple-icons:docker" },

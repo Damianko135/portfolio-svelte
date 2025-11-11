@@ -273,7 +273,7 @@ export async function ensureScreenshotResponse(
 		if (sharingProjects.length > 1) {
 			console.warn(`🔄 Deduplication: ${sharingProjects.length} projects share this URL:`);
 			sharingProjects.forEach((p) => {
-				console.warn(`   - ${p.name} (ID: ${p.url})`);
+				console.warn(`   - ${p.name_key} (ID: ${p.url})`);
 			});
 		}
 		console.warn('===================================================\n');
@@ -338,7 +338,7 @@ export async function ensureScreenshotResponse(
 					// Store all project names that use this URL (for tracking)
 					usedByProjects: projects
 						.filter((p) => p.url === projectUrl)
-						.map((p) => p.name)
+						.map((p) => p.name_key)
 						.join(', ')
 				}
 			});

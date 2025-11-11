@@ -29,7 +29,7 @@ export const GET: RequestHandler = async ({ params, platform, url }) => {
 	}
 
 	if (dev) {
-		console.warn(`[API] Matched project: ${matchingProject.name}`);
+		console.warn(`[API] Matched project: ${matchingProject.name_key}`);
 	}
 
 	// Get Cloudflare bindings (available in both dev with wrangler and production)
@@ -40,7 +40,7 @@ export const GET: RequestHandler = async ({ params, platform, url }) => {
 	if (!bucket || !browser) {
 		if (dev) {
 			console.warn(
-				`[DEV] Bindings unavailable for ${matchingProject.name} (${slug}) - returning placeholder`
+				`[DEV] Bindings unavailable for ${matchingProject.name_key} (${slug}) - returning placeholder`
 			);
 			console.warn(`[DEV] To test screenshots locally, run: pnpm run preview`);
 		}
@@ -53,7 +53,7 @@ export const GET: RequestHandler = async ({ params, platform, url }) => {
 					Screenshot Preview${dev ? ' (Dev Mode)' : ''}
 				</text>
 				<text x="50%" y="55%" font-family="Arial" font-size="18" fill="#888888" text-anchor="middle" dominant-baseline="middle">
-					${matchingProject.name}
+					${matchingProject.name_key}
 				</text>
 				${dev ? `<text x="50%" y="65%" font-family="Arial" font-size="14" fill="#666666" text-anchor="middle" dominant-baseline="middle">Run 'pnpm run preview' to test with Cloudflare bindings</text>` : ''}
 			</svg>
@@ -82,13 +82,12 @@ export const GET: RequestHandler = async ({ params, platform, url }) => {
 				<rect width="1280" height="720" fill="#1a1a1a"/>
 				<text x="50%" y="45%" font-family="Arial" font-size="32" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">
 					Screenshot Unavailable
-				</text>
-				<text x="50%" y="55%" font-family="Arial" font-size="18" fill="#888888" text-anchor="middle" dominant-baseline="middle">
-					${matchingProject.name}
-				</text>
-			</svg>
-		`.trim();
-
+			</text>
+			<text x="50%" y="55%" font-family="Arial" font-size="18" fill="#888888" text-anchor="middle" dominant-baseline="middle">
+				${matchingProject.name_key}
+			</text>
+		</svg>
+	`.trim();
 		return new Response(placeholder, {
 			status: 200,
 			headers: {

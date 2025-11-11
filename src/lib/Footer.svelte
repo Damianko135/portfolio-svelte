@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Icon } from '$lib';
+	import * as m from '$lib/paraglide/messages.js';
 	const currentYear = new Date().getFullYear();
 </script>
 
@@ -34,35 +35,35 @@
 
 			<!-- Quick Links -->
 			<div class="space-y-4">
-				<h4 class="text-primary-400 text-lg font-semibold">Quick Links</h4>
+				<h4 class="text-primary-400 text-lg font-semibold">{m.footer_quick_links()}</h4>
 				<nav>
 					<ul class="space-y-2">
 						<li>
 							<a
 								href="/"
 								class="text-surface-300 hover:text-primary-400 transition-colors duration-200"
-								>Home</a
+								>{m.nav_home()}</a
 							>
 						</li>
 						<li>
 							<a
 								href="/about"
 								class="text-surface-300 hover:text-primary-400 transition-colors duration-200"
-								>About</a
+								>{m.nav_about()}</a
 							>
 						</li>
 						<li>
 							<a
 								href="/projects"
 								class="text-surface-300 hover:text-primary-400 transition-colors duration-200"
-								>Projects</a
+								>{m.nav_projects()}</a
 							>
 						</li>
 						<li>
 							<a
 								href="/contact"
 								class="text-surface-300 hover:text-primary-400 transition-colors duration-200"
-								>Contact</a
+								>{m.nav_contact()}</a
 							>
 						</li>
 					</ul>
@@ -71,7 +72,7 @@
 
 			<!-- Connect Section -->
 			<div class="space-y-4">
-				<h4 class="text-primary-400 text-lg font-semibold">Connect</h4>
+				<h4 class="text-primary-400 text-lg font-semibold">{m.footer_connect()}</h4>
 				<div class="flex space-x-3">
 					<a
 						href="https://www.linkedin.com/in/dkorver/"
@@ -106,7 +107,7 @@
 			class="border-surface-700 mt-12 flex flex-col items-center justify-between space-y-4 border-t pt-8 md:flex-row md:space-y-0"
 		>
 			<p class="text-surface-400 text-sm">
-				&copy; {currentYear} Damian Korver. All rights reserved.
+				&copy; {currentYear} Damian Korver. {m.footer_copyright()}
 			</p>
 			<div class="text-surface-400 flex items-center space-x-4 text-sm">
 				<span>Built with</span>
