@@ -72,7 +72,7 @@ export const GET: RequestHandler = async ({ params, platform, url }) => {
 		return await ensureScreenshotResponse(matchingProject.url, slug, {
 			bucket: bucket,
 			browser: browser,
-			cacheSeconds: 30 * 24 * 60 * 60 // Cache for 30 days to reduce API calls
+			cacheSeconds: 7 * 24 * 60 * 60 // Cache for 7 days to keep screenshots fresh
 		});
 	} catch (error) {
 		console.error(`Screenshot error for ${slug}:`, error);

@@ -287,23 +287,93 @@ export async function ensureScreenshotResponse(
 				if (dev) console.warn(`💾 Checking R2 cache for: ${screenshotKey}`);
 				const existingScreenshot = await opts.bucket.get(screenshotKey);
 				if (existingScreenshot) {
+					const metadata = existingScreenshot.customMetadata || {};
+					const capturedAt = metadata['capturedAt'];
+
+					// Check if the cached screenshot is still valid
+					const cacheSeconds = opts.cacheSeconds || DEFAULT_CACHE_SECONDS;
+					const now = Date.now();
+					const capturedDate = capturedAt ? new Date(capturedAt).getTime() : 0;
+					const ageSeconds = (now - capturedDate) / 1000;
+					const isExpired = ageSeconds > cacheSeconds;
+
 					if (dev) {
-						const metadata = existingScreenshot.customMetadata || {};
 						console.warn(`✅ Cache HIT! Found existing screenshot`);
-						console.warn(`   Captured at: ${metadata['capturedAt'] || 'unknown'}`);
+						console.warn(`   Captured at: ${capturedAt || 'unknown'}`);
+						console.warn(
+							`   Age: ${Math.floor(ageSeconds / 86400)} days (${Math.floor(ageSeconds / 3600)} hours)`
+						);
+						console.warn(`   Max age: ${Math.floor(cacheSeconds / 86400)} days`);
+						console.warn(
+							`   Status: ${isExpired ? '⏰ STALE - will serve and regenerate in background' : '✅ VALID'}`
+						);
 						console.warn(`   Used by projects: ${metadata['usedByProjects'] || 'unknown'}`);
 					}
 
-					const headers = new Headers({
-						'Content-Type': 'image/png',
-						'Cache-Control': `public, max-age=${opts.cacheSeconds || DEFAULT_CACHE_SECONDS}`,
-						ETag: existingScreenshot.etag || '',
-						'Last-Modified': existingScreenshot.uploaded?.toUTCString() || ''
-					});
-
 					// Convert the readable stream to ArrayBuffer for Response
 					const arrayBuffer = await existingScreenshot.arrayBuffer();
-					return new Response(arrayBuffer, { headers });
+
+					// If screenshot is expired, serve it immediately but regenerate in background
+					if (isExpired) {
+						if (dev)
+							console.warn(`🔄 Serving stale screenshot while regenerating in background...`);
+
+						// Start background regeneration (fire and forget)
+						(async () => {
+							try {
+								if (dev)
+									console.warn(
+										`🔄 [Background] Starting screenshot regeneration for ${projectUrl}`
+									);
+								const newScreenshot = await captureScreenshot(projectUrl, opts.browser);
+
+								// Upload the new screenshot to R2
+								await opts.bucket.put(screenshotKey, newScreenshot, {
+									httpMetadata: {
+										contentType: 'image/png',
+										cacheControl: `public, max-age=${cacheSeconds}`
+									},
+									customMetadata: {
+										urlBasedUuid: urlBasedUuid,
+										projectUrl: projectUrl,
+										capturedAt: new Date().toISOString(),
+										usedByProjects: (projects as Project[])
+											.filter((p) => p.url === projectUrl)
+											.map((p) => p.name_key)
+											.join(', ')
+									}
+								});
+								if (dev)
+									console.warn(`✅ [Background] Screenshot regenerated and uploaded successfully`);
+							} catch (bgError) {
+								console.warn(
+									`⚠️  [Background] Failed to regenerate screenshot for ${projectUrl}:`,
+									bgError
+								);
+								// Don't throw - this is background work
+							}
+						})();
+
+						// Return the stale screenshot immediately with shorter cache time
+						const headers = new Headers({
+							'Content-Type': 'image/png',
+							'Cache-Control': 'public, max-age=60', // Short cache since it's stale
+							ETag: existingScreenshot.etag || '',
+							'Last-Modified': existingScreenshot.uploaded?.toUTCString() || '',
+							'X-Cache-Status': 'STALE'
+						});
+						return new Response(arrayBuffer, { headers });
+					} else {
+						// Screenshot is fresh, serve it normally
+						const headers = new Headers({
+							'Content-Type': 'image/png',
+							'Cache-Control': `public, max-age=${cacheSeconds}`,
+							ETag: existingScreenshot.etag || '',
+							'Last-Modified': existingScreenshot.uploaded?.toUTCString() || '',
+							'X-Cache-Status': 'HIT'
+						});
+						return new Response(arrayBuffer, { headers });
+					}
 				} else {
 					if (dev) console.warn(`❌ Cache MISS - will generate new screenshot`);
 				}
@@ -353,7 +423,8 @@ export async function ensureScreenshotResponse(
 		}
 		const headers = new Headers({
 			'Content-Type': 'image/png',
-			'Cache-Control': `public, max-age=${opts.cacheSeconds || DEFAULT_CACHE_SECONDS}`
+			'Cache-Control': `public, max-age=${opts.cacheSeconds || DEFAULT_CACHE_SECONDS}`,
+			'X-Cache-Status': 'MISS' // Newly generated screenshot
 		});
 
 		return new Response(screenshotBuffer, { headers });
