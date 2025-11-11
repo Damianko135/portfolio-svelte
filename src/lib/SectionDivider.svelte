@@ -1,8 +1,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	export let variant: 'default' | 'delayed' | 'subtle' | 'on-scroll' = 'default';
-	export let className: string = '';
+	interface Props {
+		variant?: 'default' | 'delayed' | 'subtle' | 'on-scroll';
+		className?: string;
+	}
+
+	let { variant = 'default', className = '' }: Props = $props();
 
 	let dividerElement: HTMLDivElement;
 	let isVisible = false;
