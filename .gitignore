@@ -34,3 +34,6 @@ vite.config.ts.timestamp-*
 /blob-report/
 /playwright/.cache/
 /src/lib/screenshots
+
+# Paraglide
+src/lib/paraglide
