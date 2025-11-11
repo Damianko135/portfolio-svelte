@@ -102,5 +102,11 @@
 	"contact_social_linkedin": "LinkedIn",
 	"contact_social_github": "GitHub",
 	"error_404_heading": "Page not found",
-	"error_404_description": "The page you're looking for doesn't exist."
+	"error_404_description": "The page you're looking for doesn't exist.",
+	"error_page_not_found": "Page not found",
+	"error_something_went_wrong": "Something went wrong",
+	"error_unexpected": "An unexpected error occurred",
+	"error_go_home": "Go Home",
+	"error_go_back": "Go Back",
+	"error_id_label": "Error ID"
 }

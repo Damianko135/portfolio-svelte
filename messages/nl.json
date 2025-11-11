@@ -102,5 +102,11 @@
 	"contact_social_linkedin": "LinkedIn",
 	"contact_social_github": "GitHub",
 	"error_404_heading": "Pagina niet gevonden",
-	"error_404_description": "De pagina die je zoekt, bestaat niet."
+	"error_404_description": "De pagina die je zoekt, bestaat niet.",
+	"error_page_not_found": "Pagina niet gevonden",
+	"error_something_went_wrong": "Er is iets misgegaan",
+	"error_unexpected": "Er is een onverwachte fout opgetreden",
+	"error_go_home": "Naar Home",
+	"error_go_back": "Ga Terug",
+	"error_id_label": "Fout-ID"
 }
