@@ -62,7 +62,7 @@ export const actions = {
 			// Get Resend API key from environment
 			// In development: uses RESEND_API_KEY from .env via $env/dynamic/private
 			// In production (Cloudflare): uses platform.env.RESEND_API_KEY
-			const resendApiKey = platform?.env?.['RESEND_API_KEY'] || env.RESEND_API_KEY;
+			const resendApiKey = platform?.env?.RESEND_API_KEY || env['RESEND_API_KEY'];
 
 			if (!resendApiKey) {
 				console.error('RESEND_API_KEY not configured');

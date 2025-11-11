@@ -12,10 +12,10 @@ declare global {
 		// interface PageData {}
 		// interface PageState {}
 		interface Platform {
-			env?: {
-				SCREENSHOTS?: R2Bucket;
-				MYBROWSER?: Fetcher;
-				RESEND_API_KEY?: string;
+			env: {
+				SCREENSHOTS: R2Bucket;
+				MYBROWSER: Fetcher;
+				RESEND_API_KEY: string;
 			};
 		}
 	}
