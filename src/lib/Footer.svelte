@@ -113,12 +113,12 @@
 				<span>{m.footer_built_with()}</span>
 				<div class="flex items-center space-x-2">
 					<Icon icon="simple-icons:svelte" class="text-secondary-500 h-4 w-4" />
-					<span>SvelteKit</span>
+					<span>{m.tech_sveltekit()}</span>
 				</div>
 				<span>&</span>
 				<div class="flex items-center space-x-2">
 					<Icon icon="simple-icons:tailwindcss" class="text-primary-500 h-4 w-4" />
-					<span>Tailwind CSS</span>
+					<span>{m.tech_tailwind()}</span>
 				</div>
 			</div>
 		</div>

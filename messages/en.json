@@ -131,5 +131,10 @@
 	"projects_work_together": "Interested in Working Together?",
 	"projects_work_together_description": "I'm always open to new opportunities and exciting projects. Let's connect and discuss how we can create something amazing together.",
 	"projects_get_in_touch": "Get In Touch",
-	"projects_view_github": "View GitHub"
+	"projects_view_github": "View GitHub",
+	"contact_form_send_another": "Send Another Message",
+	"contact_connect_with_me": "Connect With Me",
+	"contact_form_send_message": "Send a Message",
+	"tech_sveltekit": "SvelteKit",
+	"tech_tailwind": "Tailwind CSS"
 }

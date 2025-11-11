@@ -131,5 +131,10 @@
 	"projects_work_together": "Interesse in samenwerken?",
 	"projects_work_together_description": "Ik sta altijd open voor nieuwe kansen en spannende projecten. Laten we in contact komen en bespreken hoe we samen iets geweldigs kunnen maken.",
 	"projects_get_in_touch": "Neem contact op",
-	"projects_view_github": "Bekijk GitHub"
+	"projects_view_github": "Bekijk GitHub",
+	"contact_form_send_another": "Nog een bericht versturen",
+	"contact_connect_with_me": "Neem contact met me op",
+	"contact_form_send_message": "Verstuur een bericht",
+	"tech_sveltekit": "SvelteKit",
+	"tech_tailwind": "Tailwind CSS"
 }

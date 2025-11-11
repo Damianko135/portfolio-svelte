@@ -213,7 +213,7 @@
 						>
 							<div class="mb-8">
 								<h2 class="text-surface-900 dark:text-surface-50 mb-2 text-2xl font-bold">
-									Send a Message
+									{m.contact_form_send_message()}
 								</h2>
 								<div
 									class="from-primary-500 to-secondary-500 h-1 w-16 rounded-full bg-gradient-to-r"
@@ -238,7 +238,7 @@
 										type="button"
 										class="from-primary-500 to-secondary-500 mt-4 rounded-xl bg-gradient-to-r px-6 py-2 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105"
 									>
-										Send Another Message
+										{m.contact_form_send_another()}
 									</button>
 								</div>
 							{:else}
@@ -305,7 +305,7 @@
 												required
 												disabled={isSubmitting}
 												class="dark:bg-surface-900/50 border-surface-300 dark:border-surface-600 focus:ring-primary-500 w-full rounded-xl border bg-white/50 px-4 py-3 transition-all duration-200 focus:border-transparent focus:ring-2 disabled:opacity-50"
-												placeholder="your.email@example.com"
+												placeholder={m.contact_form_email_placeholder()}
 											/>
 										</div>
 
@@ -355,7 +355,7 @@
 													d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
 												></path>
 											</svg>
-											Sending...
+											{m.contact_form_sending()}
 										{:else}
 											<Icon
 												icon="mdi:send"
@@ -377,7 +377,7 @@
 						>
 							<div class="mb-8">
 								<h3 class="text-surface-900 dark:text-surface-50 mb-2 text-2xl font-bold">
-									Connect With Me
+									{m.contact_connect_with_me()}
 								</h3>
 								<div
 									class="from-primary-500 to-secondary-500 h-1 w-16 rounded-full bg-gradient-to-r"
