@@ -48,7 +48,7 @@
 				<h1
 					class="from-primary-600 to-secondary-600 bg-gradient-to-r bg-clip-text text-xl font-bold text-transparent"
 				>
-					Damian Korver
+					{m.header_name()}
 				</h1>
 			</div>
 

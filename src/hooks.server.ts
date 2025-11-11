@@ -2,7 +2,7 @@ import type { Handle, HandleServerError, HandleFetch } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 import { paraglideMiddleware } from '$lib/paraglide/server';
 import { dev } from '$app/environment';
-import { error_unexpected } from '$lib/paraglide/messages/error_unexpected.js';
+import * as m from '$lib/paraglide/messages.js';
 
 // Handle Paraglide i18n
 const handleParaglide: Handle = ({ event, resolve }) =>
@@ -85,7 +85,7 @@ export const handleError: HandleServerError = async ({ error, event, status, mes
 	// }
 
 	return {
-		message: dev ? message : error_unexpected({}, { locale }),
+		message: dev ? message : m.error_unexpected({}, { locale }),
 		errorId
 	};
 };

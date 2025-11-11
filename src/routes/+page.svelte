@@ -100,7 +100,7 @@
 							<span
 								class="from-primary-600 via-secondary-600 to-tertiary-600 block bg-gradient-to-r bg-clip-text text-transparent"
 							>
-								I'm Damian Korver
+								Damian Korver
 							</span>
 						</h1>
 						<p
@@ -260,11 +260,10 @@
 				<div class="space-y-8">
 					<div>
 						<h3 class="text-surface-900 dark:text-surface-50 mb-4 text-3xl font-bold md:text-4xl">
-							Want to chat?
+							{m.home_contact_heading()}
 						</h3>
 						<p class="text-surface-600 dark:text-surface-400 mx-auto max-w-2xl text-lg">
-							Feel free to reach out if you want to talk about tech, collaborate on something cool,
-							or just say hi. I'm always up for a good conversation.
+							{m.home_contact_description()}
 						</p>
 					</div>
 

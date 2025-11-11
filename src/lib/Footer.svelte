@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { Icon } from '$lib';
 	import * as m from '$lib/paraglide/messages.js';
-	const currentYear = new Date().getFullYear();
 </script>
 
 <footer
@@ -23,13 +22,14 @@
 						<span class="text-xl font-bold text-white">DK</span>
 					</div>
 					<div>
-						<h3 class="text-xl font-bold">Damian Korver</h3>
-						<p class="text-surface-300 text-sm">Student & Tech Enthusiast</p>
+						<h3 class="text-xl font-bold">{m.header_name()}</h3>
+						<p class="text-surface-300 text-sm">
+							{m.about_student_label()} & {m.about_enthusiast_label()}
+						</p>
 					</div>
 				</div>
 				<p class="text-surface-400 max-w-md">
-					I love working with security, cloud tech, and building things that actually work.
-					Currently learning tons at Hogeschool Utrecht.
+					{m.footer_description()}
 				</p>
 			</div>
 
@@ -107,10 +107,10 @@
 			class="border-surface-700 mt-12 flex flex-col items-center justify-between space-y-4 border-t pt-8 md:flex-row md:space-y-0"
 		>
 			<p class="text-surface-400 text-sm">
-				&copy; {currentYear} Damian Korver. {m.footer_copyright()}
+				{m.footer_copyright()}
 			</p>
 			<div class="text-surface-400 flex items-center space-x-4 text-sm">
-				<span>Built with</span>
+				<span>{m.footer_built_with()}</span>
 				<div class="flex items-center space-x-2">
 					<Icon icon="simple-icons:svelte" class="text-secondary-500 h-4 w-4" />
 					<span>SvelteKit</span>

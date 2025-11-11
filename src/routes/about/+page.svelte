@@ -167,23 +167,23 @@
 							<div class="absolute -top-4 -right-4 h-24 w-24 rounded-full bg-white/10"></div>
 							<div class="absolute -bottom-4 -left-4 h-16 w-16 rounded-full bg-white/10"></div>
 							<div class="relative space-y-4">
-								<h3 class="text-2xl font-bold">Current Focus</h3>
+								<h3 class="text-2xl font-bold">{m.about_current_focus()}</h3>
 								<ul class="space-y-3">
 									<li class="flex items-center">
 										<Icon icon="mdi:school" class="mr-3" />
-										<span>Cyber Security Studies</span>
+										<span>{m.about_focus_studies()}</span>
 									</li>
 									<li class="flex items-center">
 										<Icon icon="mdi:server" class="mr-3" />
-										<span>Homelab Development</span>
+										<span>{m.about_focus_homelab()}</span>
 									</li>
 									<li class="flex items-center">
 										<Icon icon="mdi:code-tags" class="mr-3" />
-										<span>Full-Stack Development</span>
+										<span>{m.about_focus_fullstack()}</span>
 									</li>
 									<li class="flex items-center">
 										<Icon icon="mdi:shield-check" class="mr-3" />
-										<span>Security Research</span>
+										<span>{m.about_focus_research()}</span>
 									</li>
 								</ul>
 							</div>

@@ -100,7 +100,7 @@
 			href: 'https://github.com/damianko135',
 			icon: 'mdi:github',
 			color: 'hover:bg-surface-900',
-			description: 'Check out my code'
+			description: m.contact_social_github_desc()
 		}
 	];
 </script>
@@ -180,8 +180,8 @@
 									class="text-surface-600 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 cursor-pointer underline-offset-2 transition-colors duration-200 hover:underline"
 								>
 									{method.getValue ? method.getValue() : method.value}
-									{#if method.title === 'Email' && !emailRevealed}
-										<span class="ml-1 text-xs opacity-60">(click to reveal)</span>
+									{#if method.title === m.contact_email() && !emailRevealed}
+										<span class="ml-1 text-xs opacity-60">{m.contact_email_click_to_reveal()}</span>
 									{/if}
 								</button>
 							{:else if method.href}
@@ -286,7 +286,7 @@
 												required
 												disabled={isSubmitting}
 												class="dark:bg-surface-900/50 border-surface-300 dark:border-surface-600 focus:ring-primary-500 w-full rounded-xl border bg-white/50 px-4 py-3 transition-all duration-200 focus:border-transparent focus:ring-2 disabled:opacity-50"
-												placeholder={m.contact_form_name()}
+												placeholder={m.contact_form_name_placeholder()}
 											/>
 										</div>
 
@@ -324,7 +324,7 @@
 												disabled={isSubmitting}
 												rows="5"
 												class="dark:bg-surface-900/50 border-surface-300 dark:border-surface-600 focus:ring-primary-500 mb-4 w-full resize-none rounded-xl border bg-white/50 px-4 py-3 transition-all duration-200 focus:border-transparent focus:ring-2 disabled:opacity-50"
-												placeholder="Your message..."
+												placeholder={m.contact_form_message_placeholder()}
 											></textarea>
 										</div>
 									</div>
@@ -421,18 +421,17 @@
 						<div
 							class="from-primary-500/10 to-secondary-500/10 border-primary-500/20 rounded-2xl border bg-gradient-to-br p-8 shadow-lg backdrop-blur-sm"
 						>
-							<div class="space-y-4 text-center">
+							<div class="space-y-3 text-center">
 								<div
 									class="from-primary-500 to-secondary-500 mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br"
 								>
 									<Icon icon="mdi:lightbulb" class="text-2xl text-white" />
 								</div>
 								<h4 class="text-surface-900 dark:text-surface-50 text-xl font-bold">
-									Let's Collaborate
+									{m.contact_collaborate_heading()}
 								</h4>
 								<p class="text-surface-600 dark:text-surface-400 leading-relaxed">
-									I'm always excited to work on interesting projects, discuss cybersecurity topics,
-									or explore new opportunities in cloud technologies.
+									{m.contact_collaborate_description()}
 								</p>
 							</div>
 						</div>

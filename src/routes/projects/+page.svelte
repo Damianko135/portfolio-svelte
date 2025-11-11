@@ -142,7 +142,7 @@
 											<div class="space-y-2 text-center">
 												<Icon icon="mdi:code-tags" class="text-primary-500/60 text-4xl" />
 												<p class="text-surface-600 dark:text-surface-400 text-sm">
-													Project Preview
+													{m.projects_preview()}
 												</p>
 											</div>
 										</div>
@@ -162,7 +162,7 @@
 								{#if project.technologies && project.technologies.length > 0}
 									<div class="mb-6 px-6">
 										<h3 class="text-surface-700 dark:text-surface-300 mb-3 text-sm font-semibold">
-											Technologies:
+											{m.projects_technologies()}
 										</h3>
 										<div class="flex flex-wrap gap-2">
 											{#each project.technologies as technology (technology.name)}
@@ -218,10 +218,10 @@
 							/>
 						</div>
 						<h3 class="text-surface-900 dark:text-surface-50 mb-4 text-2xl font-bold">
-							No Projects Found
+							{m.projects_no_projects_found()}
 						</h3>
 						<p class="text-surface-600 dark:text-surface-400 mx-auto max-w-md">
-							Projects are currently being updated. Check back soon for new and exciting work!
+							{m.projects_no_projects_description()}
 						</p>
 					</div>
 				{/if}
@@ -235,18 +235,17 @@
 			<div class="container mx-auto max-w-4xl text-center">
 				<div class="space-y-8">
 					<h3 class="text-surface-900 dark:text-surface-50 text-3xl font-bold md:text-4xl">
-						Interested in Working Together?
+						{m.projects_work_together()}
 					</h3>
 					<p class="text-surface-600 dark:text-surface-400 mx-auto max-w-2xl text-lg">
-						I'm always open to new opportunities and exciting projects. Let's connect and discuss
-						how we can create something amazing together.
+						{m.projects_work_together_description()}
 					</p>
 					<div class="flex flex-col justify-center gap-4 sm:flex-row">
 						<a
 							href="/contact"
 							class="from-primary-500 to-secondary-500 inline-flex transform items-center rounded-xl bg-gradient-to-r px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
 						>
-							<span>Get In Touch</span>
+							<span>{m.projects_get_in_touch()}</span>
 							<svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path
 									stroke-linecap="round"
@@ -262,7 +261,7 @@
 							rel="noopener noreferrer"
 							class="border-primary-500 text-primary-600 dark:text-primary-400 hover:bg-primary-500 inline-flex items-center rounded-xl border-2 px-8 py-4 font-semibold transition-all duration-300 hover:text-white"
 						>
-							<span>View GitHub</span>
+							<span>{m.projects_view_github()}</span>
 							<Icon icon="mdi:github" class="ml-2" />
 						</a>
 					</div>
