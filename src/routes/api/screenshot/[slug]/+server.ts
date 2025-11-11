@@ -2,6 +2,7 @@ import { ensureScreenshotResponse } from '$lib/server/screenshot';
 import type { RequestHandler } from './$types';
 import projects from '$lib/data/projects.json';
 import { dev } from '$app/environment';
+import type { Project } from '$lib/types/project';
 
 // Disable prerendering for this API route
 export const prerender = false;
@@ -22,7 +23,7 @@ export const GET: RequestHandler = async ({ params, platform, url }) => {
 	}
 
 	// Find the project by URL (simple lookup, no hashing)
-	const matchingProject = projects.find((p) => p.url === projectUrl);
+	const matchingProject = (projects as Project[]).find((p) => p.url === projectUrl);
 
 	if (!matchingProject) {
 		return new Response('Invalid project URL', { status: 400 });

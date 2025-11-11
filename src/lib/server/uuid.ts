@@ -17,8 +17,10 @@ export async function urlToUuid(url: string): Promise<string> {
 
 	// UUID v5 format: xxxxxxxx-xxxx-5xxx-yxxx-xxxxxxxxxxxx
 	// Set version (5) and variant bits
-	hashArray[6] = (hashArray[6] & 0x0f) | 0x50; // Version 5
-	hashArray[8] = (hashArray[8] & 0x3f) | 0x80; // Variant
+	if (hashArray[6] !== undefined && hashArray[8] !== undefined) {
+		hashArray[6] = (hashArray[6] & 0x0f) | 0x50; // Version 5
+		hashArray[8] = (hashArray[8] & 0x3f) | 0x80; // Variant
+	}
 
 	// Format as UUID string
 	const hex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');

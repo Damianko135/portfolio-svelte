@@ -2,6 +2,7 @@ import projects from '$lib/data/projects.json';
 import type { R2Bucket, Fetcher } from '@cloudflare/workers-types';
 import { dev } from '$app/environment';
 import type { Browser, BrowserWorker } from '@cloudflare/puppeteer';
+import type { Project } from '$lib/types/project';
 
 // Cache browser instance to reuse sessions and avoid rate limits
 let cachedBrowser: Browser | null = null;
@@ -269,7 +270,7 @@ export async function ensureScreenshotResponse(
 		console.warn(`📁 Storage Key: ${screenshotKey}`);
 
 		// Check if other projects share this URL
-		const sharingProjects = projects.filter((p) => p.url === projectUrl);
+		const sharingProjects = (projects as Project[]).filter((p) => p.url === projectUrl);
 		if (sharingProjects.length > 1) {
 			console.warn(`🔄 Deduplication: ${sharingProjects.length} projects share this URL:`);
 			sharingProjects.forEach((p) => {
@@ -289,8 +290,8 @@ export async function ensureScreenshotResponse(
 					if (dev) {
 						const metadata = existingScreenshot.customMetadata || {};
 						console.warn(`✅ Cache HIT! Found existing screenshot`);
-						console.warn(`   Captured at: ${metadata.capturedAt || 'unknown'}`);
-						console.warn(`   Used by projects: ${metadata.usedByProjects || 'unknown'}`);
+						console.warn(`   Captured at: ${metadata['capturedAt'] || 'unknown'}`);
+						console.warn(`   Used by projects: ${metadata['usedByProjects'] || 'unknown'}`);
 					}
 
 					const headers = new Headers({
@@ -336,7 +337,7 @@ export async function ensureScreenshotResponse(
 					projectUrl: projectUrl,
 					capturedAt: new Date().toISOString(),
 					// Store all project names that use this URL (for tracking)
-					usedByProjects: projects
+					usedByProjects: (projects as Project[])
 						.filter((p) => p.url === projectUrl)
 						.map((p) => p.name_key)
 						.join(', ')

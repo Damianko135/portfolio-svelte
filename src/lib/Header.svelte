@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import ThemeToggle from './ThemeToggle.svelte';
+	import LanguageSwitcher from './LanguageSwitcher.svelte';
 	import { Icon } from '$lib';
 	import * as m from '$lib/paraglide/messages.js';
 
@@ -72,12 +73,14 @@
 				</nav>
 
 				<div class="flex items-center space-x-2">
+					<LanguageSwitcher />
 					<ThemeToggle />
 				</div>
 			</div>
 
 			<!-- Mobile Menu Button -->
 			<div class="flex items-center space-x-2 md:hidden">
+				<LanguageSwitcher />
 				<ThemeToggle />
 				<button
 					class="hover:bg-surface-200 dark:hover:bg-surface-700 rounded-lg p-2 transition-colors duration-200"

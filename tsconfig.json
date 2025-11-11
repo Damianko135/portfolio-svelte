@@ -1,23 +1,41 @@
 {
 	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
+		/* --- General --- */
+		"target": "ES2022", // modern target for better runtime performance
+		"moduleResolution": "bundler",
+		"module": "ESNext",
+		"strict": true, // enables all strict mode family options
+
+		/* --- Interop & Module Behavior --- */
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true, // allow importing JSON and other modules with default imports
+		"resolveJsonModule": true,
+		"isolatedModules": true, // ensures every file can be transpiled alone (important for Vite/SvelteKit)
+
+		/* --- JS Interop --- */
 		"allowJs": true,
 		"checkJs": true,
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
-		"resolveJsonModule": true,
-		"skipLibCheck": true,
-		"sourceMap": true,
-		"strict": true,
-		"moduleResolution": "bundler",
+		"noEmit": true, // don’t emit compiled JS — handled by SvelteKit
 
-		// Unused code detection
+		/* --- Consistency & Case Sensitivity --- */
+		"forceConsistentCasingInFileNames": true,
+		"skipLibCheck": true, // skip type checking of declaration files in node_modules
+
+		/* --- Diagnostics & Safety --- */
 		"noUnusedLocals": true,
-		"noUnusedParameters": true
+		"noUnusedParameters": true,
+		"noImplicitReturns": true, // all code paths must return a value
+		"noFallthroughCasesInSwitch": true, // ensures every switch case is intentional
+		"noImplicitOverride": true, // ensures subclass overrides are explicit
+		"noPropertyAccessFromIndexSignature": true, // prevents untyped property access
+		"exactOptionalPropertyTypes": true, // treats optional props strictly
+		"useUnknownInCatchVariables": true, // enforce explicit typing of caught errors
+		"noUncheckedIndexedAccess": true, // adds `undefined` to out-of-bounds index access
+		"strictBindCallApply": true, // enforces correct `bind`/`call` usage
+		"alwaysStrict": true, // parse files in strict mode by default
+
+		/* --- Source Maps & Debugging --- */
+		"sourceMap": true
 	}
-	// Path aliases are handled by https://svelte.dev/docs/kit/configuration#alias
-	// except $lib which is handled by https://svelte.dev/docs/kit/configuration#files
-	//
-	// If you want to overwrite includes/excludes, make sure to copy over the relevant includes/excludes
-	// from the referenced tsconfig.json - TypeScript does not merge them in
 }

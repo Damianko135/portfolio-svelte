@@ -9,11 +9,13 @@
 	}
 
 	let { icon, class: className = '', size, color }: Props = $props();
+
+	// Build props conditionally to respect exactOptionalPropertyTypes
+	const iconProps = $derived({
+		icon,
+		class: `flex-shrink-0 ${className}${color ? ` ${color}` : ''}`,
+		...(size !== undefined ? { width: size, height: size } : {})
+	});
 </script>
 
-<Icon
-	{icon}
-	class={`flex-shrink-0 ${className}${color ? ` ${color}` : ''}`}
-	width={size}
-	height={size}
-/>
+<Icon {...iconProps} />
