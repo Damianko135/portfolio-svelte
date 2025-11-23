@@ -41,12 +41,12 @@
 			<!-- Logo -->
 			<div class="flex items-center space-x-2">
 				<div
-					class="from-primary-500 to-secondary-500 flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br"
+					class="from-primary-500 to-secondary-500 flex h-10 w-10 items-center justify-center rounded-lg bg-linear-to-br"
 				>
 					<span class="text-lg font-bold text-white">DK</span>
 				</div>
 				<h1
-					class="from-primary-600 to-secondary-600 bg-gradient-to-r bg-clip-text text-xl font-bold text-transparent"
+					class="from-primary-600 to-secondary-600 bg-linear-to-r bg-clip-text text-xl font-bold text-transparent"
 				>
 					{m.header_name()}
 				</h1>
@@ -60,7 +60,7 @@
 							<li>
 								<a
 									class="rounded-lg px-4 py-2 transition-all duration-200 {link.url === currentPath
-										? 'from-primary-500 to-secondary-500 bg-gradient-to-r text-white shadow-md'
+										? 'from-primary-500 to-secondary-500 bg-linear-to-r text-white shadow-md'
 										: 'hover:bg-surface-200 dark:hover:bg-surface-700 text-surface-700 dark:text-surface-300'}"
 									href={link.url}
 									aria-current={link.url === currentPath ? 'page' : undefined}
@@ -106,7 +106,7 @@
 								<a
 									class="block rounded-lg px-4 py-3 transition-all duration-200 {link.url ===
 									currentPath
-										? 'from-primary-500 to-secondary-500 bg-gradient-to-r text-white shadow-md'
+										? 'from-primary-500 to-secondary-500 bg-linear-to-r text-white shadow-md'
 										: 'hover:bg-surface-200 dark:hover:bg-surface-700 text-surface-700 dark:text-surface-300'}"
 									href={link.url}
 									onclick={() => (mobileMenuOpen = false)}

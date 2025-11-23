@@ -42,7 +42,7 @@
 
 <div
 	bind:this={dividerElement}
-	class="from-primary-500 to-secondary-500 mx-auto h-1 w-24 rounded-full bg-gradient-to-r {animationClasses[
+	class="from-primary-500 to-secondary-500 mx-auto h-1 w-24 rounded-full bg-linear-to-r {animationClasses[
 		variant
 	]} {className}"
 ></div>

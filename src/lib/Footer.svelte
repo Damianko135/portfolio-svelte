@@ -4,7 +4,7 @@
 </script>
 
 <footer
-	class="from-surface-900 via-surface-800 to-surface-900 text-surface-50 relative overflow-hidden bg-gradient-to-r"
+	class="from-surface-900 via-surface-800 to-surface-900 text-surface-50 relative overflow-hidden bg-linear-to-r"
 >
 	<!-- Background Pattern -->
 	<div class="absolute inset-0 opacity-5">
@@ -17,7 +17,7 @@
 			<div class="space-y-4 md:col-span-2">
 				<div class="flex items-center space-x-3">
 					<div
-						class="from-primary-500 to-secondary-500 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br"
+						class="from-primary-500 to-secondary-500 flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br"
 					>
 						<span class="text-xl font-bold text-white">DK</span>
 					</div>

@@ -11,11 +11,11 @@
 </script>
 
 <div
-	class="from-surface-50 via-surface-100 to-primary-50 dark:from-surface-900 dark:via-surface-800 dark:to-primary-900 flex min-h-screen flex-col bg-gradient-to-br"
+	class="from-surface-50 via-surface-100 to-primary-50 dark:from-surface-900 dark:via-surface-800 dark:to-primary-900 flex min-h-screen flex-col bg-linear-to-br"
 >
 	<Header />
 	<main
-		class="from-surface-50 via-surface-100 to-primary-50 dark:from-surface-900 dark:via-surface-800 dark:to-primary-900 flex min-h-screen flex-col bg-gradient-to-br"
+		class="from-surface-50 via-surface-100 to-primary-50 dark:from-surface-900 dark:via-surface-800 dark:to-primary-900 flex min-h-screen flex-col bg-linear-to-br"
 	>
 		<!-- Background Pattern -->
 		<div class="bg-grid-pattern pointer-events-none absolute inset-0 opacity-5"></div>

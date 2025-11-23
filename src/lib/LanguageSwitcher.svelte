@@ -60,7 +60,7 @@
 						type="button"
 						class="hover:bg-surface-200 dark:hover:bg-surface-700 flex w-full items-center gap-2 px-4 py-2 text-left text-sm transition-colors duration-200 {currentLocale ===
 						locale
-							? 'from-primary-500 to-secondary-500 bg-gradient-to-r font-medium text-white'
+							? 'from-primary-500 to-secondary-500 bg-linear-to-r font-medium text-white'
 							: 'text-surface-700 dark:text-surface-300'}"
 						onclick={() => handleLocaleChange(locale)}
 						aria-current={currentLocale === locale ? 'true' : undefined}

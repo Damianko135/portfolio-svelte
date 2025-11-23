@@ -94,7 +94,7 @@
 			<div class="relative container mx-auto max-w-4xl text-center">
 				<div class="space-y-8" in:fly={{ y: 30, duration: 800, delay: 200 }}>
 					<div
-						class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 inline-flex items-center rounded-full border bg-gradient-to-r px-6 py-3 backdrop-blur-sm"
+						class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 inline-flex items-center rounded-full border bg-linear-to-r px-6 py-3 backdrop-blur-sm"
 					>
 						<span class="text-surface-700 dark:text-surface-300 text-sm font-medium"
 							>{m.about_story()}</span
@@ -104,7 +104,7 @@
 					<h1 class="text-4xl font-bold md:text-6xl">
 						<span class="text-surface-900 dark:text-surface-50 block">{m.about_heading()}</span>
 						<span
-							class="from-primary-600 via-secondary-600 to-tertiary-600 block bg-gradient-to-r bg-clip-text text-transparent"
+							class="from-primary-600 via-secondary-600 to-tertiary-600 block bg-linear-to-r bg-clip-text text-transparent"
 						>
 							{m.about_intro()}
 						</span>
@@ -136,7 +136,7 @@
 
 		<!-- About Story -->
 		<section
-			class="from-surface-50 to-surface-100 dark:from-surface-900 dark:to-surface-800 bg-gradient-to-br px-4 py-20"
+			class="from-surface-50 to-surface-100 dark:from-surface-900 dark:to-surface-800 bg-linear-to-br px-4 py-20"
 		>
 			<div class="container mx-auto max-w-4xl">
 				<div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
@@ -145,7 +145,7 @@
 							{m.about_section_title()}
 						</h2>
 						<div
-							class="from-primary-500 to-secondary-500 h-1 w-16 rounded-full bg-gradient-to-r"
+							class="from-primary-500 to-secondary-500 h-1 w-16 rounded-full bg-linear-to-r"
 						></div>
 						<div class="text-surface-600 dark:text-surface-400 space-y-4 text-lg leading-relaxed">
 							<p>
@@ -162,7 +162,7 @@
 
 					<div class="relative" in:fly={{ x: 30, duration: 600, delay: 400 }}>
 						<div
-							class="from-primary-500 to-secondary-500 relative rounded-2xl bg-gradient-to-br p-8 text-white shadow-2xl"
+							class="from-primary-500 to-secondary-500 relative rounded-2xl bg-linear-to-br p-8 text-white shadow-2xl"
 						>
 							<div class="absolute -top-4 -right-4 h-24 w-24 rounded-full bg-white/10"></div>
 							<div class="absolute -bottom-4 -left-4 h-16 w-16 rounded-full bg-white/10"></div>
@@ -206,7 +206,7 @@
 				<div class="relative">
 					<!-- Timeline Line -->
 					<div
-						class="from-primary-500 to-secondary-500 absolute top-0 bottom-0 left-4 w-0.5 transform bg-gradient-to-b md:left-1/2 md:-translate-x-1/2"
+						class="from-primary-500 to-secondary-500 absolute top-0 bottom-0 left-4 w-0.5 transform bg-linear-to-b md:left-1/2 md:-translate-x-1/2"
 					></div>
 
 					<div class="space-y-12">
@@ -219,7 +219,7 @@
 							>
 								<!-- Timeline Dot -->
 								<div
-									class="absolute left-4 h-4 w-4 bg-gradient-to-r md:left-1/2 {item.color} z-10 -translate-x-1/2 transform rounded-full shadow-lg"
+									class="absolute left-4 h-4 w-4 bg-linear-to-r md:left-1/2 {item.color} z-10 -translate-x-1/2 transform rounded-full shadow-lg"
 								></div>
 
 								<!-- Content -->
@@ -265,7 +265,7 @@
 
 		<!-- Skills Section -->
 		<section
-			class="from-surface-50 to-surface-100 dark:from-surface-900 dark:to-surface-800 bg-gradient-to-br px-4 py-20"
+			class="from-surface-50 to-surface-100 dark:from-surface-900 dark:to-surface-800 bg-linear-to-br px-4 py-20"
 		>
 			<div class="container mx-auto max-w-6xl">
 				<div class="mb-16 text-center">
@@ -306,7 +306,7 @@
 				<div class="grid grid-cols-1 gap-8 md:grid-cols-3">
 					{#each interests as interest, i (interest.name)}
 						<div
-							class="group to-surface-50/60 dark:from-surface-800/60 dark:to-surface-700/60 border-surface-200/50 dark:border-surface-700/50 rounded-2xl border bg-gradient-to-br from-white/60 p-8 text-center shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+							class="group to-surface-50/60 dark:from-surface-800/60 dark:to-surface-700/60 border-surface-200/50 dark:border-surface-700/50 rounded-2xl border bg-linear-to-br from-white/60 p-8 text-center shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-2xl"
 							in:fly={{ y: 30, duration: 600, delay: 200 + i * 100 }}
 						>
 							<div

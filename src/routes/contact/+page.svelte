@@ -132,7 +132,7 @@
 			<div class="relative container mx-auto max-w-4xl text-center">
 				<div class="space-y-8" in:fly={{ y: 30, duration: 800, delay: 200 }}>
 					<div
-						class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 inline-flex items-center rounded-full border bg-gradient-to-r px-6 py-3 backdrop-blur-sm"
+						class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 inline-flex items-center rounded-full border bg-linear-to-r px-6 py-3 backdrop-blur-sm"
 					>
 						<Icon icon="mdi:send" class="text-primary-600 mr-2" />
 						<span class="text-surface-700 dark:text-surface-300 text-sm font-medium"
@@ -142,7 +142,7 @@
 
 					<h1 class="text-4xl font-bold md:text-6xl">
 						<span
-							class="from-primary-600 via-secondary-600 to-tertiary-600 block bg-gradient-to-r bg-clip-text text-transparent"
+							class="from-primary-600 via-secondary-600 to-tertiary-600 block bg-linear-to-r bg-clip-text text-transparent"
 						>
 							{m.contact_heading()}
 						</span>
@@ -167,7 +167,7 @@
 							in:fly={{ y: 30, duration: 600, delay: 100 + i * 100 }}
 						>
 							<div
-								class="mx-auto mb-4 h-16 w-16 bg-gradient-to-r {method.color} flex items-center justify-center rounded-2xl shadow-lg transition-transform duration-300 group-hover:scale-110"
+								class="mx-auto mb-4 h-16 w-16 bg-linear-to-r {method.color} flex items-center justify-center rounded-2xl shadow-lg transition-transform duration-300 group-hover:scale-110"
 							>
 								<Icon icon={method.icon} class="text-2xl text-white" />
 							</div>
@@ -216,7 +216,7 @@
 									{m.contact_form_send_message()}
 								</h2>
 								<div
-									class="from-primary-500 to-secondary-500 h-1 w-16 rounded-full bg-gradient-to-r"
+									class="from-primary-500 to-secondary-500 h-1 w-16 rounded-full bg-linear-to-r"
 								></div>
 							</div>
 
@@ -236,7 +236,7 @@
 									<button
 										onclick={resetForm}
 										type="button"
-										class="from-primary-500 to-secondary-500 mt-4 rounded-xl bg-gradient-to-r px-6 py-2 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105"
+										class="from-primary-500 to-secondary-500 mt-4 rounded-xl bg-linear-to-r px-6 py-2 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105"
 									>
 										{m.contact_form_send_another()}
 									</button>
@@ -332,7 +332,7 @@
 									<button
 										type="submit"
 										disabled={isSubmitting}
-										class="group from-primary-500 to-secondary-500 flex w-full transform items-center justify-center rounded-xl bg-gradient-to-r px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl disabled:transform-none disabled:cursor-not-allowed disabled:opacity-50"
+										class="group from-primary-500 to-secondary-500 flex w-full transform items-center justify-center rounded-xl bg-linear-to-r px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl disabled:transform-none disabled:cursor-not-allowed disabled:opacity-50"
 									>
 										{#if isSubmitting}
 											<svg
@@ -380,7 +380,7 @@
 									{m.contact_connect_with_me()}
 								</h3>
 								<div
-									class="from-primary-500 to-secondary-500 h-1 w-16 rounded-full bg-gradient-to-r"
+									class="from-primary-500 to-secondary-500 h-1 w-16 rounded-full bg-linear-to-r"
 								></div>
 							</div>
 
@@ -419,11 +419,11 @@
 
 						<!-- Additional Info -->
 						<div
-							class="from-primary-500/10 to-secondary-500/10 border-primary-500/20 rounded-2xl border bg-gradient-to-br p-8 shadow-lg backdrop-blur-sm"
+							class="from-primary-500/10 to-secondary-500/10 border-primary-500/20 bg-linear-to- rounded-2xl border p-8 shadow-lg backdrop-blur-sm"
 						>
 							<div class="space-y-3 text-center">
 								<div
-									class="from-primary-500 to-secondary-500 mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br"
+									class="from-primary-500 to-secondary-500 bg-linear-to- mx-auto flex h-16 w-16 items-center justify-center rounded-2xl"
 								>
 									<Icon icon="mdi:lightbulb" class="text-2xl text-white" />
 								</div>

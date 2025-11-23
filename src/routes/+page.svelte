@@ -87,7 +87,7 @@
 				{#if heroVisible}
 					<div class="space-y-6" in:fly={{ y: 30, duration: 800, delay: 300 }}>
 						<div
-							class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 inline-flex items-center rounded-full border bg-gradient-to-r px-4 py-2 backdrop-blur-sm"
+							class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 inline-flex items-center rounded-full border bg-linear-to-r px-4 py-2 backdrop-blur-sm"
 						>
 							<div class="bg-success-500 mr-3 h-2 w-2 animate-pulse rounded-full"></div>
 							<span class="text-surface-700 dark:text-surface-300 text-sm font-medium"
@@ -98,7 +98,7 @@
 						<h1 class="text-5xl leading-tight font-bold md:text-7xl">
 							<span class="text-surface-900 dark:text-surface-50 block">{m.home_hero_title()}</span>
 							<span
-								class="from-primary-600 via-secondary-600 to-tertiary-600 block bg-gradient-to-r bg-clip-text text-transparent"
+								class="from-primary-600 via-secondary-600 to-tertiary-600 block bg-linear-to-r bg-clip-text text-transparent"
 							>
 								Damian Korver
 							</span>
@@ -112,7 +112,7 @@
 						<div class="flex flex-col items-center justify-center gap-4 pt-6 sm:flex-row">
 							<a
 								href="/projects"
-								class="group from-primary-500 to-secondary-500 inline-flex transform items-center rounded-xl bg-gradient-to-r px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
+								class="group from-primary-500 to-secondary-500 inline-flex transform items-center rounded-xl bg-linear-to-r px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
 							>
 								<span>{m.home_cta_primary()}</span>
 								<svg
@@ -158,11 +158,11 @@
 							in:fly={{ y: 30, duration: 600, delay: 200 + i * 100 }}
 						>
 							<div
-								class="from-primary-500 to-secondary-500 absolute -top-4 -right-4 h-8 w-8 rounded-lg bg-gradient-to-br opacity-20 transition-opacity group-hover:opacity-40"
+								class="from-primary-500 to-secondary-500 absolute -top-4 -right-4 h-8 w-8 rounded-lg bg-linear-to-br opacity-20 transition-opacity group-hover:opacity-40"
 							></div>
 							<div class="space-y-4 text-center">
 								<div
-									class="from-surface-100 to-surface-200 dark:from-surface-700 dark:to-surface-600 mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br shadow-inner"
+									class="from-surface-100 to-surface-200 dark:from-surface-700 dark:to-surface-600 mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br shadow-inner"
 								>
 									<Icon icon={item.icon} class="text-3xl {item.color}" />
 								</div>
@@ -183,7 +183,7 @@
 
 		<!-- Tech Stack -->
 		<section
-			class="from-surface-50 to-surface-100 dark:from-surface-900 dark:to-surface-800 bg-gradient-to-br px-4 py-20"
+			class="from-surface-50 to-surface-100 dark:from-surface-900 dark:to-surface-800 bg-linear-to-br px-4 py-20"
 		>
 			<div class="container mx-auto max-w-6xl">
 				<div class="mb-16 text-center">
@@ -237,7 +237,7 @@
 				<div class="grid grid-cols-2 gap-6 md:grid-cols-4">
 					{#each interests as interest, i (interest.text)}
 						<div
-							class="group to-surface-50/60 dark:from-surface-800/60 dark:to-surface-700/60 border-surface-200/50 dark:border-surface-700/50 rounded-xl border bg-gradient-to-br from-white/60 p-6 text-center shadow-md backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl"
+							class="group to-surface-50/60 dark:from-surface-800/60 dark:to-surface-700/60 border-surface-200/50 dark:border-surface-700/50 rounded-xl border bg-linear-to-br from-white/60 p-6 text-center shadow-md backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl"
 							in:fly={{ y: 30, duration: 600, delay: 100 + i * 100 }}
 						>
 							<div
@@ -254,7 +254,7 @@
 
 		<!-- Contact Section -->
 		<section
-			class="from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 bg-gradient-to-br px-4 py-20"
+			class="from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 bg-linear-to-br px-4 py-20"
 		>
 			<div class="container mx-auto max-w-4xl text-center">
 				<div class="space-y-8">

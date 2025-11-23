@@ -49,7 +49,7 @@
 			<div class="relative container mx-auto max-w-4xl text-center">
 				<div class="space-y-8" in:fly={{ y: 30, duration: 800, delay: 200 }}>
 					<div
-						class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 inline-flex items-center rounded-full border bg-gradient-to-r px-6 py-3 backdrop-blur-sm"
+						class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 inline-flex items-center rounded-full border bg-linear-to-r px-6 py-3 backdrop-blur-sm"
 					>
 						<Icon icon="mdi:folder-open" class="text-primary-600 mr-2" />
 						<span class="text-surface-700 dark:text-surface-300 text-sm font-medium"
@@ -59,7 +59,7 @@
 
 					<h1 class="text-4xl font-bold md:text-6xl">
 						<span
-							class="from-primary-600 via-secondary-600 to-tertiary-600 block bg-gradient-to-r bg-clip-text text-transparent"
+							class="from-primary-600 via-secondary-600 to-tertiary-600 block bg-linear-to-r bg-clip-text text-transparent"
 						>
 							{m.projects_heading()}
 						</span>
@@ -95,7 +95,7 @@
 											</h2>
 										</div>
 										<div
-											class="from-primary-500 to-secondary-500 flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+											class="from-primary-500 to-secondary-500 bg-linear-to- flex h-10 w-10 items-center justify-center rounded-lg opacity-80 transition-opacity duration-300 group-hover:opacity-100"
 										>
 											<Icon icon="mdi:code-tags" class="text-sm text-white" />
 										</div>
@@ -119,7 +119,7 @@
 													loading="lazy"
 												/>
 												<div
-													class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+													class="bg-linear-to-from-black/20 absolute inset-0 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
 												></div>
 												<div
 													class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100"
@@ -137,7 +137,7 @@
 									<!-- Placeholder for projects without screenshots -->
 									<div class="mb-4 px-6">
 										<div
-											class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 flex aspect-video items-center justify-center rounded-xl border bg-gradient-to-br"
+											class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 bg-linear-to- flex aspect-video items-center justify-center rounded-xl border"
 										>
 											<div class="space-y-2 text-center">
 												<Icon icon="mdi:code-tags" class="text-primary-500/60 text-4xl" />
@@ -167,7 +167,7 @@
 										<div class="flex flex-wrap gap-2">
 											{#each project.technologies as technology (technology.name)}
 												<span
-													class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 text-surface-700 dark:text-surface-300 inline-flex items-center rounded-full border bg-gradient-to-r px-3 py-1 text-xs font-medium"
+													class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 text-surface-700 dark:text-surface-300 inline-flex items-center rounded-full border bg-linear-to-r px-3 py-1 text-xs font-medium"
 												>
 													{#if technology.icon}
 														<Icon icon={technology.icon} class="mr-1.5" />
@@ -185,7 +185,7 @@
 										href={project.url}
 										target="_blank"
 										rel="noopener noreferrer"
-										class="group from-primary-500 to-secondary-500 inline-flex w-full transform items-center justify-center rounded-xl bg-gradient-to-r px-6 py-3 font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg"
+										class="group from-primary-500 to-secondary-500 inline-flex w-full transform items-center justify-center rounded-xl bg-linear-to-r px-6 py-3 font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg"
 									>
 										<span>{m.projects_visit_project()}</span>
 										<svg
@@ -210,7 +210,7 @@
 					<!-- Empty State -->
 					<div class="py-20 text-center">
 						<div
-							class="from-surface-200 to-surface-300 dark:from-surface-700 dark:to-surface-600 mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-2xl bg-gradient-to-br"
+							class="from-surface-200 to-surface-300 dark:from-surface-700 dark:to-surface-600 bg-linear-to- mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-2xl"
 						>
 							<Icon
 								icon="mdi:folder-open"
@@ -230,7 +230,7 @@
 
 		<!-- Call to Action -->
 		<section
-			class="from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 bg-gradient-to-br px-4 py-20"
+			class="from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 bg-linear-to- px-4 py-20"
 		>
 			<div class="container mx-auto max-w-4xl text-center">
 				<div class="space-y-8">
@@ -243,7 +243,7 @@
 					<div class="flex flex-col justify-center gap-4 sm:flex-row">
 						<a
 							href="/contact"
-							class="from-primary-500 to-secondary-500 inline-flex transform items-center rounded-xl bg-gradient-to-r px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
+							class="from-primary-500 to-secondary-500 inline-flex transform items-center rounded-xl bg-linear-to-r px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
 						>
 							<span>{m.projects_get_in_touch()}</span>
 							<svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
