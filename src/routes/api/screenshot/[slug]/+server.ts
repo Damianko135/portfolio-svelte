@@ -1,4 +1,4 @@
-import { ensureScreenshotResponse } from '$lib/server/screenshot';
+import { ensureScreenshotResponse } from '$lib/server';
 import type { RequestHandler } from './$types';
 import projects from '$lib/data/projects.json';
 import { dev } from '$app/environment';
