@@ -31,7 +31,7 @@ async function discoverLocales(): Promise<string[]> {
 			.map((file) => file.replace('.json', ''))
 			.sort();
 
-		console.log(`📍 Found ${locales.length} locales: ${locales.join(', ')}`);
+		console.warn(`📍 Found ${locales.length} locales: ${locales.join(', ')}`);
 		return locales;
 	} catch (error) {
 		console.error('❌ Error reading messages directory:', error);
@@ -69,9 +69,9 @@ async function updateInlangSettings(locales: string[]): Promise<void> {
 		const updatedContent = JSON.stringify(settings, null, '\t') + '\n';
 		await writeFile(settingsPath, updatedContent, 'utf-8');
 
-		console.log(`✅ Updated inlang settings:`);
-		console.log(`   Base locale: ${finalBaseLocale}`);
-		console.log(`   Available locales: ${locales.join(', ')}`);
+		console.warn(`✅ Updated inlang settings:`);
+		console.warn(`   Base locale: ${finalBaseLocale}`);
+		console.warn(`   Available locales: ${locales.join(', ')}`);
 	} catch (error) {
 		console.error('❌ Error updating inlang settings:', error);
 		throw error;
@@ -85,7 +85,7 @@ async function compileParaglide(): Promise<void> {
 	const compileCommand =
 		'npx paraglide-js compile --project ./project.inlang --outdir ./src/lib/paraglide';
 
-	console.log(`🔄 Running: ${compileCommand}`);
+	console.warn(`🔄 Running: ${compileCommand}`);
 
 	try {
 		const output = execSync(compileCommand, {
@@ -94,9 +94,9 @@ async function compileParaglide(): Promise<void> {
 			stdio: 'pipe'
 		});
 
-		console.log('✅ Paraglide compilation completed successfully');
+		console.warn('✅ Paraglide compilation completed successfully');
 		if (output.trim()) {
-			console.log('📄 Output:', output.trim());
+			console.warn('📄 Output:', output.trim());
 		}
 	} catch (error: unknown) {
 		const execError = error as { message?: string; stdout?: string; stderr?: string };
@@ -115,7 +115,7 @@ async function compileParaglide(): Promise<void> {
  * Validate message files have consistent structure
  */
 async function validateMessages(locales: string[]): Promise<void> {
-	console.log('🔍 Validating message file consistency...');
+	console.warn('🔍 Validating message file consistency...');
 
 	const messageKeys: Record<string, string[]> = {};
 
@@ -154,7 +154,7 @@ async function validateMessages(locales: string[]): Promise<void> {
 		console.warn('⚠️  Message key inconsistencies detected:');
 		inconsistencies.forEach((issue) => console.warn(`   ${issue}`));
 	} else {
-		console.log('✅ All message files have consistent keys');
+		console.warn('✅ All message files have consistent keys');
 	}
 }
 
@@ -162,7 +162,7 @@ async function validateMessages(locales: string[]): Promise<void> {
  * Main function
  */
 async function main() {
-	console.log('🚀 Starting Paraglide update process...');
+	console.warn('🚀 Starting Paraglide update process...');
 	try {
 		// Discover available locales
 		const locales = await discoverLocales();
@@ -181,7 +181,7 @@ async function main() {
 		// Compile paraglide
 		await compileParaglide();
 
-		console.log('🎉 Paraglide update completed successfully!');
+		console.warn('🎉 Paraglide update completed successfully!');
 	} catch (error) {
 		console.error('💥 Paraglide update failed:', error);
 		process.exit(1);
