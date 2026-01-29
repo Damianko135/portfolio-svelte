@@ -75,6 +75,17 @@
 		const year = now.getFullYear();
 		return year;
 	}
+
+	function getAge() {
+		const birthday = new Date(2003, 0, 26); // January 26, 2003
+		const today = new Date();
+		let age = today.getFullYear() - birthday.getFullYear();
+		const monthDiff = today.getMonth() - birthday.getMonth();
+		if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthday.getDate())) {
+			age--;
+		}
+		return age;
+	}
 </script>
 
 <svelte:head>
@@ -111,6 +122,12 @@
 					</h1>
 
 					<div class="flex flex-wrap justify-center gap-4 pt-4">
+						<div
+							class="dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 flex items-center rounded-full border bg-white/60 px-4 py-2 backdrop-blur-sm"
+						>
+							<Icon icon="mdi:cake-variant" class="text-secondary-500 mr-2" />
+							<span class="text-sm font-medium">{m.about_age_label({ age: getAge() })}</span>
+						</div>
 						<div
 							class="dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 flex items-center rounded-full border bg-white/60 px-4 py-2 backdrop-blur-sm"
 						>

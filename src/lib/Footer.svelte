@@ -107,6 +107,7 @@
 			class="border-surface-700 mt-12 flex flex-col items-center justify-between space-y-4 border-t pt-8 md:flex-row md:space-y-0"
 		>
 			<p class="text-surface-400 text-sm">
+				&copy; 2024 - {new Date().getFullYear()}
 				{m.footer_copyright()}
 			</p>
 			<div class="text-surface-400 flex items-center space-x-4 text-sm">

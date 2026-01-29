@@ -13,12 +13,22 @@
 
 	function getProjectName(project: any): string {
 		const translatedName = m[project.name_key as keyof typeof m];
-		return typeof translatedName === 'function' ? translatedName() : project.name_key;
+		if (typeof translatedName === 'function') {
+			// Check if the function expects no arguments (length === 0) or has optional params
+			return translatedName.length === 0 ? (translatedName as () => string)() : project.name_key;
+		}
+		return project.name_key;
 	}
 
 	function getProjectDescription(project: any): string {
 		const translatedDesc = m[project.description_key as keyof typeof m];
-		return typeof translatedDesc === 'function' ? translatedDesc() : project.description_key;
+		if (typeof translatedDesc === 'function') {
+			// Check if the function expects no arguments (length === 0) or has optional params
+			return translatedDesc.length === 0
+				? (translatedDesc as () => string)()
+				: project.description_key;
+		}
+		return project.description_key;
 	}
 </script>
 
