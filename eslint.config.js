@@ -16,7 +16,8 @@ export default [
 			'node_modules/**',
 			'*.config.js',
 			'*.config.ts',
-			'.wrangler/**'
+			'.wrangler/**',
+			'src/lib/paraglide/**' // Paraglide files are auto-generated and can be very large, so we ignore them for linting
 		]
 	},
 
