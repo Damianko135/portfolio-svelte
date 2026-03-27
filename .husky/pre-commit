@@ -1,20 +1,29 @@
+#!/bin/sh
+
+FAILED=0
+
 echo "🔍 Running pre-commit checks..."
 
-# Run lint-staged on staged files
-echo "📝 Running lint-staged on changed files..."
-pnpm exec lint-staged || {
-  echo "❌ Lint-staged failed. Please fix the issues above."
-  FAILED=1
+run_lint_staged() {
+  echo "📝 Running lint-staged on changed files..."
+  if ! pnpm exec lint-staged; then
+    echo "❌ Lint-staged failed. Please fix the issues above."
+    FAILED=1
+  fi
 }
 
-# Type check (run on entire project as it needs complete context)
-echo "🔎 Running Svelte type check..."
-pnpm run check || {
-  echo "❌ Type check failed. Please fix TypeScript/Svelte errors."
-  FAILED=1
+run_type_check() {
+  echo "🔎 Running Svelte type check..."
+  if ! pnpm run check; then
+    echo "❌ Type check failed. Please fix TypeScript/Svelte errors."
+    FAILED=1
+  fi
 }
 
-if [ "$FAILED" ]; then
+run_lint_staged
+run_type_check
+
+if [ "$FAILED" -ne 0 ]; then
   echo "❌ Some pre-commit checks failed."
   exit 1
 else

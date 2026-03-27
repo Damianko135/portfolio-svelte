@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { onMount } from 'svelte';
 	import ThemeToggle from './ThemeToggle.svelte';
 	import LanguageSwitcher from './LanguageSwitcher.svelte';
@@ -13,7 +13,7 @@
 		{ name: m.nav_contact(), url: '/contact' }
 	];
 
-	let currentPath = $derived($page.url.pathname);
+	let currentPath = $derived(page.url.pathname);
 	let isScrolled = $state(false);
 	let mobileMenuOpen = $state(false);
 

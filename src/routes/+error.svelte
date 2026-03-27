@@ -1,22 +1,22 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import * as m from '$lib/paraglide/messages.js';
 </script>
 
 <main class="container mx-auto min-h-screen px-4 py-16">
 	<div class="mx-auto max-w-2xl text-center">
 		<h1 class="mb-4 text-6xl font-bold">
-			{$page.status}
+			{page.status}
 		</h1>
 
 		<h2 class="mb-8 text-2xl font-semibold">
-			{$page.error?.message || m.error_something_went_wrong({})}
+			{page.error?.message || m.error_something_went_wrong({})}
 		</h2>
 
-		{#if $page.error?.errorId}
+		{#if page.error?.errorId}
 			<p class="mb-8 text-sm text-gray-600 dark:text-gray-400">
 				{m.error_id_label({})}:
-				<code class="rounded bg-gray-100 px-2 py-1 dark:bg-gray-800">{$page.error.errorId}</code>
+				<code class="rounded bg-gray-100 px-2 py-1 dark:bg-gray-800">{page.error.errorId}</code>
 			</p>
 		{/if}
 
