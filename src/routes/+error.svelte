@@ -1,11 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import Header from '$lib/Header.svelte';
-	import Footer from '$lib/Footer.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 </script>
-
-<Header />
 
 <main class="container mx-auto min-h-screen px-4 py-16">
 	<div class="mx-auto max-w-2xl text-center">
@@ -40,8 +36,6 @@
 		</div>
 	</div>
 </main>
-
-<Footer />
 
 <style>
 	main {
