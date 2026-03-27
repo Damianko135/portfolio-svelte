@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { fade, fly } from 'svelte/transition';
-	import { Icon } from '$lib';
 	import { enhance } from '$app/forms';
+	import { Icon } from '$lib';
 	import * as m from '$lib/paraglide/messages.js';
+	import { fade, fly } from 'svelte/transition';
 	import type { ActionData } from './$types';
 
 	type ContactMethod = {
@@ -108,6 +108,22 @@
 <svelte:head>
 	<title>{m.contact_title()}</title>
 	<meta name="description" content={m.contact_meta_description()} />
+	<!-- Canonical URL -->
+	<link rel="canonical" href="https://dkorver.nl/contact" />
+	<!-- Open Graph -->
+	<meta property="og:title" content={m.contact_title()} />
+	<meta property="og:description" content={m.contact_meta_description()} />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://dkorver.nl/contact" />
+	<meta property="og:image" content="/favicon.svg" />
+	<!-- Twitter Card -->
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content={m.contact_title()} />
+	<meta name="twitter:description" content={m.contact_meta_description()} />
+	<meta name="twitter:image" content="/favicon.svg" />
+	<!-- Alternate language -->
+	<link rel="alternate" hrefLang="en" href="https://dkorver.nl/contact" />
+	<link rel="alternate" hrefLang="nl" href="https://dkorver.nl/nl/contact" />
 </svelte:head>
 
 {#if visible}

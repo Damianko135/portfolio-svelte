@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { fade, fly } from 'svelte/transition';
 	import { Icon } from '$lib';
 	import * as m from '$lib/paraglide/messages.js';
+	import { fade, fly } from 'svelte/transition';
 
 	const { data } = $props<import('./$types').PageData>();
 	let projects = $state(data.projects);
@@ -35,6 +35,22 @@
 <svelte:head>
 	<title>{m.projects_title()}</title>
 	<meta name="description" content={m.projects_meta_description()} />
+	<!-- Canonical URL -->
+	<link rel="canonical" href="https://dkorver.nl/projects" />
+	<!-- Open Graph -->
+	<meta property="og:title" content={m.projects_title()} />
+	<meta property="og:description" content={m.projects_meta_description()} />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://dkorver.nl/projects" />
+	<meta property="og:image" content="/favicon.svg" />
+	<!-- Twitter Card -->
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content={m.projects_title()} />
+	<meta name="twitter:description" content={m.projects_meta_description()} />
+	<meta name="twitter:image" content="/favicon.svg" />
+	<!-- Alternate language -->
+	<link rel="alternate" hrefLang="en" href="https://dkorver.nl/projects" />
+	<link rel="alternate" hrefLang="nl" href="https://dkorver.nl/nl/projects" />
 </svelte:head>
 
 {#if visible}

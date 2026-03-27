@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { fade, fly } from 'svelte/transition';
-	import { onMount } from 'svelte';
 	import { Icon, SectionDivider } from '$lib';
 	import * as m from '$lib/paraglide/messages.js';
+	import { onMount } from 'svelte';
+	import { fade, fly } from 'svelte/transition';
 
 	let visible = $state(false);
 	onMount(() => {
@@ -91,6 +91,22 @@
 <svelte:head>
 	<title>{m.about_title()}</title>
 	<meta name="description" content={m.about_meta_description()} />
+	<!-- Canonical URL -->
+	<link rel="canonical" href="https://dkorver.nl/about" />
+	<!-- Open Graph -->
+	<meta property="og:title" content={m.about_title()} />
+	<meta property="og:description" content={m.about_meta_description()} />
+	<meta property="og:type" content="profile" />
+	<meta property="og:url" content="https://dkorver.nl/about" />
+	<meta property="og:image" content="/favicon.svg" />
+	<!-- Twitter Card -->
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content={m.about_title()} />
+	<meta name="twitter:description" content={m.about_meta_description()} />
+	<meta name="twitter:image" content="/favicon.svg" />
+	<!-- Alternate language -->
+	<link rel="alternate" hrefLang="en" href="https://dkorver.nl/about" />
+	<link rel="alternate" hrefLang="nl" href="https://dkorver.nl/nl/about" />
 </svelte:head>
 
 {#if visible}

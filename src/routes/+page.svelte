@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { fly } from 'svelte/transition';
 	import { Icon, SectionDivider } from '$lib';
-	import type { AboutItem, Interest } from '$lib/types';
 	import * as m from '$lib/paraglide/messages.js';
+	import type { AboutItem, Interest } from '$lib/types';
+	import { fly } from 'svelte/transition';
 
 	// Using the new $state syntax for reactive variables
 	let visible = $state(false);
@@ -64,6 +64,18 @@
 	<meta property="og:description" content={m.home_hero_subtitle()} />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://dkorver.nl" />
+	<!-- Canonical URL -->
+	<link rel="canonical" href="https://dkorver.nl/" />
+	<!-- Open Graph Image -->
+	<meta property="og:image" content="/favicon.svg" />
+	<!-- Twitter Card -->
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content={m.home_title()} />
+	<meta name="twitter:description" content={m.home_hero_subtitle()} />
+	<meta name="twitter:image" content="/favicon.svg" />
+	<!-- Alternate language -->
+	<link rel="alternate" hrefLang="en" href="https://dkorver.nl/" />
+	<link rel="alternate" hrefLang="nl" href="https://dkorver.nl/nl/" />
 </svelte:head>
 
 {#if visible}

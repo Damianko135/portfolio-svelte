@@ -68,7 +68,8 @@
 	},
 	"dependencies": {
 		"@cloudflare/puppeteer": "^1.0.4",
-		"@iconify/svelte": "^5.0.2"
+		"@iconify/svelte": "^5.0.2",
+		"super-sitemap": "^1.0.7"
 	},
 	"lint-staged": {
 		"*.{js,ts,svelte}": [
