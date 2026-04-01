@@ -3,80 +3,106 @@
   ========================= */
 @import 'tailwindcss';
 @import '@skeletonlabs/skeleton';
-@import '@skeletonlabs/skeleton/optional/presets';
 @import '@skeletonlabs/skeleton/themes/cerberus'; /* Cerberus theme for dark mode */
 @source '../node_modules/@skeletonlabs/skeleton-svelte/dist';
 @custom-variant dark (&:where([data-mode="dark"], [data-mode="dark"] *));
+
+:root {
+	--grid-pattern-size: calc(var(--spacing, 0.25rem) * 5);
+	--icon-size-2xl: calc(var(--spacing, 0.25rem) * 6);
+	--icon-size-3xl: calc(var(--spacing, 0.25rem) * 7.5);
+	--icon-size-4xl: calc(var(--spacing, 0.25rem) * 9);
+	--font-family-base: 'Plus Jakarta Sans', 'Avenir Next', 'Segoe UI', 'Noto Sans', sans-serif;
+	--text-kicker: 0.875rem;
+	--text-body: 1rem;
+	--text-body-lg: 1.125rem;
+	--text-lead: 1.25rem;
+	--text-title: 1.5rem;
+	--text-section: clamp(1.875rem, 1.5rem + 1.4vw, 2.25rem);
+	--text-display: clamp(2.25rem, 1.65rem + 3.1vw, 4.5rem);
+}
+
+@layer base {
+	html {
+		font-kerning: normal;
+	}
+
+	body {
+		font-family: var(--font-family-base);
+		font-size: var(--text-body);
+		line-height: 1.6;
+	}
+}
+
+@layer utilities {
+	.type-kicker {
+		font-size: var(--text-kicker);
+		font-weight: 600;
+		letter-spacing: 0.01em;
+		line-height: 1.4;
+	}
+
+	.type-display {
+		font-size: var(--text-display);
+		font-weight: 700;
+		letter-spacing: -0.015em;
+		line-height: 1.12;
+		text-wrap: balance;
+	}
+
+	.type-section-title {
+		font-size: var(--text-section);
+		font-weight: 700;
+		letter-spacing: -0.01em;
+		line-height: 1.2;
+		text-wrap: balance;
+	}
+
+	.type-title {
+		font-size: var(--text-title);
+		font-weight: 700;
+		line-height: 1.28;
+	}
+
+	.type-lead {
+		font-size: var(--text-lead);
+		font-weight: 400;
+		line-height: 1.65;
+		max-width: 65ch;
+		text-wrap: pretty;
+	}
+
+	.type-body-lg {
+		font-size: var(--text-body-lg);
+		line-height: 1.65;
+		max-width: 65ch;
+		text-wrap: pretty;
+	}
+}
 
 /* =========================
   GLOBAL & UTILITY CLASSES
   ========================= */
 
-/* ROOT */
-/* :root {
-	--page-background: var(--color-surface-50, #f8f9fa);
-} */
-
 /* Grid background pattern */
 .bg-grid-pattern {
 	background-image:
-		linear-gradient(rgba(var(--color-primary-500) / 0.1) 1px, transparent 1px),
-		linear-gradient(90deg, rgba(var(--color-primary-500) / 0.1) 1px, transparent 1px);
-	background-size: 20px 20px;
+		linear-gradient(rgba(var(--color-primary-500) / 0.07) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(var(--color-primary-500) / 0.07) 1px, transparent 1px);
+	background-size: var(--grid-pattern-size) var(--grid-pattern-size);
+	contain: paint;
 }
 
 /* Animation delay utilities */
 .delay-2s {
 	animation-delay: 2s !important;
 }
-.delay-4s {
-	animation-delay: 4s !important;
-}
 
-/* Display contents utility */
-.display-contents {
-	display: contents;
-}
-
-/* =========================
-  EMAIL STYLES (SendGrid)
-  ========================= */
-.portfolio-email {
-	font-family: Arial, sans-serif;
-	max-width: 600px;
-	margin: 0 auto;
-}
-.portfolio-email h2 {
-	color: #333;
-	border-bottom: 2px solid #8b5cf6;
-	padding-bottom: 10px;
-}
-.portfolio-email-details {
-	background-color: #f8f9fa;
-	padding: 20px;
-	border-radius: 8px;
-	margin: 20px 0;
-}
-.portfolio-email-message h3 {
-	color: #333;
-}
-.portfolio-email-message > div {
-	background-color: #fff;
-	padding: 15px;
-	border-left: 4px solid #8b5cf6;
-	border-radius: 4px;
-}
-.portfolio-email-footer {
-	margin-top: 30px;
-	padding: 15px;
-	background-color: #f0f0f0;
-	border-radius: 4px;
-	text-align: center;
-}
-.portfolio-email-footer p {
-	margin: 0;
-	color: #666;
-	font-size: 14px;
+/* Overflow-safe text utility for translated or user-generated strings */
+.text-wrap-safe {
+	overflow-wrap: anywhere;
+	word-break: break-word;
+	hyphens: auto;
 }
 
 /* =========================
@@ -87,76 +113,68 @@
 	vertical-align: middle;
 	line-height: 1;
 }
-.flex .iconify,
-[class*='flex'] .iconify {
-	flex-shrink: 0;
-}
 .iconify.text-2xl {
-	width: 1.5rem;
-	height: 1.5rem;
+	width: var(--icon-size-2xl);
+	height: var(--icon-size-2xl);
 }
 .iconify.text-3xl {
-	width: 1.875rem;
-	height: 1.875rem;
+	width: var(--icon-size-3xl);
+	height: var(--icon-size-3xl);
 }
 .iconify.text-4xl {
-	width: 2.25rem;
-	height: 2.25rem;
+	width: var(--icon-size-4xl);
+	height: var(--icon-size-4xl);
 }
 
 /* =========================
   ANIMATION SYSTEM
   ========================= */
 @layer utilities {
-	@keyframes expand {
-		from {
-			width: 6rem;
-			opacity: 0.3;
-		}
-		to {
-			width: 16rem;
-			opacity: 1;
-		}
-	}
 	@keyframes expand-delayed {
 		0%,
 		50% {
-			width: 6rem;
-			opacity: 0.3;
+			transform: scaleX(0.55);
+			opacity: 0.55;
 		}
 		100% {
-			width: 16rem;
+			transform: scaleX(1);
 			opacity: 1;
 		}
-	}
-	@keyframes expand-subtle {
-		from {
-			width: 6rem;
-			opacity: 0.5;
-		}
-		to {
-			width: 12rem;
-			opacity: 1;
-		}
-	}
-	.animate-expand {
-		animation: expand 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 	}
 	.animate-expand-delayed {
+		transform-origin: center;
 		animation: expand-delayed 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 	}
-	.animate-expand-subtle {
-		animation: expand-subtle 2s ease-out forwards;
-	}
 	.animate-expand-on-scroll {
-		width: 6rem;
-		opacity: 0.3;
+		transform-origin: center;
+		transform: scaleX(0.55);
+		opacity: 0.55;
 		transition:
-			width 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+			transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
 			opacity 0.8s ease-out;
 	}
 	.animate-expand-on-scroll.visible {
-		width: 16rem;
+		transform: scaleX(1);
 		opacity: 1;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+
+	.animate-expand-delayed,
+	.animate-expand-on-scroll,
+	.animate-expand-on-scroll.visible {
+		animation: none !important;
+		transform: none !important;
+		opacity: 1 !important;
+		transition: none !important;
 	}
 }

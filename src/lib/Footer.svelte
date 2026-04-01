@@ -39,30 +39,22 @@
 				<nav>
 					<ul class="space-y-2">
 						<li>
-							<a
-								href="/"
-								class="text-surface-300 hover:text-primary-400 transition-colors duration-200"
+							<a href="/" class="text-surface-300 hover:text-primary-400"
 								>{m.nav_home()}</a
 							>
 						</li>
 						<li>
-							<a
-								href="/about"
-								class="text-surface-300 hover:text-primary-400 transition-colors duration-200"
+							<a href="/about" class="text-surface-300 hover:text-primary-400"
 								>{m.nav_about()}</a
 							>
 						</li>
 						<li>
-							<a
-								href="/projects"
-								class="text-surface-300 hover:text-primary-400 transition-colors duration-200"
+							<a href="/projects" class="text-surface-300 hover:text-primary-400"
 								>{m.nav_projects()}</a
 							>
 						</li>
 						<li>
-							<a
-								href="/contact"
-								class="text-surface-300 hover:text-primary-400 transition-colors duration-200"
+							<a href="/contact" class="text-surface-300 hover:text-primary-400"
 								>{m.nav_contact()}</a
 							>
 						</li>
@@ -76,26 +68,26 @@
 				<div class="flex space-x-3">
 					<a
 						href="https://www.linkedin.com/in/dkorver/"
-						class="group bg-surface-700 hover:bg-primary-600 flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-300 hover:scale-110 hover:shadow-lg"
+						class="group bg-surface-700 hover:bg-primary-600 flex h-10 w-10 items-center justify-center rounded-lg hover:scale-110 hover:shadow-lg"
 						aria-label="Damian Korver on LinkedIn"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
 						<Icon
 							icon="mdi:linkedin"
-							class="text-surface-300 transition-colors duration-300 group-hover:text-white"
+							class="text-surface-300 group-hover:text-white"
 						/>
 					</a>
 					<a
 						href="https://github.com/damianko135"
-						class="group bg-surface-700 hover:bg-surface-900 flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-300 hover:scale-110 hover:shadow-lg"
+						class="group bg-surface-700 hover:bg-surface-900 flex h-10 w-10 items-center justify-center rounded-lg hover:scale-110 hover:shadow-lg"
 						aria-label="Damian Korver on GitHub"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
 						<Icon
 							icon="mdi:github"
-							class="text-surface-300 transition-colors duration-300 group-hover:text-white"
+							class="text-surface-300 group-hover:text-white"
 						/>
 					</a>
 				</div>
@@ -125,3 +117,4 @@
 		</div>
 	</div>
 </footer>
+

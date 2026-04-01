@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Switch } from '@skeletonlabs/skeleton-svelte';
+	import * as m from '$lib/paraglide/messages.js';
 
 	let checked = $state(false);
 
@@ -23,4 +24,7 @@
 	</script>
 </svelte:head>
 
-<Switch {checked} {onCheckedChange}></Switch>
+<div role="group" aria-label="Theme selection">
+	<span id="theme-toggle-label" class="sr-only">{m.ui_theme_toggle()}</span>
+	<Switch aria-labelledby="theme-toggle-label" {checked} {onCheckedChange}></Switch>
+</div>

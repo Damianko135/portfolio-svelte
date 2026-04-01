@@ -81,17 +81,14 @@
 {#if visible}
 	<div class="relative overflow-hidden">
 		<!-- Hero Section -->
-		<section class="relative flex min-h-screen items-center justify-center px-4 py-20">
+		<section class="relative flex min-h-[85vh] items-center justify-center px-4 py-20 md:min-h-screen">
 			<!-- Animated Background Elements -->
 			<div class="absolute inset-0 overflow-hidden">
 				<div
-					class="bg-primary-500 absolute -top-40 -right-40 h-80 w-80 animate-pulse rounded-full opacity-20 mix-blend-multiply blur-xl filter"
+					class="bg-primary-500 absolute -top-40 -right-40 h-80 w-80 rounded-full opacity-12 mix-blend-multiply blur-lg motion-safe:animate-pulse"
 				></div>
 				<div
-					class="bg-secondary-500 delay-2s absolute -bottom-40 -left-40 h-80 w-80 animate-pulse rounded-full opacity-20 mix-blend-multiply blur-xl filter"
-				></div>
-				<div
-					class="bg-tertiary-500 delay-4s absolute top-40 left-1/3 h-60 w-60 animate-pulse rounded-full opacity-20 mix-blend-multiply blur-xl filter"
+					class="bg-secondary-500 delay-2s absolute -bottom-40 -left-40 h-80 w-80 rounded-full opacity-12 mix-blend-multiply blur-lg motion-safe:animate-pulse"
 				></div>
 			</div>
 
@@ -99,15 +96,15 @@
 				{#if heroVisible}
 					<div class="space-y-6" in:fly={{ y: 30, duration: 800, delay: 300 }}>
 						<div
-							class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 inline-flex items-center rounded-full border bg-linear-to-r px-4 py-2 backdrop-blur-sm"
+							class="from-primary-500/12 to-secondary-500/12 border-primary-500/20 inline-flex items-center rounded-full border bg-linear-to-r px-4 py-2 backdrop-blur-sm"
 						>
-							<div class="bg-success-500 mr-3 h-2 w-2 animate-pulse rounded-full"></div>
-							<span class="text-surface-700 dark:text-surface-300 text-sm font-medium"
+							<div class="bg-success-500 mr-3 h-2 w-2 rounded-full motion-safe:animate-pulse"></div>
+							<span class="type-kicker text-surface-700 dark:text-surface-300"
 								>{m.home_available()}</span
 							>
 						</div>
 
-						<h1 class="text-5xl leading-tight font-bold md:text-7xl">
+						<h1 class="type-display">
 							<span class="text-surface-900 dark:text-surface-50 block">{m.home_hero_title()}</span>
 							<span
 								class="from-primary-600 via-secondary-600 to-tertiary-600 block bg-linear-to-r bg-clip-text text-transparent"
@@ -116,7 +113,7 @@
 							</span>
 						</h1>
 						<p
-							class="text-surface-600 dark:text-surface-400 mx-auto max-w-3xl text-xl leading-relaxed md:text-2xl"
+							class="type-lead text-surface-600 dark:text-surface-400 mx-auto max-w-3xl"
 						>
 							{m.home_hero_subtitle()}
 						</p>
@@ -124,7 +121,7 @@
 						<div class="flex flex-col items-center justify-center gap-4 pt-6 sm:flex-row">
 							<a
 								href="/projects"
-								class="group from-primary-500 to-secondary-500 inline-flex transform items-center rounded-xl bg-linear-to-r px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
+								class="group from-primary-500 to-secondary-500 inline-flex transform items-center rounded-xl bg-linear-to-r px-8 py-4 font-semibold text-white shadow-lg hover:scale-105 hover:shadow-xl"
 							>
 								<span>{m.home_cta_primary()}</span>
 								<svg
@@ -143,7 +140,7 @@
 							</a>
 							<a
 								href="/contact"
-								class="border-primary-500 text-primary-600 dark:text-primary-400 hover:bg-primary-500 inline-flex items-center rounded-xl border-2 px-8 py-4 font-semibold transition-all duration-300 hover:text-white"
+								class="border-primary-500 text-primary-600 dark:text-primary-400 hover:bg-primary-500 inline-flex items-center rounded-xl border-2 px-8 py-4 font-semibold hover:text-white"
 							>
 								{m.home_cta_secondary()}
 							</a>
@@ -157,7 +154,7 @@
 		<section class="px-4 py-20">
 			<div class="container mx-auto max-w-6xl">
 				<div class="mb-16 text-center" in:fly={{ y: 30, duration: 600, delay: 100 }}>
-					<h2 class="text-surface-900 dark:text-surface-50 mb-4 text-3xl font-bold md:text-4xl">
+					<h2 class="type-section-title text-surface-900 dark:text-surface-50 mb-4">
 						A bit about me
 					</h2>
 					<SectionDivider variant="delayed" />
@@ -166,7 +163,7 @@
 				<div class="grid grid-cols-1 gap-8 md:grid-cols-3">
 					{#each aboutItems as item, i (item.text)}
 						<div
-							class="group dark:bg-surface-800/50 border-surface-200/50 dark:border-surface-700/50 relative rounded-2xl border bg-white/50 p-8 shadow-lg backdrop-blur-sm transition-all duration-500 hover:scale-105 hover:shadow-2xl"
+							class="group dark:bg-surface-800/50 border-surface-200/50 dark:border-surface-700/50 relative rounded-2xl border bg-white/50 p-8 shadow-lg backdrop-blur-sm hover:scale-105 hover:shadow-2xl"
 							in:fly={{ y: 30, duration: 600, delay: 200 + i * 100 }}
 						>
 							<div
@@ -199,7 +196,7 @@
 		>
 			<div class="container mx-auto max-w-6xl">
 				<div class="mb-16 text-center">
-					<h3 class="text-surface-900 dark:text-surface-50 mb-4 text-3xl font-bold md:text-4xl">
+					<h3 class="type-section-title text-surface-900 dark:text-surface-50 mb-4">
 						{m.home_tech_stack()}
 					</h3>
 					<SectionDivider variant="on-scroll" />
@@ -208,7 +205,7 @@
 				<div class="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-5">
 					{#each skills as skill, i (skill.name)}
 						<div
-							class="group dark:bg-surface-800/70 border-surface-200/50 dark:border-surface-700/50 rounded-xl border bg-white/70 p-6 text-center shadow-md backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-xl"
+							class="group dark:bg-surface-800/70 border-surface-200/50 dark:border-surface-700/50 rounded-xl border bg-white/70 p-6 text-center shadow-md backdrop-blur-sm hover:scale-110 hover:shadow-xl"
 							in:fly={{ y: 30, duration: 600, delay: 100 + i * 100 }}
 						>
 							<div
@@ -222,7 +219,7 @@
 
 					<!-- SvelteKit card -->
 					<div
-						class="group dark:bg-surface-800/70 border-surface-200/50 dark:border-surface-700/50 rounded-xl border bg-white/70 p-6 text-center shadow-md backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-xl"
+						class="group dark:bg-surface-800/70 border-surface-200/50 dark:border-surface-700/50 rounded-xl border bg-white/70 p-6 text-center shadow-md backdrop-blur-sm hover:scale-110 hover:shadow-xl"
 						in:fly={{ y: 30, duration: 600, delay: 600 }}
 					>
 						<div
@@ -240,7 +237,7 @@
 		<section class="px-4 py-20">
 			<div class="container mx-auto max-w-6xl">
 				<div class="mb-16 text-center">
-					<h3 class="text-surface-900 dark:text-surface-50 mb-4 text-3xl font-bold md:text-4xl">
+					<h3 class="type-section-title text-surface-900 dark:text-surface-50 mb-4">
 						{m.home_interested_in()}
 					</h3>
 					<SectionDivider variant="on-scroll" />
@@ -249,7 +246,7 @@
 				<div class="grid grid-cols-2 gap-6 md:grid-cols-4">
 					{#each interests as interest, i (interest.text)}
 						<div
-							class="group to-surface-50/60 dark:from-surface-800/60 dark:to-surface-700/60 border-surface-200/50 dark:border-surface-700/50 rounded-xl border bg-linear-to-br from-white/60 p-6 text-center shadow-md backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl"
+							class="group to-surface-50/60 dark:from-surface-800/60 dark:to-surface-700/60 border-surface-200/50 dark:border-surface-700/50 rounded-xl border bg-linear-to-br from-white/60 p-6 text-center shadow-md backdrop-blur-sm hover:scale-105 hover:shadow-xl"
 							in:fly={{ y: 30, duration: 600, delay: 100 + i * 100 }}
 						>
 							<div
@@ -271,10 +268,10 @@
 			<div class="container mx-auto max-w-4xl text-center">
 				<div class="space-y-8">
 					<div>
-						<h3 class="text-surface-900 dark:text-surface-50 mb-4 text-3xl font-bold md:text-4xl">
+						<h3 class="type-section-title text-surface-900 dark:text-surface-50 mb-4">
 							{m.home_contact_heading()}
 						</h3>
-						<p class="text-surface-600 dark:text-surface-400 mx-auto max-w-2xl text-lg">
+						<p class="type-body-lg text-surface-600 dark:text-surface-400 mx-auto max-w-2xl">
 							{m.home_contact_description()}
 						</p>
 					</div>
@@ -282,7 +279,7 @@
 					<div class="flex justify-center space-x-6">
 						<a
 							href="https://www.linkedin.com/in/dkorver/"
-							class="group bg-primary-600 hover:bg-primary-700 flex h-16 w-16 transform items-center justify-center rounded-2xl shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-2xl"
+							class="group bg-primary-600 hover:bg-primary-700 flex h-16 w-16 transform items-center justify-center rounded-2xl shadow-lg hover:scale-110 hover:shadow-2xl"
 							aria-label="LinkedIn Profile"
 							target="_blank"
 							rel="noopener noreferrer"
@@ -294,7 +291,7 @@
 						</a>
 						<a
 							href="https://github.com/damianko135"
-							class="group bg-surface-800 hover:bg-surface-900 flex h-16 w-16 transform items-center justify-center rounded-2xl shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-2xl"
+							class="group bg-surface-800 hover:bg-surface-900 flex h-16 w-16 transform items-center justify-center rounded-2xl shadow-lg hover:scale-110 hover:shadow-2xl"
 							aria-label="GitHub Profile"
 							target="_blank"
 							rel="noopener noreferrer"
@@ -306,7 +303,7 @@
 						</a>
 						<a
 							href="mailto:damiankorver@gmail.com"
-							class="group bg-error-500 hover:bg-error-600 flex h-16 w-16 transform items-center justify-center rounded-2xl shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-2xl"
+							class="group bg-error-500 hover:bg-error-600 flex h-16 w-16 transform items-center justify-center rounded-2xl shadow-lg hover:scale-110 hover:shadow-2xl"
 							aria-label="Email Contact"
 						>
 							<Icon
@@ -320,3 +317,4 @@
 		</section>
 	</div>
 {/if}
+

@@ -24,6 +24,17 @@
 	let visible = $state(false);
 	let isSubmitting = $state(false);
 	let showSuccessMessage = $state(false);
+	const contactFormStatusId = 'contact-form-status';
+	const contactFormErrorId = 'contact-form-error';
+	const nameHintId = 'contact-name-hint';
+	const messageHintId = 'contact-message-hint';
+
+	let statusMessage = $derived.by(() => {
+		if (isSubmitting) return m.contact_form_sending();
+		if (form?.error) return form.error;
+		if (showSuccessMessage) return form?.message || m.contact_form_success();
+		return '';
+	});
 
 	$effect(() => {
 		visible = true;
@@ -135,28 +146,18 @@
 				<div class="bg-grid-pattern absolute inset-0"></div>
 			</div>
 
-			<!-- Floating Elements -->
-			<div class="absolute inset-0 overflow-hidden">
-				<div
-					class="bg-primary-500 absolute top-20 right-20 h-32 w-32 animate-pulse rounded-full opacity-20 mix-blend-multiply blur-xl filter"
-				></div>
-				<div
-					class="bg-secondary-500 delay-2s absolute bottom-20 left-20 h-40 w-40 animate-pulse rounded-full opacity-20 mix-blend-multiply blur-xl filter"
-				></div>
-			</div>
-
 			<div class="relative container mx-auto max-w-4xl text-center">
 				<div class="space-y-8" in:fly={{ y: 30, duration: 800, delay: 200 }}>
 					<div
-						class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 inline-flex items-center rounded-full border bg-linear-to-r px-6 py-3 backdrop-blur-sm"
+						class="from-primary-500/12 to-secondary-500/12 border-primary-500/20 inline-flex items-center rounded-full border bg-linear-to-r px-6 py-3 backdrop-blur-sm"
 					>
 						<Icon icon="mdi:send" class="text-primary-600 mr-2" />
-						<span class="text-surface-700 dark:text-surface-300 text-sm font-medium"
+						<span class="type-kicker text-surface-700 dark:text-surface-300"
 							>{m.contact_heading()}</span
 						>
 					</div>
 
-					<h1 class="text-4xl font-bold md:text-6xl">
+					<h1 class="type-display">
 						<span
 							class="from-primary-600 via-secondary-600 to-tertiary-600 block bg-linear-to-r bg-clip-text text-transparent"
 						>
@@ -164,9 +165,7 @@
 						</span>
 					</h1>
 
-					<p
-						class="text-surface-600 dark:text-surface-400 mx-auto max-w-3xl text-xl leading-relaxed"
-					>
+					<p class="type-lead text-surface-600 dark:text-surface-400 mx-auto max-w-3xl">
 						{m.contact_intro()}
 					</p>
 				</div>
@@ -179,7 +178,7 @@
 				<div class="mb-16 grid grid-cols-1 gap-6 md:grid-cols-3">
 					{#each contactMethods as method, i (method.title)}
 						<div
-							class="group dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 rounded-2xl border bg-white/60 p-6 text-center shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl"
+							class="group dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 rounded-2xl border bg-white/60 p-6 text-center shadow-lg backdrop-blur-sm hover:scale-105 hover:shadow-xl"
 							in:fly={{ y: 30, duration: 600, delay: 100 + i * 100 }}
 						>
 							<div
@@ -228,7 +227,7 @@
 							class="dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 h-full rounded-2xl border bg-white/60 p-8 shadow-lg backdrop-blur-sm"
 						>
 							<div class="mb-8">
-								<h2 class="text-surface-900 dark:text-surface-50 mb-2 text-2xl font-bold">
+								<h2 class="type-title text-surface-900 dark:text-surface-50 mb-2">
 									{m.contact_form_send_message()}
 								</h2>
 								<div
@@ -238,12 +237,15 @@
 
 							{#if showSuccessMessage}
 								<div class="space-y-4 py-8 text-center" in:fly={{ y: 20, duration: 400 }}>
+									<p id={contactFormStatusId} class="sr-only" aria-live="polite" aria-atomic="true">
+										{statusMessage}
+									</p>
 									<div
 										class="bg-success-500 mx-auto flex h-16 w-16 items-center justify-center rounded-full"
 									>
 										<Icon icon="mdi:check" class="text-2xl text-white" />
 									</div>
-									<h3 class="text-surface-900 dark:text-surface-50 text-xl font-bold">
+									<h3 class="type-title text-surface-900 dark:text-surface-50">
 										{m.contact_form_success()}
 									</h3>
 									<p class="text-surface-600 dark:text-surface-400 text-lg">
@@ -252,7 +254,7 @@
 									<button
 										onclick={resetForm}
 										type="button"
-										class="from-primary-500 to-secondary-500 mt-4 rounded-xl bg-linear-to-r px-6 py-2 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105"
+										class="from-primary-500 to-secondary-500 mt-4 rounded-xl bg-linear-to-r px-6 py-2 font-semibold text-white shadow-lg hover:scale-105"
 									>
 										{m.contact_form_send_another()}
 									</button>
@@ -260,6 +262,7 @@
 							{:else}
 								<form
 									method="POST"
+									novalidate
 									use:enhance={() => {
 										isSubmitting = true;
 										return async ({ update }) => {
@@ -269,8 +272,13 @@
 									}}
 									class="space-y-6"
 								>
+									<p id={contactFormStatusId} class="sr-only" aria-live="polite" aria-atomic="true">
+										{statusMessage}
+									</p>
 									{#if form?.error}
 										<div
+											id={contactFormErrorId}
+											role="alert"
 											class="bg-error-50 dark:bg-error-900/20 border-error-200 dark:border-error-800 rounded-xl border p-4"
 											in:fly={{ y: -10, duration: 300 }}
 										>
@@ -299,11 +307,23 @@
 												name="name"
 												type="text"
 												value={form?.name ?? ''}
+												autocomplete="name"
+												minlength="2"
+												maxlength="100"
 												required
 												disabled={isSubmitting}
-												class="dark:bg-surface-900/50 border-surface-300 dark:border-surface-600 focus:ring-primary-500 w-full rounded-xl border bg-white/50 px-4 py-3 transition-all duration-200 focus:border-transparent focus:ring-2 disabled:opacity-50"
+												aria-describedby={form?.error
+													? `${nameHintId} ${contactFormErrorId}`
+													: nameHintId}
+												class="dark:bg-surface-900/50 border-surface-300 dark:border-surface-600 focus:ring-primary-500 w-full rounded-xl border bg-white/50 px-4 py-3 focus:border-transparent focus:ring-2 disabled:opacity-50"
 												placeholder={m.contact_form_name_placeholder()}
 											/>
+											<p
+												id={nameHintId}
+												class="text-surface-500 dark:text-surface-400 mt-2 text-xs"
+											>
+												{m.contact_form_name_hint()}
+											</p>
 										</div>
 
 										<div>
@@ -318,9 +338,14 @@
 												name="email"
 												type="email"
 												value={form?.email ?? ''}
+												autocomplete="email"
+												inputmode="email"
+												maxlength="254"
+												spellcheck="false"
 												required
 												disabled={isSubmitting}
-												class="dark:bg-surface-900/50 border-surface-300 dark:border-surface-600 focus:ring-primary-500 w-full rounded-xl border bg-white/50 px-4 py-3 transition-all duration-200 focus:border-transparent focus:ring-2 disabled:opacity-50"
+												aria-describedby={form?.error ? contactFormErrorId : undefined}
+												class="dark:bg-surface-900/50 border-surface-300 dark:border-surface-600 focus:ring-primary-500 w-full rounded-xl border bg-white/50 px-4 py-3 focus:border-transparent focus:ring-2 disabled:opacity-50"
 												placeholder={m.contact_form_email_placeholder()}
 											/>
 										</div>
@@ -338,17 +363,28 @@
 												value={form?.message ?? ''}
 												required
 												disabled={isSubmitting}
+												minlength="10"
+												maxlength="5000"
 												rows="5"
-												class="dark:bg-surface-900/50 border-surface-300 dark:border-surface-600 focus:ring-primary-500 mb-4 w-full resize-none rounded-xl border bg-white/50 px-4 py-3 transition-all duration-200 focus:border-transparent focus:ring-2 disabled:opacity-50"
+												aria-describedby={form?.error
+													? `${messageHintId} ${contactFormErrorId}`
+													: messageHintId}
+												class="dark:bg-surface-900/50 border-surface-300 dark:border-surface-600 focus:ring-primary-500 mb-4 w-full resize-none rounded-xl border bg-white/50 px-4 py-3 focus:border-transparent focus:ring-2 disabled:opacity-50"
 												placeholder={m.contact_form_message_placeholder()}
 											></textarea>
+											<p
+												id={messageHintId}
+												class="text-surface-500 dark:text-surface-400 -mt-2 text-xs"
+											>
+												{m.contact_form_message_hint()}
+											</p>
 										</div>
 									</div>
 
 									<button
 										type="submit"
 										disabled={isSubmitting}
-										class="group from-primary-500 to-secondary-500 flex w-full transform items-center justify-center rounded-xl bg-linear-to-r px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl disabled:transform-none disabled:cursor-not-allowed disabled:opacity-50"
+										class="group from-primary-500 to-secondary-500 flex w-full transform items-center justify-center rounded-xl bg-linear-to-r px-8 py-4 font-semibold text-white shadow-lg hover:scale-105 hover:shadow-xl disabled:transform-none disabled:cursor-not-allowed disabled:opacity-50"
 									>
 										{#if isSubmitting}
 											<svg
@@ -406,11 +442,11 @@
 										href={social.href}
 										target="_blank"
 										rel="noopener noreferrer"
-										class="group dark:bg-surface-900/50 flex items-center rounded-xl bg-white/50 p-4 transition-all duration-300 hover:scale-105 hover:shadow-lg"
+										class="group dark:bg-surface-900/50 flex items-center rounded-xl bg-white/50 p-4 hover:scale-105 hover:shadow-lg"
 										in:fly={{ x: 20, duration: 400, delay: 500 + i * 100 }}
 									>
 										<div
-											class="bg-surface-700 h-12 w-12 {social.color} mr-4 flex items-center justify-center rounded-lg transition-all duration-300"
+											class="bg-surface-700 h-12 w-12 {social.color} mr-4 flex items-center justify-center rounded-lg"
 										>
 											<Icon icon={social.icon} class="text-white" />
 										</div>
@@ -426,7 +462,7 @@
 										</div>
 										<Icon
 											icon="mdi:arrow-right"
-											class="text-surface-400 group-hover:text-primary-500 transition-all duration-200 group-hover:translate-x-1"
+											class="text-surface-400 group-hover:text-primary-500 group-hover:translate-x-1"
 										/>
 									</a>
 								{/each}
@@ -457,3 +493,4 @@
 		</section>
 	</div>
 {/if}
+

@@ -121,14 +121,14 @@
 			<div class="relative container mx-auto max-w-4xl text-center">
 				<div class="space-y-8" in:fly={{ y: 30, duration: 800, delay: 200 }}>
 					<div
-						class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 inline-flex items-center rounded-full border bg-linear-to-r px-6 py-3 backdrop-blur-sm"
+						class="from-primary-500/12 to-secondary-500/12 border-primary-500/20 inline-flex items-center rounded-full border bg-linear-to-r px-6 py-3 backdrop-blur-sm"
 					>
-						<span class="text-surface-700 dark:text-surface-300 text-sm font-medium"
+						<span class="type-kicker text-surface-700 dark:text-surface-300"
 							>{m.about_story()}</span
 						>
 					</div>
 
-					<h1 class="text-4xl font-bold md:text-6xl">
+					<h1 class="type-display">
 						<span class="text-surface-900 dark:text-surface-50 block">{m.about_heading()}</span>
 						<span
 							class="from-primary-600 via-secondary-600 to-tertiary-600 block bg-linear-to-r bg-clip-text text-transparent"
@@ -142,25 +142,25 @@
 							class="dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 flex items-center rounded-full border bg-white/60 px-4 py-2 backdrop-blur-sm"
 						>
 							<Icon icon="mdi:cake-variant" class="text-secondary-500 mr-2" />
-							<span class="text-sm font-medium">{m.about_age_label({ age: getAge() })}</span>
+							<span class="type-kicker">{m.about_age_label({ age: getAge() })}</span>
 						</div>
 						<div
 							class="dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 flex items-center rounded-full border bg-white/60 px-4 py-2 backdrop-blur-sm"
 						>
 							<Icon icon="mdi:map-marker" class="text-success-500 mr-2" />
-							<span class="text-sm font-medium">{m.about_location_label()}</span>
+							<span class="type-kicker">{m.about_location_label()}</span>
 						</div>
 						<div
 							class="dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 flex items-center rounded-full border bg-white/60 px-4 py-2 backdrop-blur-sm"
 						>
 							<Icon icon="mdi:school" class="text-primary-500 mr-2" />
-							<span class="text-sm font-medium">{m.about_student_label()}</span>
+							<span class="type-kicker">{m.about_student_label()}</span>
 						</div>
 						<div
 							class="dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 flex items-center rounded-full border bg-white/60 px-4 py-2 backdrop-blur-sm"
 						>
 							<Icon icon="mdi:heart" class="text-tertiary-500 mr-2" />
-							<span class="text-sm font-medium">{m.about_enthusiast_label()}</span>
+							<span class="type-kicker">{m.about_enthusiast_label()}</span>
 						</div>
 					</div>
 				</div>
@@ -174,13 +174,13 @@
 			<div class="container mx-auto max-w-4xl">
 				<div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
 					<div class="space-y-6" in:fly={{ x: -30, duration: 600, delay: 300 }}>
-						<h2 class="text-surface-900 dark:text-surface-50 text-3xl font-bold md:text-4xl">
+						<h2 class="type-section-title text-surface-900 dark:text-surface-50">
 							{m.about_section_title()}
 						</h2>
 						<div
 							class="from-primary-500 to-secondary-500 h-1 w-16 rounded-full bg-linear-to-r"
 						></div>
-						<div class="text-surface-600 dark:text-surface-400 space-y-4 text-lg leading-relaxed">
+						<div class="type-body-lg text-surface-600 dark:text-surface-400 space-y-4">
 							<p>
 								{m.about_story_p1()}
 							</p>
@@ -197,10 +197,8 @@
 						<div
 							class="from-primary-500 to-secondary-500 relative rounded-2xl bg-linear-to-br p-8 text-white shadow-2xl"
 						>
-							<div class="absolute -top-4 -right-4 h-24 w-24 rounded-full bg-white/10"></div>
-							<div class="absolute -bottom-4 -left-4 h-16 w-16 rounded-full bg-white/10"></div>
 							<div class="relative space-y-4">
-								<h3 class="text-2xl font-bold">{m.about_current_focus()}</h3>
+								<h3 class="type-title">{m.about_current_focus()}</h3>
 								<ul class="space-y-3">
 									<li class="flex items-center">
 										<Icon icon="mdi:school" class="mr-3" />
@@ -258,7 +256,7 @@
 								<!-- Content -->
 								<div class="ml-12 md:ml-0 md:w-1/2 {i % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}">
 									<div
-										class="dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 rounded-2xl border bg-white/60 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl"
+										class="dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 rounded-2xl border bg-white/60 p-6 shadow-lg backdrop-blur-sm hover:shadow-xl"
 									>
 										<div class="space-y-3">
 											<div class="text-primary-600 dark:text-primary-400 text-sm font-medium">
@@ -311,7 +309,7 @@
 				<div class="grid grid-cols-2 gap-6 md:grid-cols-4">
 					{#each skills as skill, i (skill.name)}
 						<div
-							class="group dark:bg-surface-800/70 border-surface-200/50 dark:border-surface-700/50 rounded-xl border bg-white/70 p-6 text-center shadow-md backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl"
+							class="group dark:bg-surface-800/70 border-surface-200/50 dark:border-surface-700/50 rounded-xl border bg-white/70 p-6 text-center shadow-md backdrop-blur-sm hover:scale-105 hover:shadow-xl"
 							in:fly={{ y: 30, duration: 600, delay: 100 + i * 50 }}
 						>
 							<div
@@ -339,7 +337,7 @@
 				<div class="grid grid-cols-1 gap-8 md:grid-cols-3">
 					{#each interests as interest, i (interest.name)}
 						<div
-							class="group to-surface-50/60 dark:from-surface-800/60 dark:to-surface-700/60 border-surface-200/50 dark:border-surface-700/50 rounded-2xl border bg-linear-to-br from-white/60 p-8 text-center shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+							class="group to-surface-50/60 dark:from-surface-800/60 dark:to-surface-700/60 border-surface-200/50 dark:border-surface-700/50 rounded-2xl border bg-linear-to-br from-white/60 p-8 text-center shadow-lg backdrop-blur-sm hover:scale-105 hover:shadow-2xl"
 							in:fly={{ y: 30, duration: 600, delay: 200 + i * 100 }}
 						>
 							<div
@@ -357,3 +355,4 @@
 		</section>
 	</div>
 {/if}
+

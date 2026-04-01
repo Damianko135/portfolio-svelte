@@ -4,14 +4,15 @@
 	import { fade, fly } from 'svelte/transition';
 
 	const { data } = $props<import('./$types').PageData>();
-	let projects = $state(data.projects);
+	type Project = import('$lib/types/project').Project;
+	let projects = $derived(data.projects);
 	let visible = $state(false);
 
 	$effect(() => {
 		visible = true;
 	});
 
-	function getProjectName(project: any): string {
+	function getProjectName(project: Project): string {
 		const translatedName = m[project.name_key as keyof typeof m];
 		if (typeof translatedName === 'function') {
 			// Check if the function expects no arguments (length === 0) or has optional params
@@ -20,7 +21,7 @@
 		return project.name_key;
 	}
 
-	function getProjectDescription(project: any): string {
+	function getProjectDescription(project: Project): string {
 		const translatedDesc = m[project.description_key as keyof typeof m];
 		if (typeof translatedDesc === 'function') {
 			// Check if the function expects no arguments (length === 0) or has optional params
@@ -62,28 +63,18 @@
 				<div class="bg-grid-pattern absolute inset-0"></div>
 			</div>
 
-			<!-- Floating Elements -->
-			<div class="absolute inset-0 overflow-hidden">
-				<div
-					class="bg-primary-500 absolute top-20 right-20 h-32 w-32 animate-pulse rounded-full opacity-20 mix-blend-multiply blur-xl filter"
-				></div>
-				<div
-					class="bg-secondary-500 delay-2s absolute bottom-20 left-20 h-40 w-40 animate-pulse rounded-full opacity-20 mix-blend-multiply blur-xl filter"
-				></div>
-			</div>
-
 			<div class="relative container mx-auto max-w-4xl text-center">
 				<div class="space-y-8" in:fly={{ y: 30, duration: 800, delay: 200 }}>
 					<div
-						class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 inline-flex items-center rounded-full border bg-linear-to-r px-6 py-3 backdrop-blur-sm"
+						class="from-primary-500/12 to-secondary-500/12 border-primary-500/20 inline-flex items-center rounded-full border bg-linear-to-r px-6 py-3 backdrop-blur-sm"
 					>
 						<Icon icon="mdi:folder-open" class="text-primary-600 mr-2" />
-						<span class="text-surface-700 dark:text-surface-300 text-sm font-medium"
+						<span class="type-kicker text-surface-700 dark:text-surface-300"
 							>{m.projects_things_i_built()}</span
 						>
 					</div>
 
-					<h1 class="text-4xl font-bold md:text-6xl">
+					<h1 class="type-display">
 						<span
 							class="from-primary-600 via-secondary-600 to-tertiary-600 block bg-linear-to-r bg-clip-text text-transparent"
 						>
@@ -91,9 +82,7 @@
 						</span>
 					</h1>
 
-					<p
-						class="text-surface-600 dark:text-surface-400 mx-auto max-w-3xl text-xl leading-relaxed"
-					>
+					<p class="type-lead text-surface-600 dark:text-surface-400 mx-auto max-w-3xl">
 						{m.projects_intro()}
 					</p>
 				</div>
@@ -107,15 +96,15 @@
 					<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
 						{#each projects as project, i (project.id)}
 							<article
-								class="group dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 relative overflow-hidden rounded-2xl border bg-white/60 shadow-lg backdrop-blur-sm transition-all duration-500 hover:scale-105 hover:shadow-2xl"
+								class="group dark:bg-surface-800/60 border-surface-200/50 dark:border-surface-700/50 relative overflow-hidden rounded-2xl border bg-white/60 shadow-lg backdrop-blur-sm hover:scale-105 hover:shadow-2xl"
 								in:fly={{ y: 30, duration: 600, delay: 100 + i * 100 }}
 							>
 								<!-- Project Header -->
 								<header class="p-6 pb-4">
-									<div class="mb-4 flex items-start justify-between">
-										<div class="flex-1">
+									<div class="mb-4 flex items-start justify-between gap-3">
+										<div class="min-w-0 flex-1">
 											<h2
-												class="text-surface-900 dark:text-surface-50 group-hover:text-primary-600 dark:group-hover:text-primary-400 text-xl font-bold transition-colors duration-300"
+												class="text-surface-900 dark:text-surface-50 text-wrap-safe group-hover:text-primary-600 dark:group-hover:text-primary-400 text-xl font-bold transition-colors duration-300"
 											>
 												{getProjectName(project)}
 											</h2>
@@ -163,7 +152,7 @@
 									<!-- Placeholder for projects without screenshots -->
 									<div class="mb-4 px-6">
 										<div
-											class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 bg-linear-to- flex aspect-video items-center justify-center rounded-xl border"
+											class="from-primary-500/12 to-secondary-500/12 border-primary-500/20 bg-linear-to- flex aspect-video items-center justify-center rounded-xl border"
 										>
 											<div class="space-y-2 text-center">
 												<Icon icon="mdi:code-tags" class="text-primary-500/60 text-4xl" />
@@ -178,7 +167,9 @@
 								<!-- Project Description -->
 								{#if project.description_key}
 									<div class="mb-4 px-6">
-										<p class="text-surface-600 dark:text-surface-400 leading-relaxed">
+										<p
+											class="text-surface-600 dark:text-surface-400 text-wrap-safe leading-relaxed"
+										>
 											{getProjectDescription(project)}
 										</p>
 									</div>
@@ -193,7 +184,7 @@
 										<div class="flex flex-wrap gap-2">
 											{#each project.technologies as technology (technology.name)}
 												<span
-													class="from-primary-500/20 to-secondary-500/20 border-primary-500/30 text-surface-700 dark:text-surface-300 inline-flex items-center rounded-full border bg-linear-to-r px-3 py-1 text-xs font-medium"
+													class="from-primary-500/12 to-secondary-500/12 border-primary-500/20 text-surface-700 dark:text-surface-300 text-wrap-safe inline-flex max-w-full items-center rounded-full border bg-linear-to-r px-3 py-1 text-xs font-medium"
 												>
 													{#if technology.icon}
 														<Icon icon={technology.icon} class="mr-1.5" />
@@ -211,7 +202,7 @@
 										href={project.url}
 										target="_blank"
 										rel="noopener noreferrer"
-										class="group from-primary-500 to-secondary-500 inline-flex w-full transform items-center justify-center rounded-xl bg-linear-to-r px-6 py-3 font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg"
+										class="group from-primary-500 to-secondary-500 inline-flex w-full transform items-center justify-center rounded-xl bg-linear-to-r px-6 py-3 font-semibold text-white shadow-md hover:scale-105 hover:shadow-lg"
 									>
 										<span>{m.projects_visit_project()}</span>
 										<svg
@@ -243,7 +234,7 @@
 								class="text-surface-500 dark:text-surface-400 text-4xl"
 							/>
 						</div>
-						<h3 class="text-surface-900 dark:text-surface-50 mb-4 text-2xl font-bold">
+						<h3 class="type-title text-surface-900 dark:text-surface-50 mb-4">
 							{m.projects_no_projects_found()}
 						</h3>
 						<p class="text-surface-600 dark:text-surface-400 mx-auto max-w-md">
@@ -260,16 +251,16 @@
 		>
 			<div class="container mx-auto max-w-4xl text-center">
 				<div class="space-y-8">
-					<h3 class="text-surface-900 dark:text-surface-50 text-3xl font-bold md:text-4xl">
+					<h3 class="type-section-title text-surface-900 dark:text-surface-50">
 						{m.projects_work_together()}
 					</h3>
-					<p class="text-surface-600 dark:text-surface-400 mx-auto max-w-2xl text-lg">
+					<p class="type-body-lg text-surface-600 dark:text-surface-400 mx-auto max-w-2xl">
 						{m.projects_work_together_description()}
 					</p>
 					<div class="flex flex-col justify-center gap-4 sm:flex-row">
 						<a
 							href="/contact"
-							class="from-primary-500 to-secondary-500 inline-flex transform items-center rounded-xl bg-linear-to-r px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
+							class="from-primary-500 to-secondary-500 inline-flex transform items-center rounded-xl bg-linear-to-r px-8 py-4 font-semibold text-white shadow-lg hover:scale-105 hover:shadow-xl"
 						>
 							<span>{m.projects_get_in_touch()}</span>
 							<svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -285,7 +276,7 @@
 							href="https://github.com/damianko135"
 							target="_blank"
 							rel="noopener noreferrer"
-							class="border-primary-500 text-primary-600 dark:text-primary-400 hover:bg-primary-500 inline-flex items-center rounded-xl border-2 px-8 py-4 font-semibold transition-all duration-300 hover:text-white"
+							class="border-primary-500 text-primary-600 dark:text-primary-400 hover:bg-primary-500 inline-flex items-center rounded-xl border-2 px-8 py-4 font-semibold hover:text-white"
 						>
 							<span>{m.projects_view_github()}</span>
 							<Icon icon="mdi:github" class="ml-2" />
@@ -296,3 +287,4 @@
 		</section>
 	</div>
 {/if}
+

@@ -1,7 +1,7 @@
+import { dev } from '$app/environment';
 import type { Fetcher } from '@cloudflare/workers-types';
 import { getBrowser } from './getBrowser';
 import { handleCookieBanner } from './handleCookies';
-import { dev } from '$app/environment';
 
 // Capture screenshot using Cloudflare Browser Rendering API with Puppeteer
 export async function captureScreenshot(
@@ -96,7 +96,7 @@ export async function captureScreenshot(
 		// Check if it's a rate limit error
 		const errorMessage = error instanceof Error ? error.message : String(error);
 		if (errorMessage.includes('429') || errorMessage.includes('Rate limit')) {
-			throw new Error('RATE_LIMITED: Browser API rate limit exceeded');
+			throw new Error('RATE_LIMITED: Browser API rate limit exceeded', { cause: error });
 		}
 
 		throw error;

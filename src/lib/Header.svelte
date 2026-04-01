@@ -16,23 +16,34 @@
 	let currentPath = $derived(page.url.pathname);
 	let isScrolled = $state(false);
 	let mobileMenuOpen = $state(false);
+	const mobileMenuId = 'mobile-navigation-menu';
 
 	function toggleMobileMenu() {
 		mobileMenuOpen = !mobileMenuOpen;
 	}
 
 	onMount(() => {
+		let rafId = 0;
 		const handleScroll = () => {
-			isScrolled = window.scrollY > 20;
+			if (rafId !== 0) return;
+			rafId = window.requestAnimationFrame(() => {
+				isScrolled = window.scrollY > 20;
+				rafId = 0;
+			});
 		};
 
-		window.addEventListener('scroll', handleScroll);
-		return () => window.removeEventListener('scroll', handleScroll);
+		window.addEventListener('scroll', handleScroll, { passive: true });
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+			if (rafId !== 0) {
+				window.cancelAnimationFrame(rafId);
+			}
+		};
 	});
 </script>
 
 <header
-	class="sticky top-0 z-50 transition-all duration-300 {isScrolled
+	class="sticky top-0 z-50 {isScrolled
 		? 'bg-surface-50/95 dark:bg-surface-900/95 shadow-lg backdrop-blur-md'
 		: 'bg-transparent'}"
 >
@@ -59,7 +70,7 @@
 						{#each links as link (link.url)}
 							<li>
 								<a
-									class="rounded-lg px-4 py-2 transition-all duration-200 {link.url === currentPath
+									class="rounded-lg px-4 py-2 {link.url === currentPath
 										? 'from-primary-500 to-secondary-500 bg-linear-to-r text-white shadow-md'
 										: 'hover:bg-surface-200 dark:hover:bg-surface-700 text-surface-700 dark:text-surface-300'}"
 									href={link.url}
@@ -83,9 +94,11 @@
 				<LanguageSwitcher />
 				<ThemeToggle />
 				<button
-					class="hover:bg-surface-200 dark:hover:bg-surface-700 rounded-lg p-2 transition-colors duration-200"
+					class="hover:bg-surface-200 dark:hover:bg-surface-700 rounded-lg p-2"
 					onclick={toggleMobileMenu}
-					aria-label="Toggle mobile menu"
+					aria-label={m.ui_mobile_menu_toggle()}
+					aria-controls={mobileMenuId}
+					aria-expanded={mobileMenuOpen}
 				>
 					{#if mobileMenuOpen}
 						<Icon icon="mdi:close" class="h-6 w-6" />
@@ -98,14 +111,16 @@
 
 		<!-- Mobile Menu -->
 		{#if mobileMenuOpen}
-			<div class="border-surface-300 dark:border-surface-600 mt-4 border-t pt-4 pb-4 md:hidden">
+			<div
+				id={mobileMenuId}
+				class="border-surface-300 dark:border-surface-600 mt-4 border-t pt-4 pb-4 md:hidden"
+			>
 				<nav aria-label="Mobile navigation">
 					<ul class="space-y-2">
 						{#each links as link (link.url)}
 							<li>
 								<a
-									class="block rounded-lg px-4 py-3 transition-all duration-200 {link.url ===
-									currentPath
+									class="block rounded-lg px-4 py-3 {link.url === currentPath
 										? 'from-primary-500 to-secondary-500 bg-linear-to-r text-white shadow-md'
 										: 'hover:bg-surface-200 dark:hover:bg-surface-700 text-surface-700 dark:text-surface-300'}"
 									href={link.url}
@@ -122,3 +137,4 @@
 		{/if}
 	</div>
 </header>
+
