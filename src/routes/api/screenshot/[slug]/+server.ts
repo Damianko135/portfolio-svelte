@@ -41,6 +41,29 @@ export const GET: RequestHandler = async ({ params, platform, url }) => {
 		return new Response('Missing URL parameter', { status: 400 });
 	}
 
+	// Validate URL format and protocol
+	try {
+		const urlObj = new URL(projectUrl);
+
+		// Only allow http/https (prevents file://, javascript://, data:// mistakes)
+		if (!['http:', 'https:'].includes(urlObj.protocol)) {
+			return new Response('Invalid URL protocol', { status: 400 });
+		}
+
+		// Reject internal/localhost URLs (prevents deployment mistakes)
+		const hostname = urlObj.hostname.toLowerCase();
+		if (
+			hostname === 'localhost' ||
+			hostname.startsWith('127.') ||
+			hostname.startsWith('0.') ||
+			hostname === '::1'
+		) {
+			return new Response('Internal URLs not allowed', { status: 400 });
+		}
+	} catch (error) {
+		return new Response('Invalid URL format', { status: 400 });
+	}
+
 	// Find the project by URL
 	const matchingProject = (projects as Project[]).find((p) => p.url === projectUrl);
 

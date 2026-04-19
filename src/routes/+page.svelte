@@ -81,7 +81,9 @@
 {#if visible}
 	<div class="relative overflow-hidden">
 		<!-- Hero Section -->
-		<section class="relative flex min-h-[85vh] items-center justify-center px-4 py-20 md:min-h-screen">
+		<section
+			class="relative flex min-h-[85vh] items-center justify-center px-4 py-20 md:min-h-screen"
+		>
 			<!-- Animated Background Elements -->
 			<div class="absolute inset-0 overflow-hidden">
 				<div
@@ -112,9 +114,7 @@
 								Damian Korver
 							</span>
 						</h1>
-						<p
-							class="type-lead text-surface-600 dark:text-surface-400 mx-auto max-w-3xl"
-						>
+						<p class="type-lead text-surface-600 dark:text-surface-400 mx-auto max-w-3xl">
 							{m.home_hero_subtitle()}
 						</p>
 
@@ -317,4 +317,3 @@
 		</section>
 	</div>
 {/if}
-

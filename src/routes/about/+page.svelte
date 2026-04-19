@@ -123,8 +123,7 @@
 					<div
 						class="from-primary-500/12 to-secondary-500/12 border-primary-500/20 inline-flex items-center rounded-full border bg-linear-to-r px-6 py-3 backdrop-blur-sm"
 					>
-						<span class="type-kicker text-surface-700 dark:text-surface-300"
-							>{m.about_story()}</span
+						<span class="type-kicker text-surface-700 dark:text-surface-300">{m.about_story()}</span
 						>
 					</div>
 
@@ -355,4 +354,3 @@
 		</section>
 	</div>
 {/if}
-

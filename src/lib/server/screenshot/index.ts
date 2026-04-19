@@ -26,8 +26,16 @@ export async function getCachedOrGenerate(
 	// 2. Generate new
 	const screenshot = await generate(projectUrl, opts.browser);
 
-	// 3. Store to R2
-	await store(opts.bucket, slug, screenshot);
+	// 3. Store to R2 (with timeout to prevent worker hangup)
+	try {
+		await Promise.race([
+			store(opts.bucket, slug, screenshot),
+			new Promise<void>((_, reject) => setTimeout(() => reject(new Error('Store timeout')), 10000))
+		]);
+	} catch (error) {
+		console.warn(`Failed to cache screenshot to R2 (non-fatal):`, error);
+		// Continue - return screenshot anyway, just not cached
+	}
 
 	// 4. Return response
 	return new Response(screenshot, {

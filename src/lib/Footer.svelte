@@ -39,14 +39,10 @@
 				<nav>
 					<ul class="space-y-2">
 						<li>
-							<a href="/" class="text-surface-300 hover:text-primary-400"
-								>{m.nav_home()}</a
-							>
+							<a href="/" class="text-surface-300 hover:text-primary-400">{m.nav_home()}</a>
 						</li>
 						<li>
-							<a href="/about" class="text-surface-300 hover:text-primary-400"
-								>{m.nav_about()}</a
-							>
+							<a href="/about" class="text-surface-300 hover:text-primary-400">{m.nav_about()}</a>
 						</li>
 						<li>
 							<a href="/projects" class="text-surface-300 hover:text-primary-400"
@@ -73,10 +69,7 @@
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						<Icon
-							icon="mdi:linkedin"
-							class="text-surface-300 group-hover:text-white"
-						/>
+						<Icon icon="mdi:linkedin" class="text-surface-300 group-hover:text-white" />
 					</a>
 					<a
 						href="https://github.com/damianko135"
@@ -85,10 +78,7 @@
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						<Icon
-							icon="mdi:github"
-							class="text-surface-300 group-hover:text-white"
-						/>
+						<Icon icon="mdi:github" class="text-surface-300 group-hover:text-white" />
 					</a>
 				</div>
 			</div>
@@ -117,4 +107,3 @@
 		</div>
 	</div>
 </footer>
-

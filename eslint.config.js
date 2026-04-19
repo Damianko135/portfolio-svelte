@@ -5,6 +5,7 @@ import sveltePlugin from 'eslint-plugin-svelte';
 import svelteParser from 'svelte-eslint-parser';
 import prettierConfig from 'eslint-config-prettier';
 import globals from 'globals';
+import tailwindPlugin from 'eslint-plugin-tailwind-canonical-classes';
 
 export default [
 	// Global ignores
@@ -66,11 +67,14 @@ export default [
 			}
 		},
 		plugins: {
-			svelte: sveltePlugin
+			svelte: sveltePlugin,
+			'tailwind-canonical-classes': tailwindPlugin
 		},
 		rules: {
 			...sveltePlugin.configs.recommended.rules,
-			'no-console': ['warn', { allow: ['warn', 'error'] }]
+			...(tailwindPlugin.configs['flat/recommended']?.[0]?.rules || {}),
+			'no-console': ['warn', { allow: ['warn', 'error'] }],
+			'tailwind-canonical-classes/tailwind-canonical-classes': 'warn'
 		}
 	},
 
