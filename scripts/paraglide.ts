@@ -112,38 +112,6 @@ async function compileParaglide(): Promise<void> {
 }
 
 /**
- * paraglide-js's generated JS relies on plain JSDoc types (e.g. `@param {Request}`)
- * that resolve against whatever global `Request` type this project's tsconfig
- * pulls in. With @cloudflare/workers-types loaded, the global `Request` gains a
- * `Cf`/`CfHostMetadata` generic that the generated code isn't written against,
- * which fails svelte-check even though the emitted JS is correct at runtime.
- * Since this whole tree is regenerated on every run, mark it as unchecked here
- * rather than patching the generated output by hand.
- */
-async function disableTypeCheckingForGeneratedFiles(): Promise<void> {
-	const outDir = join(projectRoot, 'src', 'lib', 'paraglide');
-	const marker = '// @ts-nocheck';
-
-	async function processDir(dir: string): Promise<void> {
-		const entries = await readdir(dir, { withFileTypes: true });
-		for (const entry of entries) {
-			const entryPath = join(dir, entry.name);
-			if (entry.isDirectory()) {
-				await processDir(entryPath);
-			} else if (entry.isFile() && entry.name.endsWith('.js')) {
-				const content = await readFile(entryPath, 'utf-8');
-				if (!content.startsWith(marker)) {
-					await writeFile(entryPath, `${marker}\n${content}`, 'utf-8');
-				}
-			}
-		}
-	}
-
-	await processDir(outDir);
-	console.warn('✅ Marked generated paraglide files as unchecked for svelte-check');
-}
-
-/**
  * Validate message files have consistent structure
  */
 async function validateMessages(locales: string[]): Promise<void> {
@@ -213,9 +181,6 @@ async function main() {
 		// Compile paraglide
 		await compileParaglide();
 
-		// Prevent svelte-check from type-checking the generated output
-		await disableTypeCheckingForGeneratedFiles();
-
 		console.warn('🎉 Paraglide update completed successfully!');
 	} catch (error) {
 		console.error('💥 Paraglide update failed:', error);
@@ -229,10 +194,4 @@ main().catch((error) => {
 	process.exit(1);
 });
 
-export {
-	discoverLocales,
-	updateInlangSettings,
-	compileParaglide,
-	validateMessages,
-	disableTypeCheckingForGeneratedFiles
-};
+export { discoverLocales, updateInlangSettings, compileParaglide, validateMessages };

@@ -15,7 +15,7 @@
 
 		/* --- JS Interop --- */
 		"allowJs": true,
-		"checkJs": true,
+		"checkJs": false, // only src/**/*.js is the auto-generated paraglide output; don't type-check generated code
 		"noEmit": true, // don’t emit compiled JS — handled by SvelteKit
 
 		/* --- Consistency & Case Sensitivity --- */
