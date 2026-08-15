@@ -40,7 +40,6 @@
 	},
 	"exclude": [
 		"node_modules",
-		".svelte-kit",
 		"build",
 		"dist",
 		"src/lib/paraglide/**" // Paraglide files are auto-generated with incompatible type definitions
